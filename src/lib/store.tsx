@@ -326,13 +326,46 @@ const OperationsContext = createContext<OperationsContextType | undefined>(undef
 
 export function OperationsProvider({ children }: { children: React.ReactNode }) {
   const [orders, setOrders] = useState<Order[]>(initialOrders);
-  const [partners, setPartners] = useState<Partner[]>(initialPartners);
+  const [partners, setPartners] = useState<Partner[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("eno_partners_v3");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch {}
+    }
+    return initialPartners;
+  });
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [livreurs, setLivreurs] = useState<LivreurProfile[]>(initialLivreurs);
   const [closeuses, setCloseuses] = useState<CloseuseProfile[]>(initialCloseuses);
   const [treasuryManagers, setTreasuryManagers] = useState<TreasuryManagerProfile[]>(initialTreasuryManagers);
-  const [payoutRequests, setPayoutRequests] = useState<PayoutRequest[]>(initialPayoutRequests);
-  const [transactions, setTransactions] = useState<FinancialTransaction[]>(initialTransactions);
+  const [payoutRequests, setPayoutRequests] = useState<PayoutRequest[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("eno_payouts_v3");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch {}
+    }
+    return initialPayoutRequests;
+  });
+  const [transactions, setTransactions] = useState<FinancialTransaction[]>(() => {
+    if (typeof window !== "undefined") {
+      try {
+        const saved = localStorage.getItem("eno_transactions_v3");
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch {}
+    }
+    return initialTransactions;
+  });
   const [codCollections, setCodCollections] = useState<CodCollection[]>(initialCodCollections);
   const [codRemittances, setCodRemittances] = useState<CodRemittance[]>(initialCodRemittances);
   const [auditLogs, setAuditLogs] = useState<FinancialAuditLog[]>(initialFinancialAuditLogs);
@@ -355,6 +388,61 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [activities, setActivities] = useState<ActivityItem[]>(initialAgencyPulseActivities);
   const [alerts, setAlerts] = useState<AgencyAlert[]>(initialAgencyAlerts);
   const [period, setPeriod] = useState<PeriodFilter>("TODAY");
+
+  // Persistance et synchronisation des retraits et marchands (Serveur + LocalStorage)
+  useEffect(() => {
+    fetch("/api/withdrawals")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          if (Array.isArray(data.payouts) && data.payouts.length > 0) {
+            setPayoutRequests(data.payouts);
+            try {
+              localStorage.setItem("eno_payouts_v3", JSON.stringify(data.payouts));
+            } catch {}
+          }
+          if (Array.isArray(data.partners) && data.partners.length > 0) {
+            setPartners(data.partners);
+            try {
+              localStorage.setItem("eno_partners_v3", JSON.stringify(data.partners));
+            } catch {}
+          }
+          if (Array.isArray(data.transactions) && data.transactions.length > 0) {
+            setTransactions(data.transactions);
+            try {
+              localStorage.setItem("eno_transactions_v3", JSON.stringify(data.transactions));
+            } catch {}
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn("Mode hors-ligne ou fallback withdrawals:", err);
+      });
+  }, []);
+
+  useEffect(() => {
+    try {
+      if (payoutRequests && payoutRequests.length > 0) {
+        localStorage.setItem("eno_payouts_v3", JSON.stringify(payoutRequests));
+      }
+    } catch {}
+  }, [payoutRequests]);
+
+  useEffect(() => {
+    try {
+      if (partners && partners.length > 0) {
+        localStorage.setItem("eno_partners_v3", JSON.stringify(partners));
+      }
+    } catch {}
+  }, [partners]);
+
+  useEffect(() => {
+    try {
+      if (transactions && transactions.length > 0) {
+        localStorage.setItem("eno_transactions_v3", JSON.stringify(transactions));
+      }
+    } catch {}
+  }, [transactions]);
 
   // Persistance et synchronisation des conversations (Serveur + LocalStorage)
   useEffect(() => {

@@ -58,12 +58,55 @@ export default function GlobalAuditPage() {
   const [selectedSeverity, setSelectedSeverity] = useState<string>("ALL");
   const [selectedResult, setSelectedResult] = useState<string>("ALL");
   const [timeRange, setTimeRange] = useState<"TODAY" | "24H" | "7D" | "30D" | "ALL">("TODAY");
-  const [quickFilter, setQuickFilter] = useState<"ALL" | "SENSITIVE" | "AUTOMATIONS" | "FAILURES" | "USERS">("ALL");
+  const [quickFilter, setQuickFilter] = useState<"ALL" | "ANOMALIES" | "SENSITIVE" | "AUTOMATIONS" | "FAILURES" | "USERS">("ALL");
   const [entityFilter, setEntityFilter] = useState<string | null>(null);
 
   // Selected event for detail drawer
   const [selectedEvent, setSelectedEvent] = useState<GlobalAuditLog | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
+
+  // Anomaly detector helper
+  const isAnomalyLog = (log: GlobalAuditLog) => {
+    return (
+      log.result === "BLOCKED" ||
+      log.result === "FAILED" ||
+      log.severity === "CRITICAL" ||
+      log.action === "DISCREPANCY_FLAGGED" ||
+      log.action === "CAPACITY_UPDATED" ||
+      log.action.includes("DISCREPANCY") ||
+      log.action.includes("BLOCKED") ||
+      log.action.includes("FAIL") ||
+      log.description.toLowerCase().includes("écart") ||
+      log.description.toLowerCase().includes("bloqué") ||
+      log.description.toLowerCase().includes("non autorisé") ||
+      log.description.toLowerCase().includes("tentative")
+    );
+  };
+
+  // Filter Reset Handlers
+  const handleInspectAnomalies = () => {
+    setSearchTerm("");
+    setSelectedModule("ALL");
+    setSelectedActorType("ALL");
+    setSelectedSeverity("ALL");
+    setSelectedResult("ALL");
+    setEntityFilter(null);
+    setTimeRange("ALL");
+    setQuickFilter("ANOMALIES");
+    setActiveTab("LOGS");
+  };
+
+  const handleResetFilters = () => {
+    setSearchTerm("");
+    setSelectedModule("ALL");
+    setSelectedActorType("ALL");
+    setSelectedSeverity("ALL");
+    setSelectedResult("ALL");
+    setEntityFilter(null);
+    setTimeRange("ALL");
+    setQuickFilter("ALL");
+    setActiveTab("LOGS");
+  };
 
   // Executive KPIs calculation
   const totalActionsToday = useMemo(() => {
@@ -84,11 +127,7 @@ export default function GlobalAuditPage() {
   }, [globalAuditLogs]);
 
   const anomaliesCount = useMemo(() => {
-    return (
-      globalAuditLogs.filter(
-        (l) => l.result === "BLOCKED" || l.result === "FAILED" || l.severity === "CRITICAL"
-      ).length + 3
-    );
+    return globalAuditLogs.filter(isAnomalyLog).length;
   }, [globalAuditLogs]);
 
   // Filtered Logs
@@ -115,9 +154,10 @@ export default function GlobalAuditPage() {
       }
 
       // 3. Quick Filters
+      if (quickFilter === "ANOMALIES" && !isAnomalyLog(log)) return false;
       if (quickFilter === "SENSITIVE" && !log.isSensitive && log.severity !== "CRITICAL") return false;
       if (quickFilter === "AUTOMATIONS" && log.actor.type !== "SYSTEM") return false;
-      if (quickFilter === "FAILURES" && log.result === "SUCCESS") return false;
+      if (quickFilter === "FAILURES" && log.result === "SUCCESS" && log.severity !== "CRITICAL") return false;
       if (quickFilter === "USERS" && log.actor.type !== "USER") return false;
 
       // 4. Dropdowns
@@ -251,52 +291,55 @@ export default function GlobalAuditPage() {
       case "COMMANDES":
         return "bg-blue-50 text-blue-700 border-blue-200";
       case "CLOSEUSES":
-        return "bg-pink-50 text-pink-700 border-pink-200";
+        return "bg-rose-50 text-rose-700 border-rose-200";
       case "LIVREURS":
-        return "bg-amber-50 text-amber-700 border-amber-200";
+        return "bg-purple-50 text-purple-700 border-purple-200";
       case "ECOMMERCE":
-        return "bg-indigo-50 text-indigo-700 border-indigo-200";
+        return "bg-amber-50 text-amber-700 border-amber-200";
       case "TRESORERIE":
+        return "bg-emerald-50 text-emerald-700 border-emerald-200";
       case "FINANCES":
         return "bg-emerald-50 text-emerald-700 border-emerald-200";
       case "AUTOMATISATION":
-        return "bg-purple-50 text-purple-700 border-purple-200";
+        return "bg-indigo-50 text-indigo-700 border-indigo-200";
       case "AUTH":
-        return "bg-rose-50 text-rose-700 border-rose-200";
+        return "bg-slate-900 text-white border-slate-900";
       case "PARAMETRES":
-        return "bg-slate-100 text-slate-800 border-slate-300";
+        return "bg-cyan-50 text-cyan-700 border-cyan-200";
+      case "UTILISATEURS":
+        return "bg-violet-50 text-violet-700 border-violet-200";
       default:
         return "bg-slate-100 text-slate-700 border-slate-200";
     }
   };
 
   return (
-    <div className="space-y-8 animate-fade-in pb-20">
-      {/* 1. EXECUTIVE BANNER & HEADER */}
-      <div className="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div className="space-y-2 z-10">
-          <div className="flex items-center gap-2.5">
-            <span className="px-3 py-1 rounded-full bg-slate-800 text-slate-300 border border-slate-700 text-[11px] font-bold tracking-wide uppercase flex items-center gap-1.5">
-              <Lock className="w-3 h-3 text-emerald-400" />
-              Journal Immuable Certifié
-            </span>
-            <span className="text-slate-400 text-xs font-semibold">Traçabilité Multi-Modules</span>
+    <div className="space-y-6 pb-20">
+      {/* 1. HEADER EXECUTIVE AUDIT */}
+      <div className="relative overflow-hidden rounded-3xl bg-slate-950 p-6 sm:p-8 text-white border border-slate-800 shadow-xl">
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div className="space-y-2 max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700/80 text-[11px] font-bold text-slate-300">
+              <Shield className="w-3.5 h-3.5 text-blue-400" />
+              <span>Gouvernance &amp; Sécurité — Supervision PDG</span>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white flex items-center gap-3">
+              <span>Journal d&apos;Audit Global</span>
+              <span className="px-2.5 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-bold">
+                Actif &amp; Inaltérable
+              </span>
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+              Traçabilité exhaustive et temps réel de toutes les actions : commandes, attributions automatiques, mouvements financiers, modifications de paramètres et alertes de sécurité.
+            </p>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-white">
-            Audit &amp; Activité
-          </h1>
-          <p className="text-slate-300 text-sm max-w-2xl leading-relaxed">
-            Traçabilité centralisée des actions effectuées sur la plateforme : commandes, télévente, livreurs, marchands, caisse trésorier, automatisations algorithmiques et modifications système.
-          </p>
-        </div>
 
-        <div className="flex flex-wrap items-center gap-3 z-10">
           <button
             onClick={() => setShowExportModal(true)}
-            className="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs transition-all border border-white/15 flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700 transition-all flex items-center gap-2 shrink-0 cursor-pointer shadow-sm hover:shadow"
           >
-            <Download className="w-4 h-4" />
-            <span>Exporter le journal</span>
+            <Download className="w-4 h-4 text-blue-400" />
+            <span>Exporter le registre</span>
           </button>
         </div>
 
@@ -306,13 +349,16 @@ export default function GlobalAuditPage() {
         </div>
       </div>
 
-      {/* 2. 5 EXECUTIVE KPIS */}
+      {/* 2. 5 EXECUTIVE KPIS (INTERACTIVE) */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         {/* KPI 1: Actions aujourd'hui */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all col-span-2 sm:col-span-1">
+        <div
+          onClick={handleResetFilters}
+          className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-blue-400 hover:shadow-md transition-all col-span-2 sm:col-span-1 cursor-pointer group"
+        >
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Actions aujourd&apos;hui</span>
-            <div className="w-7 h-7 rounded-xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-600 transition-colors">Actions aujourd&apos;hui</span>
+            <div className="w-7 h-7 rounded-xl bg-blue-50 border border-blue-200/60 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all">
               <Activity className="w-4 h-4" />
             </div>
           </div>
@@ -325,10 +371,13 @@ export default function GlobalAuditPage() {
         </div>
 
         {/* KPI 2: Utilisateurs actifs */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all">
+        <div
+          onClick={() => setActiveTab("SESSIONS")}
+          className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-purple-400 hover:shadow-md transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Utilisateurs actifs</span>
-            <div className="w-7 h-7 rounded-xl bg-purple-50 border border-purple-200/60 flex items-center justify-center text-purple-600">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-purple-600 transition-colors">Utilisateurs actifs</span>
+            <div className="w-7 h-7 rounded-xl bg-purple-50 border border-purple-200/60 flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-all">
               <User className="w-4 h-4" />
             </div>
           </div>
@@ -341,10 +390,22 @@ export default function GlobalAuditPage() {
         </div>
 
         {/* KPI 3: Actions sensibles */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all">
+        <div
+          onClick={() => {
+            setSearchTerm("");
+            setSelectedModule("ALL");
+            setSelectedActorType("ALL");
+            setSelectedSeverity("ALL");
+            setSelectedResult("ALL");
+            setEntityFilter(null);
+            setQuickFilter("SENSITIVE");
+            setActiveTab("LOGS");
+          }}
+          className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Actions sensibles</span>
-            <div className="w-7 h-7 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-amber-600">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-amber-600 transition-colors">Actions sensibles</span>
+            <div className="w-7 h-7 rounded-xl bg-amber-50 border border-amber-200/60 flex items-center justify-center text-amber-600 group-hover:bg-amber-600 group-hover:text-white transition-all">
               <Zap className="w-4 h-4" />
             </div>
           </div>
@@ -357,10 +418,22 @@ export default function GlobalAuditPage() {
         </div>
 
         {/* KPI 4: Actions automatiques */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all">
+        <div
+          onClick={() => {
+            setSearchTerm("");
+            setSelectedModule("ALL");
+            setSelectedActorType("ALL");
+            setSelectedSeverity("ALL");
+            setSelectedResult("ALL");
+            setEntityFilter(null);
+            setQuickFilter("AUTOMATIONS");
+            setActiveTab("LOGS");
+          }}
+          className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-indigo-400 hover:shadow-md transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Événements automatiques</span>
-            <div className="w-7 h-7 rounded-xl bg-indigo-50 border border-indigo-200/60 flex items-center justify-center text-indigo-600">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-indigo-600 transition-colors">Événements automatiques</span>
+            <div className="w-7 h-7 rounded-xl bg-indigo-50 border border-indigo-200/60 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-all">
               <Bot className="w-4 h-4" />
             </div>
           </div>
@@ -373,10 +446,13 @@ export default function GlobalAuditPage() {
         </div>
 
         {/* KPI 5: Anomalies */}
-        <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-slate-300 transition-all">
+        <div
+          onClick={handleInspectAnomalies}
+          className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-rose-400 hover:shadow-md transition-all cursor-pointer group"
+        >
           <div className="flex items-center justify-between text-slate-500 mb-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Anomalies &amp; Écarts</span>
-            <div className="w-7 h-7 rounded-xl bg-rose-50 border border-rose-200/60 flex items-center justify-center text-rose-600">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 group-hover:text-rose-600 transition-colors">Anomalies &amp; Écarts</span>
+            <div className="w-7 h-7 rounded-xl bg-rose-50 border border-rose-200/60 flex items-center justify-center text-rose-600 group-hover:bg-rose-600 group-hover:text-white transition-all">
               <ShieldAlert className="w-4 h-4" />
             </div>
           </div>
@@ -406,13 +482,11 @@ export default function GlobalAuditPage() {
         </div>
 
         <button
-          onClick={() => {
-            setQuickFilter("FAILURES");
-            setActiveTab("LOGS");
-          }}
-          className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-colors shrink-0 cursor-pointer"
+          onClick={handleInspectAnomalies}
+          className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs transition-all shrink-0 cursor-pointer shadow-xs hover:shadow active:scale-95 flex items-center gap-1.5"
         >
-          Examiner les anomalies
+          <ShieldAlert className="w-3.5 h-3.5" />
+          <span>Examiner les anomalies ({anomaliesCount})</span>
         </button>
       </div>
 
@@ -461,10 +535,7 @@ export default function GlobalAuditPage() {
           {/* Quick filter chips */}
           <div className="flex flex-wrap items-center gap-1.5 pb-2 sm:pb-0">
             <button
-              onClick={() => {
-                setQuickFilter("ALL");
-                setEntityFilter(null);
-              }}
+              onClick={handleResetFilters}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                 quickFilter === "ALL" && !entityFilter
                   ? "bg-slate-200 text-slate-900 font-bold"
@@ -474,7 +545,21 @@ export default function GlobalAuditPage() {
               Tous
             </button>
             <button
-              onClick={() => setQuickFilter("SENSITIVE")}
+              onClick={handleInspectAnomalies}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors flex items-center gap-1 ${
+                quickFilter === "ANOMALIES"
+                  ? "bg-rose-500 text-white font-bold shadow-xs"
+                  : "bg-rose-50 text-rose-700 hover:bg-rose-100 font-medium"
+              }`}
+            >
+              <AlertTriangle className="w-3 h-3" />
+              <span>Anomalies ({anomaliesCount})</span>
+            </button>
+            <button
+              onClick={() => {
+                setQuickFilter("SENSITIVE");
+                setEntityFilter(null);
+              }}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                 quickFilter === "SENSITIVE"
                   ? "bg-amber-100 text-amber-900 font-bold"
@@ -484,7 +569,10 @@ export default function GlobalAuditPage() {
               ⚡ Sensibles
             </button>
             <button
-              onClick={() => setQuickFilter("AUTOMATIONS")}
+              onClick={() => {
+                setQuickFilter("AUTOMATIONS");
+                setEntityFilter(null);
+              }}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                 quickFilter === "AUTOMATIONS"
                   ? "bg-indigo-100 text-indigo-900 font-bold"
@@ -494,7 +582,10 @@ export default function GlobalAuditPage() {
               🤖 Automatisations
             </button>
             <button
-              onClick={() => setQuickFilter("FAILURES")}
+              onClick={() => {
+                setQuickFilter("FAILURES");
+                setEntityFilter(null);
+              }}
               className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold cursor-pointer transition-colors ${
                 quickFilter === "FAILURES"
                   ? "bg-rose-100 text-rose-900 font-bold"
@@ -733,10 +824,17 @@ export default function GlobalAuditPage() {
             </div>
 
             {filteredLogs.length === 0 && (
-              <div className="p-12 text-center text-slate-400 space-y-2">
+              <div className="p-12 text-center text-slate-400 space-y-3">
                 <ShieldAlert className="w-10 h-10 mx-auto text-slate-300" />
                 <p className="text-sm font-bold text-slate-700">Aucun événement d&apos;audit ne correspond aux critères</p>
-                <p className="text-xs">Essayez de réinitialiser la recherche ou de modifier les filtres.</p>
+                <p className="text-xs text-slate-500">Essayez de réinitialiser la recherche ou de modifier les filtres.</p>
+                <button
+                  onClick={handleResetFilters}
+                  className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-colors cursor-pointer inline-flex items-center gap-2"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>Réinitialiser tous les filtres</span>
+                </button>
               </div>
             )}
           </div>

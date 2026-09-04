@@ -11,6 +11,7 @@ import {
   Order,
   FinancialTransaction,
   GlobalAuditLog,
+  Partner,
 } from "./types";
 import {
   initialConversations,
@@ -22,6 +23,7 @@ import {
   orders as initialOrders,
   initialTransactions,
   initialGlobalAuditLogs,
+  partners as initialPartners,
 } from "./mock-data";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -35,6 +37,7 @@ const PAYOUTS_FILE = path.join(DATA_DIR, "payouts.json");
 const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 const TRANSACTIONS_FILE = path.join(DATA_DIR, "transactions.json");
 const AUDIT_FILE = path.join(DATA_DIR, "audit.json");
+const PARTNERS_FILE = path.join(DATA_DIR, "partners.json");
 const STORAGE_DIR = path.join(process.cwd(), "storage", "attachments");
 const PUBLIC_UPLOADS_DIR = path.join(process.cwd(), "public", "uploads", "conversations");
 
@@ -94,6 +97,17 @@ export async function initDatabase(): Promise<void> {
       await fs.writeFile(
         USERS_FILE,
         JSON.stringify(initialPlatformUsers, null, 2),
+        "utf-8"
+      );
+    }
+
+    // Initialisation du fichier partners.json s'il n'existe pas
+    try {
+      await fs.access(PARTNERS_FILE);
+    } catch {
+      await fs.writeFile(
+        PARTNERS_FILE,
+        JSON.stringify(initialPartners, null, 2),
         "utf-8"
       );
     }
@@ -726,6 +740,52 @@ export async function saveGlobalAuditLog(log: GlobalAuditLog): Promise<GlobalAud
   list.unshift(log);
   await fs.writeFile(AUDIT_FILE, JSON.stringify(list, null, 2), "utf-8");
   return log;
+}
+
+// ==========================================
+// 🏢 GESTION DES MARCHANDS (PARTNERS)
+// ==========================================
+
+export async function getPartners(): Promise<Partner[]> {
+  await initDatabase();
+  try {
+    const data = await fs.readFile(PARTNERS_FILE, "utf-8");
+    const parsed = JSON.parse(data);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (error) {
+    console.error("Erreur lecture partners.json:", error);
+  }
+  return initialPartners;
+}
+
+export async function savePartner(partner: Partner): Promise<Partner> {
+  await initDatabase();
+  const partners = await getPartners();
+  const index = partners.findIndex((p) => p.id === partner.id);
+  if (index >= 0) {
+    partners[index] = partner;
+  } else {
+    partners.unshift(partner);
+  }
+  await fs.writeFile(PARTNERS_FILE, JSON.stringify(partners, null, 2), "utf-8");
+  return partner;
+}
+
+export async function updatePartner(
+  id: string,
+  updates: Partial<Partner>
+): Promise<Partner | null> {
+  await initDatabase();
+  const partners = await getPartners();
+  const index = partners.findIndex((p) => p.id === id);
+  if (index >= 0) {
+    partners[index] = { ...partners[index], ...updates };
+    await fs.writeFile(PARTNERS_FILE, JSON.stringify(partners, null, 2), "utf-8");
+    return partners[index];
+  }
+  return null;
 }
 
 

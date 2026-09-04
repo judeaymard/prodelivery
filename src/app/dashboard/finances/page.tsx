@@ -62,10 +62,10 @@ export default function FinancesPage() {
   const initialRevenuNet = Math.max(0, caTotal - commissions); // 252 400 F
 
   const activePendingPayout = payoutRequests.find(
-    (p) => p.partnerId === activePartner.id && p.status === "PENDING"
+    (p) => p.partnerId === activePartner.id && (p.status === "PENDING" || p.status === "IN_VERIFICATION" || p.status === "APPROVED")
   );
   const pendingAmount = activePendingPayout ? activePendingPayout.amount : 0;
-  const revenuNetDisponible = Math.max(0, initialRevenuNet - pendingAmount);
+  const revenuNetDisponible = activePartner.availableBalance !== undefined ? activePartner.availableBalance : Math.max(0, initialRevenuNet - pendingAmount);
 
   const isCryptoMethod = payoutMethod === "USDT_TRC20" || payoutMethod === "BINANCE_PAY";
   const estimatedUsdt = Math.round((Number(payoutAmount || 0) / 600) * 100) / 100;

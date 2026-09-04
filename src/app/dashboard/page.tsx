@@ -73,10 +73,10 @@ export default function DashboardOverviewPage() {
 
   // Check pending payout in store
   const activePendingPayout = payoutRequests.find(
-    (p) => p.partnerId === activePartner.id && p.status === "PENDING"
+    (p) => p.partnerId === activePartner.id && (p.status === "PENDING" || p.status === "IN_VERIFICATION" || p.status === "APPROVED")
   );
   const pendingAmount = activePendingPayout ? activePendingPayout.amount : 0;
-  const soldeNetDisponible = Math.max(0, initialNet - pendingAmount);
+  const soldeNetDisponible = activePartner.availableBalance !== undefined ? activePartner.availableBalance : Math.max(0, initialNet - pendingAmount);
 
   const partnerProducts = products.filter((p) => p.partnerId === activePartner.id);
   const totalStockWarehouse = partnerProducts.reduce((acc, p) => acc + p.remainingStock, 0) || 134;

@@ -60,6 +60,7 @@ export default function AdminRetraitsPage() {
   const [rejectionReasonInput, setRejectionReasonInput] = useState("");
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   // Formulaire de création de retrait
   const [newPartnerId, setNewPartnerId] = useState(partners[0]?.id || "");
@@ -163,36 +164,46 @@ export default function AdminRetraitsPage() {
     }
   };
 
-  const handleExecutePayment = (e: React.FormEvent) => {
+  const handleExecutePayment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!showPayModal || !paymentRefInput.trim()) return;
+    if (!showPayModal || !paymentRefInput.trim() || isProcessing) return;
 
-    payPayout(showPayModal.id, paymentRefInput.trim(), "Super Admin ENO");
-    setShowPayModal(null);
-    setPaymentRefInput("");
-    if (selectedPayout && selectedPayout.id === showPayModal.id) {
-      setSelectedPayout({
-        ...selectedPayout,
-        status: "PAID",
-        paymentReference: paymentRefInput.trim(),
-        paidAt: new Date().toISOString(),
-      });
+    setIsProcessing(true);
+    try {
+      await payPayout(showPayModal.id, paymentRefInput.trim(), "Super Admin ENO");
+      setShowPayModal(null);
+      setPaymentRefInput("");
+      if (selectedPayout && selectedPayout.id === showPayModal.id) {
+        setSelectedPayout({
+          ...selectedPayout,
+          status: "PAID",
+          paymentReference: paymentRefInput.trim(),
+          paidAt: new Date().toISOString(),
+        });
+      }
+    } finally {
+      setIsProcessing(false);
     }
   };
 
-  const handleConfirmRejection = (e: React.FormEvent) => {
+  const handleConfirmRejection = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!showRejectModal) return;
+    if (!showRejectModal || isProcessing) return;
 
-    rejectPayout(showRejectModal.id, rejectionReasonInput.trim() || "Demande refusée par la direction.");
-    setShowRejectModal(null);
-    setRejectionReasonInput("");
-    if (selectedPayout && selectedPayout.id === showRejectModal.id) {
-      setSelectedPayout({
-        ...selectedPayout,
-        status: "REJECTED",
-        rejectionReason: rejectionReasonInput.trim() || "Demande refusée par la direction.",
-      });
+    setIsProcessing(true);
+    try {
+      await rejectPayout(showRejectModal.id, rejectionReasonInput.trim() || "Demande refusée par la direction.");
+      setShowRejectModal(null);
+      setRejectionReasonInput("");
+      if (selectedPayout && selectedPayout.id === showRejectModal.id) {
+        setSelectedPayout({
+          ...selectedPayout,
+          status: "REJECTED",
+          rejectionReason: rejectionReasonInput.trim() || "Demande refusée par la direction.",
+        });
+      }
+    } finally {
+      setIsProcessing(false);
     }
   };
 
@@ -952,14 +963,14 @@ export default function AdminRetraitsPage() {
                 <CreditCard className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-base font-black text-slate-900">Enregistrer le Virement</h3>
+                <h3 className="text-base font-black text-slate-900">Enregistrer le Virement Réel</h3>
                 <p className="text-xs text-slate-500">{showPayModal.partnerName} • {formatCFA(showPayModal.amount)}</p>
               </div>
             </div>
 
             <form onSubmit={handleExecutePayment} className="space-y-3.5 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-1">
-                <span className="text-[10px] uppercase font-bold text-slate-400 block">Bénéficiaire</span>
+                <span className="text-[10px] uppercase font-bold text-slate-400 block">Bénéficiaire &amp; Coordonnées</span>
                 <p className="font-bold text-slate-900">{showPayModal.operator} : {showPayModal.cryptoAddress || showPayModal.binancePayId || showPayModal.phone}</p>
               </div>
 
@@ -970,26 +981,45 @@ export default function AdminRetraitsPage() {
                 <input
                   type="text"
                   required
-                  placeholder="Ex: LEEK-TX-984214 ou TxID Blockchain..."
+                  placeholder="Ex: MT-984214, MoMo Ref, TxID Blockchain..."
                   value={paymentRefInput}
                   onChange={(e) => setPaymentRefInput(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-mono font-bold focus:outline-none focus:border-slate-800"
                 />
               </div>
 
+              <div className="p-3 rounded-xl bg-emerald-50/80 border border-emerald-200 text-emerald-900 text-[11px] space-y-1">
+                <div className="flex justify-between font-bold">
+                  <span>Montant décaissé :</span>
+                  <span>{formatCFA(showPayModal.amount)}</span>
+                </div>
+                <p className="text-[10px] text-emerald-700">
+                  Cette validation débitera définitivement le solde marchand et enregistrera la transaction au Grand Livre.
+                </p>
+              </div>
+
               <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
                 <button
                   type="button"
                   onClick={() => setShowPayModal(null)}
-                  className="px-4 py-2.5 rounded-xl text-slate-500 font-bold cursor-pointer"
+                  disabled={isProcessing}
+                  className="px-4 py-2.5 rounded-xl text-slate-500 font-bold cursor-pointer disabled:opacity-50"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs cursor-pointer"
+                  disabled={isProcessing || !paymentRefInput.trim()}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
                 >
-                  Confirmer le Paiement
+                  {isProcessing ? (
+                    <span>Traitement en cours...</span>
+                  ) : (
+                    <>
+                      <CheckCircle2 className="w-4 h-4" />
+                      <span>Confirmer le Paiement</span>
+                    </>
+                  )}
                 </button>
               </div>
             </form>
@@ -1033,15 +1063,21 @@ export default function AdminRetraitsPage() {
                 <button
                   type="button"
                   onClick={() => setShowRejectModal(null)}
-                  className="px-4 py-2.5 rounded-xl text-slate-500 font-bold cursor-pointer"
+                  disabled={isProcessing}
+                  className="px-4 py-2.5 rounded-xl text-slate-500 font-bold cursor-pointer disabled:opacity-50"
                 >
                   Annuler
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-xs cursor-pointer"
+                  disabled={isProcessing}
+                  className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold shadow-xs cursor-pointer flex items-center gap-1.5 disabled:opacity-50"
                 >
-                  Confirmer le Rejet
+                  {isProcessing ? (
+                    <span>Rejet en cours...</span>
+                  ) : (
+                    <span>Confirmer le Rejet</span>
+                  )}
                 </button>
               </div>
             </form>

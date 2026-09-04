@@ -1,5 +1,105 @@
 [
   {
+    "id": "aud-paid-1788529183689",
+    "timestamp": "14:39",
+    "isoDate": "2026-09-04T13:39:43.690Z",
+    "actor": {
+      "id": "USR-PDG-001",
+      "name": "Super Admin ENO",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "WITHDRAWAL_PAID",
+    "actionLabel": "Paiement de retrait effectué",
+    "module": "FINANCES",
+    "entityType": "PAYOUT",
+    "entityId": "wd-2046",
+    "entityReference": "wd-2046",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Virement de 220 000 FCFA validé (BINANCE_PAY). Réf: lekk."
+  },
+  {
+    "id": "aud-paid-1788529179045",
+    "timestamp": "14:39",
+    "isoDate": "2026-09-04T13:39:39.045Z",
+    "actor": {
+      "id": "USR-PDG-001",
+      "name": "Super Admin ENO",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "WITHDRAWAL_PAID",
+    "actionLabel": "Paiement de retrait effectué",
+    "module": "FINANCES",
+    "entityType": "PAYOUT",
+    "entityId": "wd-2047",
+    "entityReference": "wd-2047",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Virement de 360 000 FCFA validé (USDT). Réf: leek."
+  },
+  {
+    "id": "aud-app-1788529173877",
+    "timestamp": "14:39",
+    "isoDate": "2026-09-04T13:39:33.878Z",
+    "actor": {
+      "id": "USR-PDG-001",
+      "name": "Direction ENO",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "WITHDRAWAL_APPROVED",
+    "actionLabel": "Approbation de retrait",
+    "module": "FINANCES",
+    "entityType": "PAYOUT",
+    "entityId": "wd-2047",
+    "entityReference": "wd-2047",
+    "severity": "WARNING",
+    "result": "SUCCESS",
+    "description": "Demande de retrait de 360000 FCFA approuvée par la direction."
+  },
+  {
+    "id": "aud-paid-1788529143324",
+    "timestamp": "14:39",
+    "isoDate": "2026-09-04T13:39:03.325Z",
+    "actor": {
+      "id": "USR-PDG-001",
+      "name": "Super Admin ENO",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "WITHDRAWAL_PAID",
+    "actionLabel": "Paiement de retrait effectué",
+    "module": "FINANCES",
+    "entityType": "PAYOUT",
+    "entityId": "wd-2048",
+    "entityReference": "wd-2048",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Virement de 500 000 FCFA validé (LEEKPAY). Réf: leeekpay."
+  },
+  {
+    "id": "aud-app-1788529132100",
+    "timestamp": "14:38",
+    "isoDate": "2026-09-04T13:38:52.101Z",
+    "actor": {
+      "id": "USR-PDG-001",
+      "name": "Direction ENO",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "WITHDRAWAL_APPROVED",
+    "actionLabel": "Approbation de retrait",
+    "module": "FINANCES",
+    "entityType": "PAYOUT",
+    "entityId": "wd-2048",
+    "entityReference": "wd-2048",
+    "severity": "WARNING",
+    "result": "SUCCESS",
+    "description": "Demande de retrait de 500000 FCFA approuvée par la direction."
+  },
+  {
     "id": "aud-glob-001",
     "timestamp": "04 sept. 2026 — 10:42:18",
     "isoDate": "2026-09-04T10:42:18",
