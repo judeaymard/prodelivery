@@ -80,15 +80,15 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
   );
 
   // Capacities
-  const maxOrders = closeuse.maxActiveOrders || 15;
-  const currentOrders = activeAssignedOrders.length || closeuse.activeOrdersCount || 4;
-  const remainingOrders = Math.max(0, maxOrders - currentOrders);
-  const ordersPercent = Math.min(100, Math.round((currentOrders / maxOrders) * 100));
+  const maxOrders = closeuse.maxActiveOrders || 0;
+  const currentOrders = activeAssignedOrders.length || closeuse.activeOrdersCount || 0;
+  const remainingOrders = maxOrders > 0 ? Math.max(0, maxOrders - currentOrders) : 0;
+  const ordersPercent = maxOrders > 0 ? Math.min(100, Math.round((currentOrders / maxOrders) * 100)) : 0;
 
-  const maxConvs = closeuse.maxActiveConversations || 5;
-  const currentConvs = closerConversations.length || closeuse.activeConversationsCount || 2;
-  const remainingConvs = Math.max(0, maxConvs - currentConvs);
-  const convsPercent = Math.min(100, Math.round((currentConvs / maxConvs) * 100));
+  const maxConvs = closeuse.maxActiveConversations || 0;
+  const currentConvs = closerConversations.length || closeuse.activeConversationsCount || 0;
+  const remainingConvs = maxConvs > 0 ? Math.max(0, maxConvs - currentConvs) : 0;
+  const convsPercent = maxConvs > 0 ? Math.min(100, Math.round((currentConvs / maxConvs) * 100)) : 0;
 
   // Available alternative closers for emergency reassignment
   const availableAlternatives = closeuses.filter(
@@ -124,26 +124,27 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
   };
 
   const badge = getStatusBadge(closeuse.availabilityStatus);
-  // 7-day confirmation activity
-  const weekActivity = [
-    { day: "Lun", count: 28 },
-    { day: "Mar", count: 32 },
-    { day: "Mer", count: 24 },
-    { day: "Jeu", count: 38 },
-    { day: "Ven", count: 35 },
-    { day: "Sam", count: 41 },
-    { day: "Dim", count: closeuse.confirmedTodayCount || 34 },
-  ];
+  
+  // 7-day dynamic confirmation activity
+  const weekDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  const weekActivity = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (6 - i));
+    const dayStr = weekDays[d.getDay()];
+    const isoDate = d.toISOString().slice(0, 10);
+    const count = assignedOrders.filter(
+      (o) => (o.status === "CONFIRMEE" || o.status === "LIVREE") && o.updatedAt?.startsWith(isoDate)
+    ).length;
+    return { day: dayStr, count };
+  });
   const maxDayCount = Math.max(...weekActivity.map((w) => w.count), 1);
 
-  // Timeline mock items
-  const timelineEvents = [
-    { time: "Aujourd'hui — 18:42", text: "Commande CMD-1048 confirmée (Adresse validée)", icon: CheckCircle2 },
-    { time: "Aujourd'hui — 18:35", text: "Conversation WhatsApp avec client #1048", icon: MessageSquare },
-    { time: "Aujourd'hui — 17:12", text: "Commande CMD-1043 assignée par Smart Auto", icon: Package },
-    { time: "Aujourd'hui — 14:20", text: "Statut changé → Disponible pour attribution", icon: Headset },
-    { time: "Hier — 19:04", text: "Commande CMD-0998 confirmée pour livraison express", icon: CheckCircle2 },
-  ];
+  // Dynamic timeline events based on actual assigned orders
+  const timelineEvents = assignedOrders.slice(0, 5).map((o) => ({
+    time: o.updatedAt ? new Date(o.updatedAt).toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }) : "Récemment",
+    text: `Commande ${o.orderNumber || o.id} • ${o.status === "CONFIRMEE" ? "Confirmée" : o.status === "LIVREE" ? "Livrée" : o.status}`,
+    icon: o.status === "CONFIRMEE" || o.status === "LIVREE" ? CheckCircle2 : Package,
+  }));
 
   const isAlertActive =
     pendingConfirmOrders.length > 0 &&
@@ -346,22 +347,24 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Appels émis</span>
-                <span className="text-base font-black text-slate-900">{closeuse.callsTodayCount || 42}</span>
+                <span className="text-base font-black text-slate-900">{closeuse.callsTodayCount || 0}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Confirmées auj.</span>
-                <span className="text-base font-black text-emerald-700">{closeuse.confirmedTodayCount || 34}</span>
+                <span className="text-base font-black text-emerald-700">{closeuse.confirmedTodayCount || assignedOrders.filter((o) => (o.status === "CONFIRMEE" || o.status === "LIVREE") && o.updatedAt?.startsWith(new Date().toISOString().slice(0, 10))).length}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Taux Conversion</span>
-                <span className="text-base font-black text-slate-900">{closeuse.conversionRate || 82.5}%</span>
+                <span className="text-base font-black text-slate-900">
+                  {closeuse.conversionRate ? `${closeuse.conversionRate}%` : assignedOrders.length > 0 ? `${Math.round((assignedOrders.filter((o) => o.status === "CONFIRMEE" || o.status === "LIVREE").length / assignedOrders.length) * 100)}%` : "0%"}
+                </span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Temps Moyen</span>
-                <span className="text-base font-black text-purple-700">{closeuse.avgProcessingTimeMinutes || 4.2} min</span>
+                <span className="text-base font-black text-purple-700">{closeuse.avgProcessingTimeMinutes ? `${closeuse.avgProcessingTimeMinutes} min` : "—"}</span>
               </div>
             </div>
 
@@ -397,32 +400,32 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
               <div className="p-3 rounded-2xl bg-slate-50 border border-slate-100 text-center space-y-0.5">
                 <span className="text-[10px] text-slate-400 block font-bold">1. Reçues</span>
-                <span className="text-sm font-black text-slate-900">42</span>
-                <span className="text-[9px] text-slate-400 block">Nouvelles</span>
+                <span className="text-sm font-black text-slate-900">{assignedOrders.length}</span>
+                <span className="text-[9px] text-slate-400 block">Assignées</span>
               </div>
 
               <div className="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-center space-y-0.5">
                 <span className="text-[10px] text-amber-700 block font-bold">2. À Contacter</span>
-                <span className="text-sm font-black text-amber-900">31</span>
-                <span className="text-[9px] text-amber-600 block">En file</span>
+                <span className="text-sm font-black text-amber-900">{assignedOrders.filter((o) => o.status === "EN_ATTENTE").length}</span>
+                <span className="text-[9px] text-amber-600 block">En attente</span>
               </div>
 
               <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-center space-y-0.5">
-                <span className="text-[10px] text-blue-700 block font-bold">3. Contactées</span>
-                <span className="text-sm font-black text-blue-900">28</span>
-                <span className="text-[9px] text-blue-600 block">Jointes</span>
+                <span className="text-[10px] text-blue-700 block font-bold">3. Relances</span>
+                <span className="text-sm font-black text-blue-900">{assignedOrders.filter((o) => o.status === "A_RAPPELER").length}</span>
+                <span className="text-[9px] text-blue-600 block">À rappeler</span>
               </div>
 
               <div className="p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-0.5">
                 <span className="text-[10px] text-emerald-700 block font-bold">4. Confirmées</span>
-                <span className="text-sm font-black text-emerald-900">24</span>
-                <span className="text-[9px] text-emerald-600 block">Accord client</span>
+                <span className="text-sm font-black text-emerald-900">{assignedOrders.filter((o) => o.status === "CONFIRMEE" || o.status === "LIVREE").length}</span>
+                <span className="text-[9px] text-emerald-600 block">Validées</span>
               </div>
 
               <div className="p-3 rounded-2xl bg-purple-50 border border-purple-200 text-center space-y-0.5 col-span-2 sm:col-span-1">
-                <span className="text-[10px] text-purple-700 block font-bold">5. Prêtes</span>
-                <span className="text-sm font-black text-purple-900">19</span>
-                <span className="text-[9px] text-purple-600 block">En expédition</span>
+                <span className="text-[10px] text-purple-700 block font-bold">5. Livrées</span>
+                <span className="text-sm font-black text-purple-900">{assignedOrders.filter((o) => o.status === "LIVREE").length}</span>
+                <span className="text-[9px] text-purple-600 block">Succès</span>
               </div>
             </div>
           </div>
@@ -545,7 +548,7 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
             <div className="p-4 rounded-2xl bg-slate-900 text-white space-y-1">
               <span className="text-[10px] text-slate-400 block">Tarif par confirmation</span>
               <span className="text-xl font-black font-mono text-emerald-400">
-                {formatCFA(closeuse.commissionPerConfirmation || 750)}
+                {formatCFA(closeuse.commissionPerConfirmation || 0)}
               </span>
             </div>
 
@@ -553,19 +556,19 @@ export default function AdminCloseuseDetailPage({ params }: { params: Promise<{ 
               <div className="flex justify-between text-slate-500">
                 <span>Gains aujourd&apos;hui :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA((closeuse.confirmedTodayCount || 34) * (closeuse.commissionPerConfirmation || 750))}
+                  {formatCFA((closeuse.confirmedTodayCount || 0) * (closeuse.commissionPerConfirmation || 0))}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500">
                 <span>Gains cette semaine :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA((closeuse.confirmedWeekCount || 198) * (closeuse.commissionPerConfirmation || 750))}
+                  {formatCFA((closeuse.confirmedWeekCount || 0) * (closeuse.commissionPerConfirmation || 0))}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500 pt-2 border-t border-slate-100">
                 <span>Total ce mois :</span>
                 <span className="font-mono font-black text-emerald-600">
-                  {formatCFA((closeuse.confirmedMonthCount || 840) * (closeuse.commissionPerConfirmation || 750))}
+                  {formatCFA((closeuse.confirmedMonthCount || 0) * (closeuse.commissionPerConfirmation || 0))}
                 </span>
               </div>
             </div>

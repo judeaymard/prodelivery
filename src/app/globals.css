@@ -264,31 +264,13 @@ body {
   color: #ffffff;
 }
 
-/* 🌟 FLUID SCROLL REVEAL UTILITIES (ENTRÉES FLUIDES GAUCHE/DROITE/HAUT) */
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-right {
-  opacity: 0;
-  transform: translateX(50px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-up {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
+/* 🌟 FLUID SCROLL REVEAL UTILITIES */
+.reveal-left,
+.reveal-right,
+.reveal-up,
 .reveal-scale {
-  opacity: 0;
-  transform: scale(0.92) translateY(25px);
+  opacity: 1;
+  transform: none;
   transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
@@ -441,6 +423,30 @@ body {
   animation: icon-heartbeat 2.5s ease-in-out infinite;
 }
 
+/* 💰 RESPONSIVE SHARED STYLES FOR TREASURY SPACE */
+.treasury-table-container {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
+.treasury-amount {
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+}
 
+.treasury-nowrap {
+  white-space: nowrap;
+}
 
+.treasury-ref {
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  display: inline-block;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}

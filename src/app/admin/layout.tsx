@@ -39,6 +39,7 @@ import {
 } from "lucide-react";
 import { useOperations } from "@/lib/store";
 import SpotlightSearchModal from "@/components/admin/SpotlightSearchModal";
+import HubSwitcher from "@/components/HubSwitcher";
 
 interface NavItem {
   id: string;
@@ -69,6 +70,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     payoutRequests,
     conversations,
     notifications,
+    currentUserProfile,
     unreadNotificationsCount,
     markNotificationAsRead,
     markAllNotificationsAsRead,
@@ -104,7 +106,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (pathname === "/admin/conversations") return { title: "Communication Hub", subtitle: "Support e-commerçants" };
     if (pathname === "/admin/assistant-ia") return { title: "Assistant IA", subtitle: "Automatisation du support" };
     if (pathname === "/admin/tresorerie" || pathname === "/admin/finances") return { title: "Trésorerie", subtitle: "Vision financière globale et flux de trésorerie" };
-    if (pathname === "/admin/commissions") return { title: "Commissions", subtitle: "Revenus et commissions perçus par ENO" };
+    if (pathname === "/admin/commissions") return { title: "Commissions", subtitle: "Revenus et commissions perçus par GuinéeGo LAT" };
     if (pathname === "/admin/retraits") return { title: "Retraits", subtitle: "Reversements et demandes des e-commerçants" };
     if (pathname === "/admin/tresoriers") return { title: "Responsables Trésorerie", subtitle: "Équipe financière et caisses" };
     if (pathname === "/admin/audit" || pathname === "/pdg/audit") return { title: "Audit & Activité", subtitle: "Traçabilité centralisée des actions de la plateforme" };
@@ -224,8 +226,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/" className="flex items-center gap-2.5 group min-w-0">
             <div className="relative w-8 h-8 rounded-xl overflow-hidden border border-slate-200 bg-white shrink-0 shadow-2xs">
               <Image
-                src="/images/eno_livraison_logo.png"
-                alt="Logo ENO"
+                src="/images/guineego_logo.jpg"
+                alt="Logo GuinéeGo"
                 fill
                 className="object-contain p-0.5"
                 priority
@@ -234,7 +236,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             {!sidebarCollapsed && (
               <div className="min-w-0">
                 <span className="text-xs font-black tracking-tight text-slate-900 block leading-tight">
-                  ENO LIVRAISON
+                  GuinéeGo LAT
                 </span>
                 <span className="text-[9px] font-bold text-slate-400 block uppercase tracking-wider">
                   Command Center
@@ -257,11 +259,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="my-2.5 p-2 rounded-xl bg-slate-50 border border-slate-200/70 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2 min-w-0">
               <div className="w-7 h-7 rounded-lg bg-slate-900 text-white flex items-center justify-center font-black text-xs shrink-0">
-                JS
+                {currentUserProfile?.firstName ? currentUserProfile.firstName.charAt(0) : "P"}
+                {currentUserProfile?.lastName ? currentUserProfile.lastName.charAt(0) : "D"}
               </div>
               <div className="min-w-0">
-                <h4 className="text-[11px] font-bold text-slate-900 truncate leading-tight">Jude S.</h4>
-                <p className="text-[9px] text-slate-500 truncate leading-tight">Direction Générale</p>
+                <h4 className="text-[11px] font-bold text-slate-900 truncate leading-tight">
+                  {currentUserProfile?.name || `${currentUserProfile?.firstName || "Direction"} ${currentUserProfile?.lastName || ""}`.trim()}
+                </h4>
+                <p className="text-[9px] text-slate-500 truncate leading-tight">{currentUserProfile?.roleLabel || "Direction Générale"}</p>
               </div>
             </div>
             <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" title="En ligne"></span>
@@ -318,17 +323,56 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </div>
 
-        {/* 4. Bottom Actions */}
+        {/* 4. Bottom Actions & Espaces Connectés */}
         <div className="pt-2 mt-2 border-t border-slate-200/80 space-y-1 shrink-0">
+          {!sidebarCollapsed && (
+            <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 px-3 py-0.5 block">
+              Passerelles Espaces
+            </span>
+          )}
+
           <Link
-            href="/dashboard"
-            className={`flex items-center gap-2 rounded-xl text-xs font-medium text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-colors ${
+            href="/tresorerie"
+            className={`flex items-center gap-2 rounded-xl text-xs font-medium text-slate-600 hover:text-emerald-700 hover:bg-emerald-50 transition-colors ${
               sidebarCollapsed ? "p-2 justify-center" : "px-3 py-1.5"
             }`}
-            title="Accès Portail Marchand"
+            title="Espace Caisse & Trésorerie"
           >
-            <ExternalLink className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            {!sidebarCollapsed && <span className="text-[11px]">Espace Marchand</span>}
+            <BadgeDollarSign className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            {!sidebarCollapsed && <span className="text-[11px] truncate">Espace Trésorerie</span>}
+          </Link>
+
+          <Link
+            href="/commercial"
+            className={`flex items-center gap-2 rounded-xl text-xs font-medium text-slate-600 hover:text-blue-700 hover:bg-blue-50 transition-colors ${
+              sidebarCollapsed ? "p-2 justify-center" : "px-3 py-1.5"
+            }`}
+            title="Espace Télévente & Closeuses"
+          >
+            <Headset className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+            {!sidebarCollapsed && <span className="text-[11px] truncate">Espace Commercial</span>}
+          </Link>
+
+          <Link
+            href="/livreur"
+            className={`flex items-center gap-2 rounded-xl text-xs font-medium text-slate-600 hover:text-purple-700 hover:bg-purple-50 transition-colors ${
+              sidebarCollapsed ? "p-2 justify-center" : "px-3 py-1.5"
+            }`}
+            title="Espace Coursiers & Tournées"
+          >
+            <Bike className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+            {!sidebarCollapsed && <span className="text-[11px] truncate">Espace Livreur</span>}
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className={`flex items-center gap-2 rounded-xl text-xs font-medium text-slate-600 hover:text-emerald-800 hover:bg-emerald-50 transition-colors ${
+              sidebarCollapsed ? "p-2 justify-center" : "px-3 py-1.5"
+            }`}
+            title="Portail E-commerçant"
+          >
+            <ExternalLink className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            {!sidebarCollapsed && <span className="text-[11px] truncate">Espace Marchand</span>}
           </Link>
 
           <button
@@ -348,15 +392,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 px-4 py-2.5 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
           <div className="relative w-7 h-7 rounded-lg overflow-hidden border border-slate-200 bg-white">
-            <Image src="/images/eno_livraison_logo.png" alt="ENO" fill className="object-contain" />
+            <Image src="/images/guineego_logo.jpg" alt="GuinéeGo" fill className="object-contain" />
           </div>
           <div>
-            <span className="font-black text-xs text-slate-900 block leading-none">ENO COMMAND</span>
+            <span className="font-black text-xs text-slate-900 block leading-none">GUINÉEGO COMMAND</span>
             <span className="text-[9px] font-semibold text-slate-500">Super Admin</span>
           </div>
         </Link>
 
         <div className="flex items-center gap-1.5">
+          <HubSwitcher compact />
           <button
             onClick={() => setSearchModalOpen(true)}
             className="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 transition-colors cursor-pointer"
@@ -442,7 +487,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           {/* Breadcrumb & Title */}
           <div>
             <div className="flex items-center gap-2 text-[11px] font-semibold text-slate-400">
-              <span>ENO LIVRAISON</span>
+              <span>GuinéeGo LAT</span>
               <ChevronRight className="w-3 h-3 text-slate-300" />
               <span className="text-slate-700">{pageMeta.title}</span>
             </div>
@@ -458,13 +503,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Search className="w-3.5 h-3.5 text-slate-400" />
             <span className="flex-1 text-left text-[11px]">Rechercher (colis #CMD, marchand, coursier...)</span>
-            <kbd className="text-[9px] font-mono font-bold bg-white text-slate-500 px-1.5 py-0.5 rounded border border-slate-200 shadow-2xs">
-              ⌘K
-            </kbd>
           </button>
 
           {/* Right Controls */}
-          <div className="flex items-center gap-3 relative">
+          <div className="flex items-center gap-2.5 relative">
+            <HubSwitcher />
             <button
               onClick={() => setNotificationsOpen(!notificationsOpen)}
               className={`relative p-2 rounded-xl border transition-all cursor-pointer ${

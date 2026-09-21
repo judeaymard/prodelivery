@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -71,7 +71,7 @@ export default function AdminLivraisonsPage() {
         <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Livreurs Déployés</span>
           <p className="text-3xl font-black text-slate-900">{livreurs.length}</p>
-          <p className="text-[11px] text-slate-400">Cotonou, Calavi, Porto-Novo</p>
+          <p className="text-[11px] text-slate-400">Conakry, Kankan, Kindia</p>
         </div>
       </div>
 
@@ -84,9 +84,9 @@ export default function AdminLivraisonsPage() {
             className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-900 focus:outline-none focus:border-slate-800"
           >
             <option value="ALL">Toutes les Zones de Livraison</option>
-            <option value="Cotonou">Cotonou (Haie Vive, Cadjehoun, Akpakpa)</option>
-            <option value="Calavi">Abomey-Calavi (Tankpè, IITA, Zogbadjè)</option>
-            <option value="Porto-Novo">Porto-Novo & Ouando</option>
+            <option value="Conakry">Conakry (Kaloum, Dixinn, Ratoma, Matam, Matoto)</option>
+            <option value="Kankan">Abomey-Kankan (Tankpè, IITA, Zogbadjè)</option>
+            <option value="Mamou">Mamou & Ouando</option>
           </select>
         </div>
 
@@ -128,7 +128,7 @@ export default function AdminLivraisonsPage() {
                   <tr key={ord.id} className="hover:bg-slate-50/60 transition-colors">
                     <td className="py-3.5 px-5">
                       <span className="font-mono font-bold text-slate-900">{ord.orderNumber}</span>
-                      <p className="text-[11px] text-slate-400">{ord.partnerName || "Afrimarket"}</p>
+                      <p className="text-[11px] text-slate-400">{ord.partnerName || "—"}</p>
                     </td>
 
                     <td className="py-3.5 px-5">

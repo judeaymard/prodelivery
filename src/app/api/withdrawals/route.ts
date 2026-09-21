@@ -25,7 +25,7 @@ import {
 
 /**
  * Endpoint API Central des Retraits E-commerçants
- * ENO Livraison 2027 (Section 36.7 - 36.23)
+ * GuinéeGo LAT 2027 (Section 36.7 - 36.23)
  * Source de Vérité Unique pour l'Admin, l'E-commerçant et la Trésorerie
  */
 
@@ -69,12 +69,13 @@ export async function POST(req: NextRequest) {
       getPayoutRequests(),
     ]);
 
-    const realPartner = partnersList.find((p) => p.id === partnerId) || {
-      id: partnerId || "p-default",
-      companyName: partnerName || "Boutique Partenaire",
-      isActive: true,
-      availableBalance: 5000000,
-    } as Partner;
+    const realPartner = partnersList.find((p) => p.id === partnerId);
+    if (!realPartner) {
+      return NextResponse.json(
+        { success: false, error: "Compte partenaire introuvable ou non autorisé." },
+        { status: 404 }
+      );
+    }
 
     // 1. Validation stricte côté serveur avec la configuration active
     const validation = validateWithdrawalRequest(
@@ -93,8 +94,10 @@ export async function POST(req: NextRequest) {
     }
 
     // 2. Contrôle d'Idempotence (éviter les doubles soumissions)
-    const payoutId = idempotencyKey || `WDR-${Date.now().toString().slice(-6)}`;
-    const duplicate = existingPayouts.find((p) => p.id === payoutId || p.txReference === idempotencyKey);
+    const payoutId = body.id || (idempotencyKey ? `WDR-${idempotencyKey}` : `WDR-${Date.now().toString().slice(-6)}`);
+    const duplicate = existingPayouts.find(
+      (p) => p.id === payoutId || (idempotencyKey && p.txReference === idempotencyKey)
+    );
     if (duplicate) {
       return NextResponse.json({
         success: true,
@@ -144,7 +147,7 @@ export async function POST(req: NextRequest) {
       category: "FINANCES",
       priority: validation.requiresDoubleValidation ? "CRITICAL" : "INFO",
       title: "Nouvelle demande de retrait",
-      description: `Demande de retrait de ${Number(amount).toLocaleString("fr-FR")} FCFA initiée par ${realPartner.companyName} (${operator}).`,
+      description: `Demande de retrait de ${Number(amount).toLocaleString("fr-FR")} GNF initiée par ${realPartner.companyName} (${operator}).`,
       createdAt: "À l'instant",
       isoDate: new Date().toISOString(),
       isRead: false,
@@ -173,7 +176,7 @@ export async function POST(req: NextRequest) {
       entityReference: newPayout.id,
       severity: "INFO",
       result: "SUCCESS",
-      description: `Demande de ${Number(amount).toLocaleString("fr-FR")} FCFA par ${operator}. Statut initial: ${initialStatus}. Solde réservé: ${Number(amount).toLocaleString("fr-FR")} FCFA.`,
+      description: `Demande de ${Number(amount).toLocaleString("fr-FR")} GNF par ${operator}. Statut initial: ${initialStatus}. Solde réservé: ${Number(amount).toLocaleString("fr-FR")} GNF.`,
       afterState: newPayout as any,
     };
     await saveGlobalAuditLog(audit);
@@ -193,23 +196,37 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PATCH(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const {
-      payoutId,
-      action,
-      paymentReference,
-      confirmedAmount,
-      rejectionReason,
-      internalNote,
-      adminName = "Direction ENO (Super Admin)",
-    } = body;
+const payoutProcessingLocks = new Set<string>();
 
-    const [payouts, settings, partnersList] = await Promise.all([
+export async function PATCH(req: NextRequest) {
+  const body = await req.json();
+  const payoutId = body.payoutId || body.id;
+  const {
+    action,
+    paymentReference,
+    confirmedAmount,
+    rejectionReason,
+    internalNote,
+    adminName = "Direction GuinéeGo (Super Admin)",
+  } = body;
+
+  if (action === "PROCESS_PAYOUT" || action === "PAY") {
+    if (payoutProcessingLocks.has(payoutId)) {
+      return NextResponse.json({
+        success: true,
+        isConcurrent: true,
+        message: "Traitement concurrent intercepté. Une seule opération de paiement est autorisée.",
+      });
+    }
+    payoutProcessingLocks.add(payoutId);
+  }
+
+  try {
+    const [payouts, settings, partnersList, existingTxs] = await Promise.all([
       getPayoutRequests(),
       getPlatformSettings(),
       getPartners(),
+      getTransactions(),
     ]);
 
     const payout = payouts.find((p) => p.id === payoutId);
@@ -241,7 +258,7 @@ export async function PATCH(req: NextRequest) {
         entityReference: payoutId,
         severity: "WARNING",
         result: "SUCCESS",
-        description: `Demande de retrait de ${payout.amount.toLocaleString("fr-FR")} FCFA approuvée par la direction. Prêt pour décaissement.`,
+        description: `Demande de retrait de ${payout.amount.toLocaleString("fr-FR")} GNF approuvée par la direction. Prêt pour décaissement.`,
       });
     } else if (action === "PROCESS_PAYOUT" || action === "PAY") {
       // Idempotency check: Don't repay if already paid
@@ -266,7 +283,7 @@ export async function PATCH(req: NextRequest) {
         const execution = await provider.createPayout({
           payoutId: payout.id,
           amount: confirmedAmount || payout.amount,
-          currency: "FCFA",
+          currency: "GNF",
           recipient: {
             name: payout.partnerName,
             phone: payout.phone,
@@ -303,22 +320,32 @@ export async function PATCH(req: NextRequest) {
           });
         }
 
-        // Écriture de la transaction financière
-        const tx: FinancialTransaction = {
-          id: `tx-${Date.now()}`,
-          txReference: `TX-RET-${Date.now().toString().slice(-6)}`,
-          date: new Date().toISOString().replace("T", " ").slice(0, 16),
-          type: "RETRAIT",
-          label: `Retrait Marchand ${payout.partnerName} (${payout.operator})`,
-          partnerId: payout.partnerId,
-          partnerName: payout.partnerName,
-          inflow: 0,
-          outflow: payout.amount,
-          balanceAfter: payout.balanceAfter ?? (updatedPartner?.availableBalance ?? 0),
-          status: "COMPLETED",
-          notes: `Règlement ${payout.operator}. Réf: ${providerRef}. ${executionMessage}. Traité par ${adminName}.`,
-        };
-        await saveTransaction(tx);
+        // Écriture de la transaction financière (avec protection anti-doublon stricte)
+        const alreadyRecorded = existingTxs.some(
+          (t) =>
+            t.type === "RETRAIT" &&
+            (t.id === `tx-ret-${payoutId}` ||
+              t.txReference === `TX-RET-${payoutId}` ||
+              t.notes?.includes(payoutId))
+        );
+
+        if (!alreadyRecorded) {
+          const tx: FinancialTransaction = {
+            id: `tx-ret-${payoutId}`,
+            txReference: `TX-RET-${payoutId}`,
+            date: new Date().toISOString().replace("T", " ").slice(0, 16),
+            type: "RETRAIT",
+            label: `Retrait Marchand ${payout.partnerName} (${payout.operator})`,
+            partnerId: payout.partnerId,
+            partnerName: payout.partnerName,
+            inflow: 0,
+            outflow: payout.amount,
+            balanceAfter: payout.balanceAfter ?? (updatedPartner?.availableBalance ?? 0),
+            status: "COMPLETED",
+            notes: `Règlement ${payout.operator}. Réf: ${providerRef}. ${executionMessage}. Traité par ${adminName}. [${payoutId}]`,
+          };
+          await saveTransaction(tx);
+        }
 
         // Notification
         await saveNotification({
@@ -326,7 +353,7 @@ export async function PATCH(req: NextRequest) {
           category: "FINANCES",
           priority: "INFO",
           title: "🏦 Retrait effectué",
-          description: `Votre retrait de ${payout.amount.toLocaleString("fr-FR")} FCFA (${payout.operator}) a été payé avec succès. Réf: ${providerRef}.`,
+          description: `Votre retrait de ${payout.amount.toLocaleString("fr-FR")} GNF (${payout.operator}) a été payé avec succès. Réf: ${providerRef}.`,
           createdAt: "À l'instant",
           isoDate: new Date().toISOString(),
           isRead: false,
@@ -349,7 +376,7 @@ export async function PATCH(req: NextRequest) {
           entityReference: payoutId,
           severity: "INFO",
           result: "SUCCESS",
-          description: `Virement de ${payout.amount.toLocaleString("fr-FR")} FCFA validé (${payout.operator}). Réf: ${providerRef}.`,
+          description: `Virement de ${payout.amount.toLocaleString("fr-FR")} GNF validé (${payout.operator}). Réf: ${providerRef}.`,
         });
       } else {
         // Échec de l'exécution automatique
@@ -378,9 +405,9 @@ export async function PATCH(req: NextRequest) {
           entityType: "PAYOUT",
           entityId: payoutId,
           entityReference: payoutId,
-          severity: "CRITICAL",
+          severity: "WARNING",
           result: "FAILED",
-          description: `Échec du virement automatique de ${payout.amount} FCFA (${payout.operator}): ${executionMessage}. Solde restitué au marchand.`,
+          description: `Échec du virement de ${payout.amount.toLocaleString("fr-FR")} GNF (${payout.operator}). Raison: ${executionMessage}`,
         });
 
         return NextResponse.json(
@@ -394,13 +421,13 @@ export async function PATCH(req: NextRequest) {
         );
       }
     } else if (action === "REJECT") {
-      // Restitution du solde réservé
       updatedPayout = await updatePayoutRequest(payoutId, {
         status: "REJECTED",
+        rejectionReason: rejectionReason || "Demande refusée par la direction.",
         reservedAmount: 0,
-        rejectionReason: rejectionReason || "Demande rejetée par la direction.",
       });
 
+      // Restituer le solde disponible au marchand
       if (payout.partnerId && partner) {
         const restoredBalance = (partner.availableBalance ?? 0) + (payout.reservedAmount ?? payout.amount);
         updatedPartner = await updatePartner(payout.partnerId, {
@@ -413,7 +440,7 @@ export async function PATCH(req: NextRequest) {
         category: "FINANCES",
         priority: "URGENT",
         title: "⚠️ Retrait rejeté",
-        description: `Votre demande de retrait de ${payout.amount.toLocaleString("fr-FR")} FCFA a été rejetée. Motif: ${rejectionReason || "Non conforme"}. Les fonds ont été réintégrés à votre solde.`,
+        description: `Votre demande de retrait de ${payout.amount.toLocaleString("fr-FR")} GNF a été rejetée. Motif: ${rejectionReason || "Non conforme"}. Les fonds ont été réintégrés à votre solde.`,
         createdAt: "À l'instant",
         isoDate: new Date().toISOString(),
         isRead: false,
@@ -450,5 +477,7 @@ export async function PATCH(req: NextRequest) {
       { success: false, error: "Erreur serveur lors de la mise à jour du retrait." },
       { status: 500 }
     );
+  } finally {
+    payoutProcessingLocks.delete(payoutId);
   }
 }

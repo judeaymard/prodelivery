@@ -92,7 +92,7 @@ export default function AdminCommissionsPage() {
   const handleExportCSV = () => {
     const csvContent =
       "data:text/csv;charset=utf-8," +
-      ["Date,Commande,E-commerçant,Montant COD,Commission Closing,Commission Livraison,Commission Totale ENO,Net Marchand,Statut"].join(",") +
+      ["Date,Commande,E-commerçant,Montant COD,Commission Closing,Commission Livraison,Commission Totale GuinéeGo,Net Marchand,Statut"].join(",") +
       "\n" +
       deliveredOrders
         .map((o) => {
@@ -102,11 +102,11 @@ export default function AdminCommissionsPage() {
             `"${o.createdAt}"`,
             `"${o.orderNumber}"`,
             `"${o.partnerName || "Partenaire"}"`,
-            `"${o.totalPrice} FCFA"`,
-            `"${closingFeeRule} FCFA"`,
-            `"${deliveryFeeRule} FCFA"`,
-            `"${comm} FCFA"`,
-            `"${net} FCFA"`,
+            `"${o.totalPrice} GNF"`,
+            `"${closingFeeRule} GNF"`,
+            `"${deliveryFeeRule} GNF"`,
+            `"${comm} GNF"`,
+            `"${net} GNF"`,
             `"Encaissée"`,
           ].join(",");
         })
@@ -114,7 +114,7 @@ export default function AdminCommissionsPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `commissions_eno_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `commissions_guineego_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -124,7 +124,7 @@ export default function AdminCommissionsPage() {
       {/* 👑 1. HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
         <div>
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Commissions & Revenus ENO</h1>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Commissions & Revenus GuinéeGo</h1>
           <p className="text-xs text-slate-500 mt-0.5">
             Suivi des revenus perçus par l&apos;agence (Télévente & Livraison) et calcul de la rentabilité nette.
           </p>
@@ -188,7 +188,7 @@ export default function AdminCommissionsPage() {
           <div className="flex items-center gap-2">
             <Sliders className="w-4 h-4 text-purple-600" />
             <h2 className="text-sm font-black uppercase tracking-wider text-slate-400">
-              Barème & Règles de Commission Standard ENO
+              Barème & Règles de Commission Standard GuinéeGo LAT
             </h2>
           </div>
           <span className="text-xs font-bold text-slate-500">Prélèvement automatique à la livraison</span>
@@ -204,7 +204,7 @@ export default function AdminCommissionsPage() {
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/70 space-y-1">
             <span className="text-[10px] font-bold uppercase text-slate-400 block">Frais de Livraison</span>
             <p className="text-lg font-black text-slate-900 font-mono">{formatCFA(deliveryFeeRule)}</p>
-            <p className="text-[11px] text-slate-500">Tarif standard Cotonou & Calavi.</p>
+            <p className="text-[11px] text-slate-500">Tarif standard Conakry & Kankan.</p>
           </div>
 
           <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200/70 space-y-1">
@@ -216,7 +216,7 @@ export default function AdminCommissionsPage() {
           <div className="p-4 rounded-2xl bg-purple-50 border border-purple-200/70 space-y-1">
             <span className="text-[10px] font-bold uppercase text-purple-700 block">Marge Nette / Colis</span>
             <p className="text-lg font-black text-purple-900 font-mono">+{formatCFA((closingFeeRule + deliveryFeeRule) - driverPayoutRule)}</p>
-            <p className="text-[11px] text-purple-800">Bénéfice direct acquis par ENO.</p>
+            <p className="text-[11px] text-purple-800">Bénéfice direct acquis par GuinéeGo.</p>
           </div>
         </div>
       </div>
@@ -235,7 +235,7 @@ export default function AdminCommissionsPage() {
                 <span className="text-[10px] font-bold text-slate-400 font-mono">{pc.count} colis</span>
               </div>
               <div className="flex items-center justify-between pt-1 border-t border-slate-200/60 text-xs">
-                <span className="text-slate-500">Commission ENO :</span>
+                <span className="text-slate-500">Commission GuinéeGo :</span>
                 <span className="font-mono font-bold text-purple-700">{formatCFA(pc.commissions)}</span>
               </div>
               <div className="flex items-center justify-between text-xs">
@@ -274,7 +274,7 @@ export default function AdminCommissionsPage() {
                 <th className="py-3 px-4">E-commerçant</th>
                 <th className="py-3 px-4">Client & Ville</th>
                 <th className="py-3 px-4 text-right">Montant COD</th>
-                <th className="py-3 px-4 text-right">Commission ENO</th>
+                <th className="py-3 px-4 text-right">Commission GuinéeGo</th>
                 <th className="py-3 px-4 text-right">Frais Livreur</th>
                 <th className="py-3 px-4 text-right">Net Marchand</th>
                 <th className="py-3 px-4 text-center">Statut Commission</th>

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -87,6 +87,7 @@ export default function PdgFinancePage() {
     rejectWithdrawal,
     payWithdrawal,
     addTransaction,
+    getDriverCodFunds,
   } = useOperations();
 
   const [activeTab, setActiveTab] = useState<FinanceTab>("OVERVIEW");
@@ -128,51 +129,71 @@ export default function PdgFinancePage() {
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // 1. Core Financial Metrics (Real calculations matching prompt)
+  // 1. Core Financial Metrics (Calculs dynamiques connectés à la source de vérité)
   const deliveredOrders = useMemo(() => orders.filter((o) => o.status === "LIVREE"), [orders]);
   
   // Total COD collected by drivers
-  const totalCodCollected = 18450000;
+  const totalCodCollected = useMemo(() => {
+    const fromCols = codCollections.reduce((sum, c) => sum + (c.collectedAmount || 0), 0);
+    const fromOrders = orders
+      .filter((o) => o.status === "LIVREE" && o.codCollected && !codCollections.some((c) => c.orderId === o.id))
+      .reduce((sum, o) => sum + (o.totalPrice || 0), 0);
+    return fromCols + fromOrders;
+  }, [codCollections, orders]);
+
   // Funds still held by drivers in their pockets
-  const fundsHeldByDrivers = 3250000;
+  const fundsHeldByDrivers = useMemo(() => {
+    return livreurs.reduce((sum, l) => sum + getDriverCodFunds(l.id).fundsToRemit, 0);
+  }, [livreurs, getDriverCodFunds]);
+
   // Funds remitted and verified in agency safe
-  const fundsRemittedToAgency = 15200000;
+  const fundsRemittedToAgency = useMemo(() => {
+    return codRemittances
+      .filter((r) => r.status === "VALIDATED" || r.status === "PARTIALLY_VALIDATED")
+      .reduce((sum, r) => sum + (r.amountValidated ?? r.receivedAmount ?? r.amountDeclared ?? 0), 0);
+  }, [codRemittances]);
+
   // Total due to merchants (Available + Pending)
-  const totalDueToMerchants = 9800000;
+  const totalDueToMerchants = useMemo(() => {
+    return partners.reduce((sum, p) => sum + (p.availableBalance || 0) + (p.pendingBalance || 0), 0);
+  }, [partners]);
+
   // Pending withdrawal count
-  const pendingWithdrawalCount = payoutRequests.filter((p) => p.status === "PENDING" || p.status === "IN_VERIFICATION").length || 12;
+  const pendingWithdrawalCount = useMemo(() => {
+    return payoutRequests.filter((p) => p.status === "PENDING" || p.status === "IN_VERIFICATION").length;
+  }, [payoutRequests]);
+
   // Net agency revenue
-  const agencyRevenues = 2450000;
+  const agencyRevenues = useMemo(() => {
+    return orders
+      .filter((o) => o.status === "LIVREE")
+      .reduce((sum, o) => sum + (o.serviceFee || 800) + (o.deliveryFee || 2000) + Math.round((o.totalPrice * 0.05)), 0);
+  }, [orders]);
 
   // Driver breakdown
   const driverFundsSummary = useMemo(() => {
     return livreurs.map((l) => {
-      const driverCols = codCollections.filter((c) => c.livreurId === l.id);
-      const ordersCount = driverCols.length > 0 ? driverCols.length : 12;
-      const totalExpected = driverCols.reduce((sum, c) => sum + c.expectedAmount, 0) || (l.id === "liv-1" ? 300000 : l.id === "liv-2" ? 250000 : 180000);
-      const totalCollected = driverCols.reduce((sum, c) => sum + c.collectedAmount, 0) || totalExpected;
-      const totalRemitted = l.id === "liv-1" ? 200000 : l.id === "liv-2" ? 200000 : 120000;
-      const remainingHeld = totalCollected - totalRemitted;
-
+      const funds = getDriverCodFunds(l.id);
       return {
         livreur: l,
-        ordersCount,
-        totalExpected,
-        totalCollected,
-        totalRemitted,
-        remainingHeld,
-        lastRemittance: l.lastActivityAt || "Aujourd'hui à 10:45",
-        status: remainingHeld > 150000 ? "ATTENTION_PLAFOND" : "NORMAL",
+        ordersCount: funds.unremittedOrdersCount,
+        totalExpected: funds.totalCodCollected,
+        totalCollected: funds.totalCodCollected,
+        totalRemitted: funds.totalFundsRemitted,
+        remainingHeld: funds.fundsToRemit,
+        lastRemittance: funds.lastRemittanceDate,
+        status: funds.fundsToRemit > 100000 ? "ATTENTION_PLAFOND" : "NORMAL",
       };
     });
-  }, [livreurs, codCollections]);
+  }, [livreurs, getDriverCodFunds]);
 
   // Handlers
   const handleCreateRemittance = (e: React.FormEvent) => {
     e.preventDefault();
     if (!remittanceAmount) return;
     const amt = parseInt(remittanceAmount) || 0;
-    declareRemittance(remittanceLivreurId, amt, ["cmd_001", "cmd_003"], remittanceNotes);
+    const driverFunds = getDriverCodFunds(remittanceLivreurId);
+    declareRemittance(remittanceLivreurId, amt, driverFunds.unremittedOrderIds, remittanceNotes);
     setShowRemittanceModal(false);
     setRemittanceAmount("");
     setRemittanceNotes("");
@@ -240,7 +261,7 @@ export default function PdgFinancePage() {
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Remise de fonds</span>
+            <span>Remise de fonds</span>
           </button>
         </div>
       </div>
@@ -337,61 +358,85 @@ export default function PdgFinancePage() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 space-y-1 text-amber-950">
-                <span className="font-bold flex items-center gap-1.5">
-                  <Bike className="w-3.5 h-3.5 text-amber-700" />
-                  <span>Fonds élevés chez un livreur</span>
-                </span>
-                <p className="text-[11px] text-amber-800">
-                  Rachad A. détient 100 000 FCFA non remis depuis la tournée d&apos;hier.
-                </p>
-                <button
-                  onClick={() => setActiveTab("DRIVER_FUNDS")}
-                  className="text-[10px] font-bold text-amber-900 underline mt-1 block cursor-pointer"
-                >
-                  Exiger remise de fonds →
-                </button>
-              </div>
+            {(() => {
+              const driversWithPendingFunds = livreurs.filter((l) => getDriverCodFunds(l.id).fundsToRemit > 0);
+              const collectionsWithDiscrepancy = codCollections.filter((c) => (c.discrepancy || 0) !== 0);
+              const pendingPayoutList = payoutRequests.filter((p) => p.status === "PENDING");
 
-              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 space-y-1 text-rose-950">
-                <span className="font-bold flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 text-rose-700" />
-                  <span>Écart signalé sur CMD-1047</span>
-                </span>
-                <p className="text-[11px] text-rose-800">
-                  Montant attendu : 25 000 FCFA | Collecté : 20 000 FCFA (-5 000 FCFA).
-                </p>
-                <button
-                  onClick={() => setActiveTab("COD_COLLECTIONS")}
-                  className="text-[10px] font-bold text-rose-900 underline mt-1 block cursor-pointer"
-                >
-                  Examiner la justification →
-                </button>
-              </div>
+              if (driversWithPendingFunds.length === 0 && collectionsWithDiscrepancy.length === 0 && pendingPayoutList.length === 0) {
+                return (
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-center text-xs text-slate-500 space-y-1">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-600 mx-auto" />
+                    <span className="font-bold text-slate-800 block">Trésorerie équilibrée</span>
+                    <p className="text-[11px] text-slate-400">Aucune anomalie de caisse, fonds non remis ou retrait en attente.</p>
+                  </div>
+                );
+              }
 
-              <div className="p-3.5 rounded-2xl bg-purple-50 border border-purple-200 space-y-1 text-purple-950">
-                <span className="font-bold flex items-center gap-1.5">
-                  <Landmark className="w-3.5 h-3.5 text-purple-700" />
-                  <span>Demande LeekPay en attente</span>
-                </span>
-                <p className="text-[11px] text-purple-800">
-                  Afrimarket demande un virement de 500 000 FCFA (Solde réservé).
-                </p>
-                <button
-                  onClick={() => setActiveTab("WITHDRAWALS")}
-                  className="text-[10px] font-bold text-purple-900 underline mt-1 block cursor-pointer"
-                >
-                  Valider et payer →
-                </button>
-              </div>
-            </div>
+              return (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  {driversWithPendingFunds.length > 0 && (
+                    <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 space-y-1 text-amber-950">
+                      <span className="font-bold flex items-center gap-1.5">
+                        <Bike className="w-3.5 h-3.5 text-amber-700" />
+                        <span>Fonds détenus sur le terrain</span>
+                      </span>
+                      <p className="text-[11px] text-amber-800">
+                        {driversWithPendingFunds[0].name} détient {formatCFA(getDriverCodFunds(driversWithPendingFunds[0].id).fundsToRemit)} à remettre.
+                      </p>
+                      <button
+                        onClick={() => setActiveTab("DRIVER_FUNDS")}
+                        className="text-[10px] font-bold text-amber-900 underline mt-1 block cursor-pointer"
+                      >
+                        Exiger remise de fonds →
+                      </button>
+                    </div>
+                  )}
+
+                  {collectionsWithDiscrepancy.length > 0 && (
+                    <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 space-y-1 text-rose-950">
+                      <span className="font-bold flex items-center gap-1.5">
+                        <AlertCircle className="w-3.5 h-3.5 text-rose-700" />
+                        <span>Écart signalé sur {collectionsWithDiscrepancy[0].orderNumber}</span>
+                      </span>
+                      <p className="text-[11px] text-rose-800">
+                        Montant attendu : {formatCFA(collectionsWithDiscrepancy[0].expectedAmount)} | Collecté : {formatCFA(collectionsWithDiscrepancy[0].collectedAmount)}.
+                      </p>
+                      <button
+                        onClick={() => setActiveTab("COD_COLLECTIONS")}
+                        className="text-[10px] font-bold text-rose-900 underline mt-1 block cursor-pointer"
+                      >
+                        Examiner la justification →
+                      </button>
+                    </div>
+                  )}
+
+                  {pendingPayoutList.length > 0 && (
+                    <div className="p-3.5 rounded-2xl bg-purple-50 border border-purple-200 space-y-1 text-purple-950">
+                      <span className="font-bold flex items-center gap-1.5">
+                        <Landmark className="w-3.5 h-3.5 text-purple-700" />
+                        <span>Demande de retrait en attente</span>
+                      </span>
+                      <p className="text-[11px] text-purple-800">
+                        {pendingPayoutList[0].partnerName} demande {formatCFA(pendingPayoutList[0].amount)} ({pendingPayoutList[0].operator}).
+                      </p>
+                      <button
+                        onClick={() => setActiveTab("WITHDRAWALS")}
+                        className="text-[10px] font-bold text-purple-900 underline mt-1 block cursor-pointer"
+                      >
+                        Valider et payer →
+                      </button>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
 
           {/* 🔄 SCHÉMA DU CYCLE COD */}
           <div className="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.02)] space-y-3">
             <h2 className="text-sm font-black uppercase tracking-wider text-slate-400 border-b border-slate-100 pb-2.5">
-              Cycle de Vie Financier COD (Règle d&apos;Arbitrage ENO)
+              Cycle de Vie Financier COD (Règle d&apos;Arbitrage GuinéeGo LAT)
             </h2>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2 text-center text-[10px]">
@@ -550,7 +595,7 @@ export default function PdgFinancePage() {
                 className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs cursor-pointer flex items-center gap-1.5"
               >
                 <Plus className="w-3.5 h-3.5" />
-                <span>+ Déclarer une Remise</span>
+                <span>Déclarer une Remise</span>
               </button>
             </div>
 
@@ -626,7 +671,7 @@ export default function PdgFinancePage() {
                         {rem.discrepancyAmount ? (
                           <span className="text-rose-600 font-mono">{formatCFA(rem.discrepancyAmount)}</span>
                         ) : (
-                          <span className="text-slate-400">0 FCFA</span>
+                          <span className="text-slate-400">0 GNF</span>
                         )}
                       </td>
                       <td className="py-3 px-4 text-center font-mono">{rem.ordersCount}</td>
@@ -710,9 +755,16 @@ export default function PdgFinancePage() {
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
                 {partners.map((p) => {
-                  const pendingAmt = p.pendingBalance || 250000;
-                  const availAmt = p.availableBalance || 4820000;
-                  const withdrawnAmt = 12000000;
+                  const pendingAmt = p.pendingBalance || 0;
+                  const availAmt = p.availableBalance || 0;
+                  const withdrawnAmt = payoutRequests
+                    .filter((po) => po.partnerId === p.id && po.status === "PAID")
+                    .reduce((sum, po) => sum + po.amount, 0);
+
+                  const partnerDeliveredOrders = orders.filter(
+                    (o) => o.partnerId === p.id && o.status === "LIVREE"
+                  );
+                  const lastDeliveredOrder = partnerDeliveredOrders[partnerDeliveredOrders.length - 1];
 
                   return (
                     <tr key={p.id} className="hover:bg-slate-50/80 transition-colors">
@@ -728,18 +780,32 @@ export default function PdgFinancePage() {
                         {formatCFA(withdrawnAmt)}
                       </td>
                       <td className="py-3.5 px-4 text-slate-500 text-[11px] font-mono">
-                        {p.lastPayoutDate || "02 Septembre 2026"}
+                        {p.lastPayoutDate || "—"}
                       </td>
                       <td className="py-3.5 px-4 text-right">
                         <button
                           onClick={() => {
-                            setShowCalculationOrder({
-                              orderNumber: "CMD-1048",
-                              collected: 25000,
-                              deliveryFee: 2000,
-                              agencyCommission: 1000,
-                              netPartner: 22000,
-                            });
+                            if (lastDeliveredOrder) {
+                              const collected = lastDeliveredOrder.totalPrice || 0;
+                              const deliveryFee = lastDeliveredOrder.deliveryFee || 0;
+                              const agencyCommission = lastDeliveredOrder.serviceFee || 0;
+                              const netPartner = Math.max(0, collected - deliveryFee - agencyCommission);
+                              setShowCalculationOrder({
+                                orderNumber: lastDeliveredOrder.orderNumber || "—",
+                                collected,
+                                deliveryFee,
+                                agencyCommission,
+                                netPartner,
+                              });
+                            } else {
+                              setShowCalculationOrder({
+                                orderNumber: "Aucune commande livrée",
+                                collected: 0,
+                                deliveryFee: 0,
+                                agencyCommission: 0,
+                                netPartner: 0,
+                              });
+                            }
                           }}
                           className="px-3 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-[11px] cursor-pointer"
                         >
@@ -808,7 +874,7 @@ export default function PdgFinancePage() {
                     <td className="py-3.5 px-4 font-mono text-slate-700 text-[11px]">
                       {p.operator === "LEEKPAY" && (p.leekpayPhone || p.phone)}
                       {p.operator === "BINANCE_PAY" && `PayID: ${p.binancePayId}`}
-                      {p.operator === "USDT" && `${p.cryptoAddress?.slice(0, 8)}... (${p.cryptoEstimatedUsdt || 600} USDT)`}
+                      {p.operator === "USDT" && `${p.cryptoAddress?.slice(0, 8)}... (${p.cryptoEstimatedUsdt ? `${p.cryptoEstimatedUsdt} USDT` : "—"})`}
                     </td>
                     <td className="py-3.5 px-4 font-mono text-slate-500 text-[11px]">
                       {p.requestedAt.replace("T", " ")}
@@ -953,25 +1019,25 @@ export default function PdgFinancePage() {
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
             <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-2xs space-y-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-purple-600 block">Commission Agence</span>
-              <p className="text-xl font-black font-mono text-purple-700">2 450 000 FCFA</p>
+              <p className="text-xl font-black font-mono text-purple-700">2 450 000 GNF</p>
               <p className="text-[11px] text-slate-500">Revenus nets acquis ce mois</p>
             </div>
 
             <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-2xs space-y-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-slate-700 block">Commissions Closeuses</span>
-              <p className="text-xl font-black font-mono text-slate-900">920 000 FCFA</p>
-              <p className="text-[11px] text-slate-500">750 FCFA / confirmation livrée</p>
+              <p className="text-xl font-black font-mono text-slate-900">920 000 GNF</p>
+              <p className="text-[11px] text-slate-500">750 GNF / confirmation livrée</p>
             </div>
 
             <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-2xs space-y-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-slate-700 block">Commissions Livreurs</span>
-              <p className="text-xl font-black font-mono text-slate-900">1 840 000 FCFA</p>
-              <p className="text-[11px] text-slate-500">1 200 à 1 500 FCFA / course</p>
+              <p className="text-xl font-black font-mono text-slate-900">1 840 000 GNF</p>
+              <p className="text-[11px] text-slate-500">1 200 à 1 500 GNF / course</p>
             </div>
 
             <div className="bg-white p-5 rounded-3xl border border-slate-200/80 shadow-2xs space-y-1">
               <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-600 block">Marge Nette Agence</span>
-              <p className="text-xl font-black font-mono text-emerald-700">1 530 000 FCFA</p>
+              <p className="text-xl font-black font-mono text-emerald-700">1 530 000 GNF</p>
               <p className="text-[11px] text-emerald-800">Rentabilité nette consolidée</p>
             </div>
           </div>
@@ -1011,7 +1077,7 @@ export default function PdgFinancePage() {
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Montant Déposé en Espèces (FCFA) *</label>
+                <label className="font-bold text-slate-700 block mb-1">Montant Déposé en Espèces (GNF) *</label>
                 <input
                   type="number"
                   required
@@ -1080,7 +1146,7 @@ export default function PdgFinancePage() {
               </div>
 
               <div>
-                <label className="font-bold text-slate-700 block mb-1">Montant Réellement Collecté (FCFA) *</label>
+                <label className="font-bold text-slate-700 block mb-1">Montant Réellement Collecté (GNF) *</label>
                 <input
                   type="number"
                   required
@@ -1150,7 +1216,7 @@ export default function PdgFinancePage() {
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Montant Demandé</span>
                 <p className="text-2xl font-black font-mono text-emerald-400">{formatCFA(selectedWithdrawal.amount)}</p>
                 <div className="flex justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-800">
-                  <span>Solde avant : {formatCFA(selectedWithdrawal.balanceBefore || 4820000)}</span>
+                  <span>Solde avant : {formatCFA(selectedWithdrawal.balanceBefore || 0)}</span>
                   <span className="text-amber-300 font-bold">Montant réservé : {formatCFA(selectedWithdrawal.amount)}</span>
                 </div>
               </div>
@@ -1303,7 +1369,7 @@ export default function PdgFinancePage() {
                   <span className="font-mono font-bold text-slate-900">+{formatCFA(showCalculationOrder.collected)}</span>
                 </div>
                 <div className="flex justify-between text-rose-700">
-                  <span>Frais de Livraison Cotonou :</span>
+                  <span>Frais de Livraison Conakry :</span>
                   <span className="font-mono font-bold">-{formatCFA(showCalculationOrder.deliveryFee)}</span>
                 </div>
                 <div className="flex justify-between text-purple-700">

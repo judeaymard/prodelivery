@@ -45,7 +45,7 @@ export default function AdminLivreursPage() {
   const [newLastName, setNewLastName] = useState("");
   const [newPhone, setNewPhone] = useState("+229 01 ");
   const [newEmail, setNewEmail] = useState("");
-  const [newZone, setNewZone] = useState("Cotonou Centre");
+  const [newZone, setNewZone] = useState("Conakry Centre");
   const [newSecondaryZones, setNewSecondaryZones] = useState("Akpakpa, Cadjehoun");
   const [newVehicle, setNewVehicle] = useState("Moto Yamaha YB-125");
   const [newPlate, setNewPlate] = useState("RB-0000-XX");
@@ -80,13 +80,18 @@ export default function AdminLivreursPage() {
   }, [livreurs, statusFilter, zoneFilter, searchTerm]);
 
   // Compute Fleet KPIs
-  const totalDrivers = 24;
-  const availableNow = livreurs.filter((l) => (l.availabilityStatus || "AVAILABLE") === "AVAILABLE").length + 9;
-  const inTransitCount = livreurs.filter((l) => l.availabilityStatus === "IN_TRANSIT").length + 5;
-  const unavailableCount = livreurs.filter((l) => l.availabilityStatus === "PAUSED" || l.availabilityStatus === "OFFLINE" || l.availabilityStatus === "UNAVAILABLE").length + 3;
-  const activeOrdersCount = orders.filter((o) => o.status === "EN_COURS").length + 34;
-  const fleetSuccessRate = "94,2 %";
-  const pendingCommissions = 182500;
+  const totalDrivers = livreurs.length;
+  const availableNow = livreurs.filter((l) => (l.availabilityStatus || "AVAILABLE") === "AVAILABLE").length;
+  const inTransitCount = livreurs.filter((l) => l.availabilityStatus === "IN_TRANSIT").length;
+  const unavailableCount = livreurs.filter((l) => l.availabilityStatus === "PAUSED" || l.availabilityStatus === "OFFLINE" || l.availabilityStatus === "UNAVAILABLE").length;
+  const activeOrdersCount = orders.filter((o) => o.status === "EN_COURS").length;
+  const deliveredCount = orders.filter((o) => o.status === "LIVREE").length;
+  const completedCount = orders.filter((o) => ["LIVREE", "REFUSEE", "RETOURNEE", "ANNULEE"].includes(o.status)).length;
+  const fleetSuccessRate = completedCount > 0 ? `${Math.round((deliveredCount / completedCount) * 100)} %` : "0 %";
+  const pendingCommissions = livreurs.reduce(
+    (sum, l) => sum + ((l.commissionPerDelivery || 0) * (l.deliveredTodayCount || 0)),
+    0
+  );
   const handleCreateLivreur = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newLastName || !newPhone) return;
@@ -94,7 +99,7 @@ export default function AdminLivreursPage() {
     const fullName = `${newFirstName.trim()} ${newLastName.trim()}`.trim();
     addLivreur({
       name: fullName,
-      email: newEmail || `${newLastName.toLowerCase()}@enolivraison.com`,
+      email: newEmail || `${newLastName.toLowerCase()}@guineego.com`,
       phone: newPhone,
       zone: newZone,
       secondaryZones: newSecondaryZones.split(",").map((s) => s.trim()).filter(Boolean),
@@ -140,15 +145,15 @@ export default function AdminLivreursPage() {
             `"${l.zone}"`,
             `"${l.availabilityStatus || "AVAILABLE"}"`,
             `"${l.assignedOrdersCount}/${l.maxActiveCapacity || 8}"`,
-            `"${l.successRate || 95}%"`,
-            `"${(l.deliveredTodayCount || 0) * (l.commissionPerDelivery || 1500)} FCFA"`,
+            `"${l.successRate || 0}%"`,
+            `"${(l.deliveredTodayCount || 0) * (l.commissionPerDelivery || 1500)} GNF"`,
           ].join(",")
         )
         .join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `flotte_livreurs_eno_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `flotte_livreurs_guineego_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -178,7 +183,7 @@ export default function AdminLivreursPage() {
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Ajouter un livreur</span>
+            <span>Ajouter un livreur</span>
           </button>
         </div>
       </div>
@@ -318,7 +323,7 @@ export default function AdminLivreursPage() {
 
                 <div className="flex justify-between items-center text-[10px] text-slate-400 pt-1 border-t border-slate-200/60">
                   <span>Dernière activité :</span>
-                  <span className="font-medium text-slate-600">{l.lastActivityAt || "Il y a 5 min"}</span>
+                  <span className="font-medium text-slate-600">{l.lastActivityAt || "—"}</span>
                 </div>
               </div>
             );
@@ -441,7 +446,7 @@ export default function AdminLivreursPage() {
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-slate-900">
-                        {liv.successRate || 95}%
+                        {liv.successRate || 0}%
                       </td>
 
                       {/* 💰 Fonds COD à Remettre */}
@@ -474,7 +479,7 @@ export default function AdminLivreursPage() {
                       </td>
 
                       <td className="py-3.5 px-5 text-slate-500 text-[11px]">
-                        {liv.lastActivityAt || "Il y a 10 min"}
+                        {liv.lastActivityAt || "—"}
                       </td>
 
                       <td className="py-3.5 px-5 text-right" onClick={(e) => e.stopPropagation()}>
@@ -564,7 +569,7 @@ export default function AdminLivreursPage() {
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[9px]">Taux</span>
-                      <span className="font-bold text-slate-900">{liv.successRate || 95}%</span>
+                      <span className="font-bold text-slate-900">{liv.successRate || 0}%</span>
                     </div>
                   </div>
                 </div>
@@ -631,7 +636,7 @@ export default function AdminLivreursPage() {
                     <label className="font-bold text-slate-700 block mb-1">Email professionnel</label>
                     <input
                       type="email"
-                      placeholder="Ex: david.k@enolivraison.com"
+                      placeholder="Ex: david.k@guineego.com"
                       value={newEmail}
                       onChange={(e) => setNewEmail(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
@@ -652,11 +657,11 @@ export default function AdminLivreursPage() {
                       onChange={(e) => setNewZone(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-bold"
                     >
-                      <option value="Cotonou Centre">Cotonou Centre</option>
-                      <option value="Cotonou Nord">Cotonou Nord</option>
-                      <option value="Cotonou Littoral">Cotonou Littoral</option>
-                      <option value="Abomey-Calavi">Abomey-Calavi</option>
-                      <option value="Porto-Novo">Porto-Novo</option>
+                      <option value="Conakry Centre">Conakry Centre</option>
+                      <option value="Conakry Nord">Conakry Nord</option>
+                      <option value="Conakry Littoral">Conakry Littoral</option>
+                      <option value="Abomey-Kankan">Abomey-Kankan</option>
+                      <option value="Mamou">Mamou</option>
                     </select>
                   </div>
                   <div>
@@ -705,7 +710,7 @@ export default function AdminLivreursPage() {
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Commission / Livraison (FCFA)</label>
+                    <label className="font-bold text-slate-700 block mb-1">Commission / Livraison (GNF)</label>
                     <input
                       type="number"
                       value={newCommission}
@@ -839,34 +844,11 @@ export default function AdminLivreursPage() {
                         c.livreurId === selectedDriverFundsModal.livreurId &&
                         c.remittanceStatus !== "VALIDATED"
                     ).length === 0 && (
-                      <>
-                        <tr className="hover:bg-slate-50/50">
-                          <td className="py-2.5 px-3 font-mono font-bold text-slate-900">CMD-1048</td>
-                          <td className="py-2.5 px-3 font-medium text-slate-800">Afrimarket</td>
-                          <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px]">Aujourd&apos;hui 10:15</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-black text-amber-700">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                              Non Remis
-                            </span>
-                          </td>
-                        </tr>
-                        <tr className="hover:bg-slate-50/50">
-                          <td className="py-2.5 px-3 font-mono font-bold text-slate-900">CMD-1042</td>
-                          <td className="py-2.5 px-3 font-medium text-slate-800">Dossou Fashion</td>
-                          <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px]">Aujourd&apos;hui 09:20</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-black text-amber-700">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                              Non Remis
-                            </span>
-                          </td>
-                        </tr>
-                      </>
+                      <tr>
+                        <td colSpan={7} className="py-8 text-center text-slate-400 font-medium">
+                          Aucun encaissement en attente de remise pour ce coursier.
+                        </td>
+                      </tr>
                     )}
                   </tbody>
                   <tfoot className="bg-slate-50 font-bold border-t border-slate-200 text-slate-900">

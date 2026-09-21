@@ -98,11 +98,11 @@ export default function AdminParametresPage() {
   // 1. STATE & HANDLERS: PROFILE
   // =========================================================================
   const [profileForm, setProfileForm] = useState({
-    firstName: currentUserProfile.firstName || "Jude",
-    lastName: currentUserProfile.lastName || "Sinaberogui",
-    email: currentUserProfile.email || "jude@enolivraison.com",
-    phone: currentUserProfile.phone || "+229 01 64 29 18 84",
-    zone: currentUserProfile.zone || "Siège Cotonou",
+    firstName: currentUserProfile.firstName || "",
+    lastName: currentUserProfile.lastName || "",
+    email: currentUserProfile.email || "",
+    phone: currentUserProfile.phone || "",
+    zone: currentUserProfile.zone || "",
   });
   const [passwordModalOpen, setPasswordModalOpen] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
@@ -150,7 +150,7 @@ export default function AdminParametresPage() {
     email: "",
     phone: "",
     role: "CLOSEUSE" as UserRole,
-    zone: "Cotonou",
+    zone: "Conakry",
     status: "active" as PlatformUserStatus,
   });
 
@@ -193,7 +193,7 @@ export default function AdminParametresPage() {
       email: "",
       phone: "",
       role: "CLOSEUSE",
-      zone: "Cotonou",
+      zone: "Conakry",
       status: "active",
     });
     showToast("Nouvel utilisateur créé avec succès dans l'annuaire !");
@@ -328,7 +328,7 @@ export default function AdminParametresPage() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-slate-900 animate-pulse" />
             <span className="text-[11px] font-black uppercase tracking-wider text-slate-400">
-              Gouvernance & Contrôle Global ENO 2027
+              Gouvernance & Contrôle Global GuinéeGo LAT 2027
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
@@ -715,7 +715,7 @@ export default function AdminParametresPage() {
                         </td>
 
                         <td className="py-3.5 px-4 whitespace-nowrap font-medium text-slate-600">
-                          {u.zone || "Cotonou"}
+                          {u.zone || "Conakry"}
                         </td>
 
                         <td className="py-3.5 px-4 whitespace-nowrap">
@@ -985,7 +985,7 @@ export default function AdminParametresPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-bold text-slate-700 block mb-1">
-                    Plafond max espèces COD par livreur (FCFA)
+                    Plafond max espèces COD par livreur (GNF)
                   </label>
                   <input
                     type="number"
@@ -1053,7 +1053,7 @@ export default function AdminParametresPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="text-xs font-bold text-slate-700 block mb-1">
-                  Frais de Closing par Colis (FCFA)
+                  Frais de Closing par Colis (GNF)
                 </label>
                 <input
                   type="number"
@@ -1067,7 +1067,7 @@ export default function AdminParametresPage() {
 
               <div>
                 <label className="text-xs font-bold text-slate-700 block mb-1">
-                  Frais de Livraison Standard (FCFA)
+                  Frais de Livraison Standard (GNF)
                 </label>
                 <input
                   type="number"
@@ -1097,7 +1097,7 @@ export default function AdminParametresPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
               <div>
                 <label className="text-xs font-bold text-slate-700 block mb-1">
-                  Seuil Minimal de Retrait Marchand (FCFA)
+                  Seuil Minimal de Retrait Marchand (GNF)
                 </label>
                 <input
                   type="number"

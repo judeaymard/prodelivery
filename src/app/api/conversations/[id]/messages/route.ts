@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { saveMessageToConversation, getConversationById } from "@/lib/server-db";
+import { saveMessageToConversation, getConversationById, saveConversation } from "@/lib/server-db";
 import { ChatMessage, ChatAttachment } from "@/lib/types";
 
 export async function POST(
@@ -15,6 +15,9 @@ export async function POST(
       attachments = [],
       sender = "PDG",
       senderName = "Jude S. (PDG)",
+      assignedAgentName,
+      assignedAgentRole,
+      status,
     } = body;
 
     const conv = await getConversationById(conversationId);
@@ -46,7 +49,15 @@ export async function POST(
       attachmentSize: normalizedAttachments[0]?.fileSize,
     };
 
-    const result = await saveMessageToConversation(conversationId, newMessage);
+    const convUpdates = assignedAgentName
+      ? {
+          assignedAgentName,
+          assignedAgentRole: assignedAgentRole || "Support",
+          status: (status || "OPEN") as any,
+        }
+      : undefined;
+
+    const result = await saveMessageToConversation(conversationId, newMessage, convUpdates);
 
     return NextResponse.json(
       {

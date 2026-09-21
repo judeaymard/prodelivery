@@ -65,6 +65,11 @@ export interface Order {
   callCount?: number;
   codCollected?: boolean;
   deliveryTimeSlot?: string;
+  source?: 'Shopify' | 'YouCan' | 'Import IA' | 'ENO' | string;
+  priority?: 'NORMAL' | 'HIGH' | 'URGENT';
+  scheduledCallback?: string;
+  lastCallResult?: 'CONTACT_ESTABLISHED' | 'NO_ANSWER' | 'CALLBACK_REQUESTED' | 'WRONG_NUMBER' | 'CLIENT_REFUSED' | string;
+  lastCallAt?: string;
 }
 
 // Statuts opérationnels des livreurs
@@ -143,7 +148,9 @@ export type PayoutStatus =
   | 'VALIDATED'
   | 'PAID'
   | 'REJECTED'
-  | 'FAILED';
+  | 'FAILED'
+  | 'BLOCKED'
+  | 'CANCELLED';
 
 // Demande de Retrait Financier E-commerçant
 export interface PayoutRequest {
@@ -190,7 +197,8 @@ export type RemittanceDeliveryStatus =
   | 'REMITTANCE_PENDING'
   | 'REMITTED'
   | 'VALIDATED'
-  | 'DISCREPANCY_DETECTED';
+  | 'DISCREPANCY_DETECTED'
+  | 'PARTIALLY_REMITTED';
 
 // Fiche Encaissement COD
 export interface CodCollection {
@@ -238,6 +246,9 @@ export interface TreasuryManagerProfile {
 export interface DriverCodFinancialSummary {
   livreurId: string;
   livreurName: string;
+  livreurPhone?: string;
+  livreurZone?: string;
+  livreurAvatar?: string;
   totalCodCollected: number;
   totalFundsRemitted: number;
   fundsToRemit: number; // Toujours >= 0 (Montant réellement dû sur colis non encore remis)
@@ -245,9 +256,16 @@ export interface DriverCodFinancialSummary {
   unremittedOrderIds: string[];
   lastRemittanceDate?: string;
   nextRemittanceDeadline?: string;
+  holdingDuration?: string;
+  operationalStatus?: 'À recevoir' | 'Échéance proche' | 'En retard' | 'Remise partielle' | 'Écart détecté' | 'En vérification';
   ceilingThreshold: number; // Seuil d'alerte (ex: 100 000 ou 150 000 FCFA)
   statusLevel: 'ZERO' | 'NORMAL' | 'ATTENTION' | 'URGENT';
   statusLabel: string;
+  openDiscrepanciesCount?: number;
+  openDiscrepancyAmount?: number;
+  hasDiscrepancy?: boolean;
+  isAnomaly?: boolean;
+  oldestCollectionDate?: string;
 }
 
 // Statuts d'une Opération de Remise de Fonds
@@ -301,13 +319,18 @@ export type TransactionType =
   | 'ENCAISSEMENT_COD'
   | 'LIVRAISON_ENCAISSEE'
   | 'REMISE_LIVREUR'
+  | 'REMISE_COMPLEMENTAIRE'
   | 'CREDIT_MARCHAND'
   | 'MONTANT_RESERVE'
   | 'RETRAIT'
+  | 'VIREMENT'
   | 'COMMISSION_ENO'
   | 'COMMISSION_AGENCE'
   | 'COMMISSION_CLOSEUSE'
   | 'COMMISSION_LIVREUR'
+  | 'RAPPROCHEMENT'
+  | 'ECART'
+  | 'RESOLUTION_ECART'
   | 'CORRECTION_VALIDEE'
   | 'DEPENSE'
   | 'AJUSTEMENT';
@@ -323,6 +346,13 @@ export interface FinancialTransaction {
   livreurId?: string;
   livreurName?: string;
   orderNumber?: string;
+  orderId?: string;
+  sourceType?: 'ENCAISSEMENT' | 'REMISE' | 'RETRAIT' | 'COMMISSION' | 'ECART' | 'MANUEL';
+  sourceId?: string;
+  sourceRef?: string;
+  accountOrigin?: string;
+  accountDestination?: string;
+  balanceBefore?: number;
   inflow: number; // Entrée de fonds
   outflow: number; // Sortie de fonds
   balanceAfter: number;
@@ -375,6 +405,44 @@ export interface Product {
   deliveredCount: number;
   partnerId: string;
   createdAt?: string;
+}
+
+// Statuts et Types des Commissions ENO
+export type CommissionType =
+  | 'COMMISSION_LIVRAISON'
+  | 'COMMISSION_RETRAIT'
+  | 'COMMISSION_TRANSACTION'
+  | 'COMMISSION_SERVICE';
+
+export type CommissionStatus =
+  | 'CALCULEE'
+  | 'A_PERCEVOIR'
+  | 'PARTIELLE'
+  | 'PERCUE'
+  | 'A_VERIFIER'
+  | 'ANNULEE';
+
+export interface EnoCommission {
+  id: string;
+  reference: string;
+  date: string;
+  type: CommissionType;
+  partnerId: string;
+  partnerName: string;
+  baseAmount: number;
+  rate: number; // en % (lu depuis la configuration ou contrat partenaire)
+  calculatedAmount: number;
+  collectedAmount: number; // Déjà perçu / prélevé
+  remainingAmount: number; // Reste à percevoir
+  status: CommissionStatus;
+  orderId?: string;
+  orderNumber?: string;
+  payoutId?: string;
+  payoutReference?: string;
+  origin: string; // Description de la chaîne d'origine
+  calculationFormula: string;
+  notes?: string;
+  isAnomaly?: boolean;
 }
 
 // Stats du dashboard
@@ -648,6 +716,13 @@ export interface GlobalAuditLog {
   userAgent?: string;
   financeTxRef?: string; // Lien direct avec le Journal Financier si pertinent
   isSensitive?: boolean;
+  amount?: number;
+  currency?: string;
+  partnerId?: string;
+  partnerName?: string;
+  orderId?: string;
+  payoutId?: string;
+  remittanceId?: string;
 }
 
 export interface AuditSessionLog {

@@ -122,24 +122,39 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
   };
 
   const badge = getStatusBadge(livreur.availabilityStatus);
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const deliveredOrders = assignedOrders.filter((o) => o.status === "LIVREE");
+  const completedOrders = assignedOrders.filter((o) => ["LIVREE", "REFUSEE", "RETOURNEE", "ANNULEE"].includes(o.status));
+  const realDeliveredToday = livreur.deliveredTodayCount || deliveredOrders.filter((o) => o.deliveredAt?.startsWith(todayStr) || o.createdAt?.startsWith(todayStr)).length;
+  const realDeliveredWeek = livreur.deliveredWeekCount || deliveredOrders.length;
+  const realDeliveredMonth = livreur.deliveredMonthCount || deliveredOrders.length;
+  const realSuccessRate = completedOrders.length > 0 ? Math.round((deliveredOrders.length / completedOrders.length) * 100) : (livreur.successRate || 0);
+
   // 7-day delivery activity for chart
-  const weekActivity = [
-    { day: "Lun", count: 7 },
-    { day: "Mar", count: 9 },
-    { day: "Mer", count: 6 },
-    { day: "Jeu", count: 11 },
-    { day: "Ven", count: 8 },
-    { day: "Sam", count: 12 },
-    { day: "Dim", count: livreur.deliveredTodayCount || 6 },
-  ];
+  const weekDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  const weekActivity = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (6 - i));
+    const dayIso = d.toISOString().slice(0, 10);
+    const dayLabel = weekDays[d.getDay()];
+    const count = deliveredOrders.filter((o) => (o.deliveredAt || o.createdAt || "").startsWith(dayIso)).length;
+    return { day: dayLabel, count };
+  });
   const maxDayCount = Math.max(...weekActivity.map((w) => w.count), 1);
 
-  // Timeline mock items
+  // Real timeline events from assigned orders and remittances
+  const driverRemittances = codRemittances.filter((r) => r.livreurId === livreur.id);
   const timelineEvents = [
-    { time: "Aujourd'hui — 18:42", text: "Commande CMD-1048 livrée avec succès", icon: CheckCircle2 },
-    { time: "Aujourd'hui — 17:31", text: "Commande CMD-1041 assignée par Dispatch", icon: Package },
-    { time: "Aujourd'hui — 14:12", text: "Statut changé → En livraison sur terrain", icon: Bike },
-    { time: "Hier — 19:05", text: "Colis CMD-0992 remis & 15 000 FCFA encaissés", icon: BadgeDollarSign },
+    ...assignedOrders.slice(0, 3).map((o) => ({
+      time: o.deliveredAt?.slice(0, 10) || o.createdAt?.slice(0, 10) || "Récemment",
+      text: `Commande ${o.orderNumber} (${o.products || 'Colis'}) — ${o.status === "LIVREE" ? "Livrée avec succès" : o.status}`,
+      icon: o.status === "LIVREE" ? CheckCircle2 : Package,
+    })),
+    ...driverRemittances.slice(0, 2).map((r) => ({
+      time: r.createdAt?.slice(0, 10) || "Récemment",
+      text: `Remise COD de ${formatCFA(r.amountDeclared)} (${r.status === "VALIDATED" ? "Validée" : "En attente"})`,
+      icon: BadgeDollarSign,
+    })),
   ];
 
   const isAlertActive =
@@ -399,7 +414,7 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
                             {r.discrepancyAmount ? (
                               <span className="text-rose-600 font-mono">-{formatCFA(r.discrepancyAmount)}</span>
                             ) : (
-                              <span className="text-slate-400">0 FCFA</span>
+                              <span className="text-slate-400">0 GNF</span>
                             )}
                           </td>
                           <td className="py-3 px-3 text-center">
@@ -427,7 +442,7 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
                             {c.discrepancy ? (
                               <span className="text-rose-600 font-mono">{formatCFA(c.discrepancy)}</span>
                             ) : (
-                              <span className="text-slate-400">0 FCFA</span>
+                              <span className="text-slate-400">0 GNF</span>
                             )}
                           </td>
                           <td className="py-3 px-3 text-center">
@@ -474,7 +489,7 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
               <div>
                 <span className="text-[11px] text-slate-400 block font-medium">Véhicule assigné</span>
                 <p className="font-bold text-slate-900 mt-0.5">{livreur.vehicle}</p>
-                <span className="text-[10px] text-slate-400 font-mono block">Plaque : {livreur.licensePlate || "RB-4589-AF"}</span>
+                <span className="text-[10px] text-slate-400 font-mono block">Plaque : {livreur.licensePlate || "—"}</span>
               </div>
 
               <div>
@@ -492,7 +507,7 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
                   <span className="px-2 py-0.5 rounded-lg bg-slate-900 text-white font-bold text-[10px]">
                     ★ {livreur.zone}
                   </span>
-                  {(livreur.secondaryZones || ["Akpakpa", "Cadjehoun"]).map((z, idx) => (
+                  {(livreur.secondaryZones || []).map((z, idx) => (
                     <span key={idx} className="px-2 py-0.5 rounded-lg bg-slate-100 text-slate-700 text-[10px]">
                       {z}
                     </span>
@@ -511,22 +526,22 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Aujourd&apos;hui</span>
-                <span className="text-base font-black text-emerald-700">{livreur.deliveredTodayCount || 6} livrées</span>
+                <span className="text-base font-black text-emerald-700">{realDeliveredToday} livrée{realDeliveredToday > 1 ? "s" : ""}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Cette Semaine</span>
-                <span className="text-base font-black text-slate-900">{livreur.deliveredWeekCount || 38} colis</span>
+                <span className="text-base font-black text-slate-900">{realDeliveredWeek} colis</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Taux Réussite</span>
-                <span className="text-base font-black text-slate-900">{livreur.successRate || 97.4}%</span>
+                <span className="text-base font-black text-slate-900">{realSuccessRate}%</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Temps Moyen</span>
-                <span className="text-base font-black text-purple-700">{livreur.avgDeliveryTimeMinutes || 34} min</span>
+                <span className="text-base font-black text-purple-700">{assignedOrders.length > 0 ? `${livreur.avgDeliveryTimeMinutes || 35} min` : "—"}</span>
               </div>
             </div>
 
@@ -644,19 +659,19 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
               <div className="flex justify-between text-slate-500">
                 <span>Gains aujourd&apos;hui :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA((livreur.deliveredTodayCount || 6) * (livreur.commissionPerDelivery || 1500))}
+                  {formatCFA(realDeliveredToday * (livreur.commissionPerDelivery || 1500))}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500">
                 <span>Gains cette semaine :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA((livreur.deliveredWeekCount || 38) * (livreur.commissionPerDelivery || 1500))}
+                  {formatCFA(realDeliveredWeek * (livreur.commissionPerDelivery || 1500))}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500 pt-2 border-t border-slate-100">
                 <span>Total ce mois :</span>
                 <span className="font-mono font-black text-emerald-600">
-                  {formatCFA((livreur.deliveredMonthCount || 164) * (livreur.commissionPerDelivery || 1500))}
+                  {formatCFA(realDeliveredMonth * (livreur.commissionPerDelivery || 1500))}
                 </span>
               </div>
             </div>
@@ -915,34 +930,11 @@ export default function AdminLivreurDetailPage({ params }: { params: Promise<{ i
                     ))}
 
                     {unremittedList.length === 0 && (
-                      <>
-                        <tr className="hover:bg-slate-50/50">
-                          <td className="py-2.5 px-3 font-mono font-bold text-slate-900">CMD-1048</td>
-                          <td className="py-2.5 px-3 font-medium text-slate-800">Afrimarket</td>
-                          <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px]">Aujourd&apos;hui 10:15</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-black text-amber-700">{formatCFA(50000)}</td>
-                          <td className="py-2.5 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                              Non Remis
-                            </span>
-                          </td>
-                        </tr>
-                        <tr className="hover:bg-slate-50/50">
-                          <td className="py-2.5 px-3 font-mono font-bold text-slate-900">CMD-1042</td>
-                          <td className="py-2.5 px-3 font-medium text-slate-800">Dossou Fashion</td>
-                          <td className="py-2.5 px-3 text-slate-500 font-mono text-[11px]">Aujourd&apos;hui 09:20</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-700">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-right font-mono font-black text-amber-700">{formatCFA(100000)}</td>
-                          <td className="py-2.5 px-3 text-center">
-                            <span className="px-2 py-0.5 rounded-full text-[9px] font-bold bg-amber-50 text-amber-800 border border-amber-200">
-                              Non Remis
-                            </span>
-                          </td>
-                        </tr>
-                      </>
+                      <tr>
+                        <td colSpan={7} className="py-8 text-center text-slate-400 font-medium">
+                          Aucun encaissement en attente de remise pour ce coursier.
+                        </td>
+                      </tr>
                     )}
                   </tbody>
                   <tfoot className="bg-slate-50 font-bold border-t border-slate-200 text-slate-900">

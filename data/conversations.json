@@ -1,478 +1,292 @@
 [
   {
-    "id": "conv-1",
+    "id": "conv_1789673371891_nrlj",
     "partnerId": "p1",
-    "partnerName": "Jude Sina",
-    "companyName": "Afrimarket",
-    "phone": "+229 01 97 36 29 06",
-    "lastMessage": "Voici la photo du colis et le bordereau de livraison. (2 pièces jointes)",
+    "partnerName": "Partenaire Principal",
+    "companyName": "Ma Boutique",
+    "phone": "+224 620 00 00 00",
+    "lastMessage": "Bonjour, j'ai une nouvelle demande d'assistance.",
     "lastMessageAt": "À l'instant",
-    "unreadCount": 2,
-    "status": "URGENT",
-    "priority": "URGENT",
-    "assignedAgentId": "cls-1",
-    "assignedAgentName": "Sarah A.",
-    "assignedAgentRole": "Closeuse Senior",
-    "relatedOrderNumber": "CMD-1048",
-    "firstResponseTimeMinutes": 4,
-    "avgResponseTimeMinutes": 7,
-    "slaStatus": "WARNING_SLA",
-    "assignmentHistory": [
-      {
-        "id": "ah-1",
-        "assignedToName": "Sarah A.",
-        "assignedToRole": "Closeuse",
-        "timestamp": "04 sept. — 10:32",
-        "reason": "Attribution automatique Smart Assign (charge minimale 3/15)"
-      }
-    ],
-    "messages": [
-      {
-        "id": "m1",
-        "sender": "PARTNER",
-        "senderName": "Jude Sina (Afrimarket)",
-        "text": "Bonjour le support ENO ! J'ai 3 nouvelles commandes enregistrées sur Cotonou dont CMD-1048.",
-        "sentAt": "10:15"
-      },
-      {
-        "id": "m2",
-        "sender": "BOT",
-        "senderName": "Assistant IA ENO",
-        "text": "Bonjour Afrimarket ! Vos commandes sont en cours de répartition auprès de notre pôle télévente. Vos clients seront joints sous 15 minutes.",
-        "sentAt": "10:16"
-      },
-      {
-        "id": "m-int-1",
-        "sender": "AGENT",
-        "senderName": "Sarah A. (Closeuse)",
-        "text": "Client de CMD-1048 confirmé au téléphone. Très réactif, prêt avec le montant exact.",
-        "sentAt": "10:38",
-        "isInternalNote": true
-      },
-      {
-        "id": "m3",
-        "sender": "PARTNER",
-        "senderName": "Jude Sina (Afrimarket)",
-        "text": "Super travail ! Quel est le délai moyen pour le virement MTN Money de 500 000 FCFA demandé ce matin ?",
-        "sentAt": "11:42"
-      },
-      {
-        "id": "m-int-2",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "Demande de retrait WD-2048 validée côté trésorerie. Virement en cours d'émission par LeekPay/MTN.",
-        "sentAt": "11:45",
-        "isInternalNote": true
-      },
-      {
-        "id": "msg_1788522837163_d59a",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "Voici la photo du colis et le bordereau de livraison.",
-        "sentAt": "12:53",
-        "isInternalNote": false,
-        "attachments": [
-          {
-            "id": "att_1788522835707_7rqnhf",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "photo_colis_test.jpg",
-            "mimeType": "image/jpeg",
-            "fileSize": "74 B",
-            "fileSizeBytes": 74,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788522835707_7rqnhf_photo_colis_test.jpg",
-            "url": "/api/attachments/att_1788522835707_7rqnhf",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788522835707_7rqnhf_photo_colis_test.jpg",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T11:53:55.712Z",
-            "status": "UPLOADED",
-            "progress": 100
-          },
-          {
-            "id": "att_1788522835835_pzddng",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "bordereau_livraison_20412.pdf",
-            "mimeType": "application/pdf",
-            "fileSize": "289 B",
-            "fileSizeBytes": 289,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788522835835_pzddng_bordereau_livraison_20412.pdf",
-            "url": "/api/attachments/att_1788522835835_pzddng",
-            "type": "PDF",
-            "createdAt": "2026-09-04T11:53:55.847Z",
-            "status": "UPLOADED",
-            "progress": 100
-          }
-        ],
-        "attachmentName": "photo_colis_test.jpg",
-        "attachmentUrl": "/api/attachments/att_1788522835707_7rqnhf",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "74 B"
-      },
-      {
-        "id": "msg_1788522914887_2hv7",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "Voici la photo du colis et le bordereau de livraison.",
-        "sentAt": "12:55",
-        "isInternalNote": false,
-        "attachments": [
-          {
-            "id": "att_1788522914687_g4v2pa",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "photo_colis_test.jpg",
-            "mimeType": "image/jpeg",
-            "fileSize": "74 B",
-            "fileSizeBytes": 74,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788522914687_g4v2pa_photo_colis_test.jpg",
-            "url": "/api/attachments/att_1788522914687_g4v2pa",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788522914687_g4v2pa_photo_colis_test.jpg",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T11:55:14.701Z",
-            "status": "UPLOADED",
-            "progress": 100
-          },
-          {
-            "id": "att_1788522914777_afmtxb",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "bordereau_livraison_20412.pdf",
-            "mimeType": "application/pdf",
-            "fileSize": "289 B",
-            "fileSizeBytes": 289,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788522914777_afmtxb_bordereau_livraison_20412.pdf",
-            "url": "/api/attachments/att_1788522914777_afmtxb",
-            "type": "PDF",
-            "createdAt": "2026-09-04T11:55:14.783Z",
-            "status": "UPLOADED",
-            "progress": 100
-          }
-        ],
-        "attachmentName": "photo_colis_test.jpg",
-        "attachmentUrl": "/api/attachments/att_1788522914687_g4v2pa",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "74 B"
-      },
-      {
-        "id": "msg_1788523156993_f6me",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "",
-        "sentAt": "12:59",
-        "isInternalNote": false,
-        "attachments": [
-          {
-            "id": "att_1788523154949_va6phd",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "mimeType": "image/webp",
-            "fileSize": "595.9 KB",
-            "fileSizeBytes": 610250,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788523154949_va6phd_24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "url": "/api/attachments/att_1788523154949_va6phd",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788523154949_va6phd_24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T11:59:14.965Z",
-            "status": "UPLOADED",
-            "progress": 100
-          }
-        ],
-        "attachmentName": "24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-        "attachmentUrl": "/api/attachments/att_1788523154949_va6phd",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "595.9 KB"
-      },
-      {
-        "id": "msg_1788523979044_bhy1",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "",
-        "sentAt": "13:12",
-        "isInternalNote": false,
-        "attachments": [
-          {
-            "id": "att_1788523974211_hgsia3",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "ChatGPT Image 31 août 2026, 18_16_14.png",
-            "mimeType": "image/png",
-            "fileSize": "1003.7 KB",
-            "fileSizeBytes": 1027751,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788523974211_hgsia3_ChatGPT_Image_31_ao_t_2026__18_16_14.png",
-            "url": "/api/attachments/att_1788523974211_hgsia3",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788523974211_hgsia3_ChatGPT_Image_31_ao_t_2026__18_16_14.png",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T12:12:54.238Z",
-            "status": "UPLOADED",
-            "progress": 100
-          },
-          {
-            "id": "att_1788523974222_j1qd3e",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "mimeType": "image/webp",
-            "fileSize": "595.9 KB",
-            "fileSizeBytes": 610250,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788523974222_j1qd3e_24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "url": "/api/attachments/att_1788523974222_j1qd3e",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788523974222_j1qd3e_24AW_COOLVIBES_OM_151183_151181_1026209_045-large.webp",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T12:12:54.239Z",
-            "status": "UPLOADED",
-            "progress": 100
-          },
-          {
-            "id": "att_1788523974216_ad9qw6",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "WhatsApp Image 2026-08-31 at 14.58.44.jpeg",
-            "mimeType": "image/jpeg",
-            "fileSize": "68.7 KB",
-            "fileSizeBytes": 70371,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788523974216_ad9qw6_WhatsApp_Image_2026-08-31_at_14_58_44.jpeg",
-            "url": "/api/attachments/att_1788523974216_ad9qw6",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788523974216_ad9qw6_WhatsApp_Image_2026-08-31_at_14_58_44.jpeg",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T12:12:54.233Z",
-            "status": "UPLOADED",
-            "progress": 100
-          }
-        ],
-        "attachmentName": "ChatGPT Image 31 août 2026, 18_16_14.png",
-        "attachmentUrl": "/api/attachments/att_1788523974211_hgsia3",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "1003.7 KB"
-      },
-      {
-        "id": "msg_1788524317987_ze65",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "Voici la photo du colis et le bordereau de livraison.",
-        "sentAt": "13:18",
-        "isInternalNote": false,
-        "attachments": [
-          {
-            "id": "att_1788524317830_vijx92",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "photo_colis_test.jpg",
-            "mimeType": "image/jpeg",
-            "fileSize": "74 B",
-            "fileSizeBytes": 74,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788524317830_vijx92_photo_colis_test.jpg",
-            "url": "/api/attachments/att_1788524317830_vijx92",
-            "thumbnailUrl": "/uploads/conversations/conv-1/att_1788524317830_vijx92_photo_colis_test.jpg",
-            "type": "IMAGE",
-            "createdAt": "2026-09-04T12:18:37.834Z",
-            "status": "UPLOADED",
-            "progress": 100
-          },
-          {
-            "id": "att_1788524317884_b8qz8d",
-            "conversationId": "conv-1",
-            "uploadedBy": "Jude S. (PDG)",
-            "uploadedByRole": "PDG",
-            "fileName": "bordereau_livraison_20412.pdf",
-            "mimeType": "application/pdf",
-            "fileSize": "289 B",
-            "fileSizeBytes": 289,
-            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv-1\\att_1788524317884_b8qz8d_bordereau_livraison_20412.pdf",
-            "url": "/api/attachments/att_1788524317884_b8qz8d",
-            "type": "PDF",
-            "createdAt": "2026-09-04T12:18:37.890Z",
-            "status": "UPLOADED",
-            "progress": 100
-          }
-        ],
-        "attachmentName": "photo_colis_test.jpg",
-        "attachmentUrl": "/api/attachments/att_1788524317830_vijx92",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "74 B"
-      }
-    ]
-  },
-  {
-    "id": "conv-2",
-    "partnerId": "p3",
-    "partnerName": "Marie Dossou",
-    "companyName": "Dossou Fashion (CI)",
-    "phone": "+225 07 45 12 30 89",
-    "lastMessage": "J'ai bien renseigné mon adresse USDT TRC-20 pour le reversement des fonds.",
-    "lastMessageAt": "Il y a 25 min",
-    "unreadCount": 0,
+    "unreadCount": 1,
     "status": "WAITING",
     "priority": "HIGH",
-    "assignedAgentId": "usr-pdg",
-    "assignedAgentName": "Jude S. (PDG)",
-    "assignedAgentRole": "Direction Générale",
-    "relatedOrderNumber": "CMD-BJ5K9L2M",
-    "firstResponseTimeMinutes": 5,
-    "avgResponseTimeMinutes": 12,
-    "slaStatus": "NORMAL",
-    "assignmentHistory": [
-      {
-        "id": "ah-2",
-        "assignedToName": "Sarah A.",
-        "assignedToRole": "Closeuse",
-        "timestamp": "03 sept. — 15:00",
-        "reason": "Smart Assign"
-      },
-      {
-        "id": "ah-3",
-        "assignedToName": "Jude S. (PDG)",
-        "assignedToRole": "Direction",
-        "timestamp": "04 sept. — 10:10",
-        "reason": "Escalade financière : arbitrage USDT international"
-      }
-    ],
     "messages": [
       {
-        "id": "m21",
+        "id": "msg_1789673371924",
         "sender": "PARTNER",
-        "senderName": "Marie Dossou",
-        "text": "Bonjour Monsieur, mes fonds de ventes à Cotonou sont prêts à être retirés en USDT.",
-        "sentAt": "10:10"
-      },
-      {
-        "id": "m22",
-        "sender": "PARTNER",
-        "senderName": "Marie Dossou",
-        "text": "J'ai bien renseigné mon adresse USDT TRC-20 pour le reversement des fonds.",
-        "sentAt": "10:15",
-        "attachmentName": "releve_ventes_dossou_aout.pdf",
-        "attachmentType": "PDF",
-        "attachmentSize": "412 KB"
-      },
-      {
-        "id": "m23",
-        "sender": "PDG",
-        "senderName": "Jude S. (PDG)",
-        "text": "Bien reçu Madame Dossou. Notre responsable de trésorerie procède à la vérification du hash de transaction USDT.",
-        "sentAt": "10:22"
-      }
-    ]
-  },
-  {
-    "id": "conv-3",
-    "partnerId": "p2",
-    "partnerName": "Marius Houngbo",
-    "companyName": "Bénin Shop Électro",
-    "phone": "+229 01 93 83 79 06",
-    "lastMessage": "Concernant l'écart de 5 000 FCFA sur la commande CMD-1047, c'est validé.",
-    "lastMessageAt": "Il y a 1h",
-    "unreadCount": 1,
-    "status": "IN_PROGRESS",
-    "priority": "NORMAL",
-    "assignedAgentId": "tm-1",
-    "assignedAgentName": "Jean-Baptiste AGOSSOU",
-    "assignedAgentRole": "Responsable Trésorerie",
-    "relatedOrderNumber": "CMD-1047",
-    "firstResponseTimeMinutes": 2,
-    "avgResponseTimeMinutes": 5,
-    "slaStatus": "NORMAL",
-    "assignmentHistory": [
-      {
-        "id": "ah-4",
-        "assignedToName": "Jean-Baptiste AGOSSOU",
-        "assignedToRole": "Responsable Trésorerie",
-        "timestamp": "04 sept. — 09:42",
-        "reason": "Affectation manuelle pour clarification écart de remise"
+        "senderName": "Ma Boutique",
+        "text": "Bonjour, j'ai une nouvelle demande d'assistance.",
+        "sentAt": "20:29"
       }
     ],
-    "messages": [
-      {
-        "id": "m31",
-        "sender": "TREASURY",
-        "senderName": "Jean-Baptiste AGOSSOU (Trésorier)",
-        "text": "Bonjour M. Houngbo, le livreur Wilfried nous signale un encaissement de 20 000 FCFA au lieu de 25 000 FCFA sur CMD-1047. Pouvez-vous confirmer ?",
-        "sentAt": "09:42"
-      },
-      {
-        "id": "m32",
-        "sender": "PARTNER",
-        "senderName": "Marius Houngbo (Bénin Shop)",
-        "text": "Concernant l'écart de 5 000 FCFA sur la commande CMD-1047, c'est validé. Le client a retiré un produit en commun accord.",
-        "sentAt": "09:48"
-      }
-    ]
+    "assignmentHistory": []
   },
   {
-    "id": "conv-4",
-    "partnerId": "p4",
-    "partnerName": "Ablam AMEGAN",
-    "companyName": "Lokossa Tech Store",
-    "phone": "+229 01 62 88 99 00",
-    "lastMessage": "Nous avons corrigé l'emballage de protection sur nos colis électroniques.",
-    "lastMessageAt": "Hier 17:15",
-    "unreadCount": 0,
-    "status": "ESCALATED",
-    "priority": "HIGH",
-    "assignedAgentId": "usr-pdg",
-    "assignedAgentName": "Jude S. (PDG)",
-    "assignedAgentRole": "Direction Générale",
-    "relatedOrderNumber": "CMD-1045",
-    "firstResponseTimeMinutes": 8,
-    "avgResponseTimeMinutes": 15,
-    "slaStatus": "NORMAL",
-    "assignmentHistory": [
-      {
-        "id": "ah-5",
-        "assignedToName": "Jude S. (PDG)",
-        "assignedToRole": "Direction",
-        "timestamp": "03 sept. — 14:12",
-        "reason": "Escalade suite à suspension de compte marchand"
-      }
-    ],
-    "messages": [
-      {
-        "id": "m41",
-        "sender": "PARTNER",
-        "senderName": "Ablam AMEGAN",
-        "text": "Bonjour Monsieur le Directeur, nous avons pris acte de la suspension. Nous avons corrigé l'emballage de protection sur nos colis électroniques.",
-        "sentAt": "Hier 17:15",
-        "attachmentName": "photo_nouveaux_emballages.jpg",
-        "attachmentType": "IMAGE",
-        "attachmentSize": "1.8 MB"
-      }
-    ]
-  },
-  {
-    "id": "conv-5",
+    "id": "conv_1789672762508_47dj",
     "partnerId": "p1",
-    "partnerName": "Jude Sina",
-    "companyName": "Afrimarket",
-    "phone": "+229 01 97 36 29 06",
-    "lastMessage": "Merci pour la confirmation rapide du client de Calavi ! Super closing.",
-    "lastMessageAt": "Hier 16:30",
+    "partnerName": "Partenaire Principal",
+    "companyName": "Ma Boutique",
+    "phone": "+224 620 00 00 00",
+    "lastMessage": "Conversation clôturée",
+    "lastMessageAt": "20:29",
     "unreadCount": 0,
     "status": "RESOLVED",
-    "priority": "LOW",
-    "assignedAgentId": "cls-2",
-    "assignedAgentName": "Chimène A.",
-    "assignedAgentRole": "Closeuse Senior",
-    "relatedOrderNumber": "CMD-BJ3M4N5K",
-    "firstResponseTimeMinutes": 3,
-    "avgResponseTimeMinutes": 6,
-    "slaStatus": "NORMAL",
+    "priority": "HIGH",
     "messages": [
       {
-        "id": "m51",
+        "id": "msg_1789672762579",
         "sender": "PARTNER",
-        "senderName": "Jude Sina (Afrimarket)",
-        "text": "Merci pour la confirmation rapide du client de Calavi ! Super closing.",
-        "sentAt": "Hier 16:30"
+        "senderName": "Ma Boutique",
+        "text": "Bonjour, j'ai une nouvelle demande d'assistance.",
+        "sentAt": "20:19"
+      },
+      {
+        "id": "msg_1789672780521_bmzv",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "",
+        "sentAt": "20:19",
+        "isInternalNote": false,
+        "attachments": [
+          {
+            "id": "att_1789672773548_vjyhxn",
+            "conversationId": "conv_1789672762508_47dj",
+            "uploadedBy": "Ma Boutique",
+            "uploadedByRole": "PARTNER",
+            "fileName": "WhatsApp Image 2026-09-17 at 10.51.47.jpeg",
+            "mimeType": "image/jpeg",
+            "fileSize": "82.1 KB",
+            "fileSizeBytes": 84030,
+            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv_1789672762508_47dj\\att_1789672773548_vjyhxn_WhatsApp_Image_2026-09-17_at_10_51_47.jpeg",
+            "url": "/api/attachments/att_1789672773548_vjyhxn",
+            "thumbnailUrl": "/uploads/conversations/conv_1789672762508_47dj/att_1789672773548_vjyhxn_WhatsApp_Image_2026-09-17_at_10_51_47.jpeg",
+            "type": "IMAGE",
+            "createdAt": "2026-09-17T19:19:33.554Z",
+            "status": "UPLOADED",
+            "progress": 100
+          }
+        ],
+        "attachmentName": "WhatsApp Image 2026-09-17 at 10.51.47.jpeg",
+        "attachmentUrl": "/api/attachments/att_1789672773548_vjyhxn",
+        "attachmentType": "IMAGE",
+        "attachmentSize": "82.1 KB"
+      },
+      {
+        "id": "msg_1789672805727_22th",
+        "sender": "PDG",
+        "senderName": "Sarah Kone",
+        "text": "Bonjour ! Je suis Sarah Kone de l'équipe GuinéeGo LAT. J'ai pris en charge votre demande en direct. En quoi puis-je vous être utile ?",
+        "sentAt": "20:20",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789672816291_4a8n",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "ça va ?",
+        "sentAt": "20:20",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789673137103_096n",
+        "sender": "AGENT",
+        "senderName": "Sarah Kone",
+        "text": "",
+        "sentAt": "20:25",
+        "isInternalNote": false,
+        "attachments": [
+          {
+            "id": "att_1789673132583_dx63gn",
+            "conversationId": "conv_1789672762508_47dj",
+            "uploadedBy": "Sarah Kone",
+            "uploadedByRole": "Closeuse & Support",
+            "fileName": "872b75ad9c3e44abbffc3f00eb7f9681.webp",
+            "mimeType": "image/webp",
+            "fileSize": "213.1 KB",
+            "fileSizeBytes": 218248,
+            "storagePath": "C:\\Users\\HP\\OneDrive\\Desktop\\CLOSING\\scmslivraison\\storage\\attachments\\conv_1789672762508_47dj\\att_1789673132583_dx63gn_872b75ad9c3e44abbffc3f00eb7f9681.webp",
+            "url": "/api/attachments/att_1789673132583_dx63gn",
+            "thumbnailUrl": "/uploads/conversations/conv_1789672762508_47dj/att_1789673132583_dx63gn_872b75ad9c3e44abbffc3f00eb7f9681.webp",
+            "type": "IMAGE",
+            "createdAt": "2026-09-17T19:25:32.586Z",
+            "status": "UPLOADED",
+            "progress": 100
+          }
+        ],
+        "attachmentName": "872b75ad9c3e44abbffc3f00eb7f9681.webp",
+        "attachmentUrl": "/api/attachments/att_1789673132583_dx63gn",
+        "attachmentType": "IMAGE",
+        "attachmentSize": "213.1 KB"
+      },
+      {
+        "id": "msg_1789673152613_9rrx",
+        "sender": "AGENT",
+        "senderName": "Sarah Kone",
+        "text": "Votre ramassage de stock a bien été validé et transmis à notre pôle logistique.",
+        "sentAt": "20:25",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789673357320_m137",
+        "sender": "PDG",
+        "senderName": "Jude S. (PDG)",
+        "text": "Bonjour ! Je suis Jude S. (PDG) de l'équipe GuinéeGo LAT. J'ai pris en charge votre demande en direct. En quoi puis-je vous être utile ?",
+        "sentAt": "20:29",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_resolved_1789673366971",
+        "sender": "BOT",
+        "senderName": "Support GuinéeGo",
+        "text": "🔒 Cette discussion a été clôturée par Jude S. (PDG). Merci d'avoir contacté le service support GuinéeGo LAT. Vous pouvez démarrer une nouvelle discussion à tout moment pour toute autre question.",
+        "sentAt": "20:29",
+        "isInternalNote": false
+      },
+      {
+        "id": "msg_resolved_1789673395407",
+        "sender": "BOT",
+        "senderName": "Support GuinéeGo",
+        "text": "🔒 Cette discussion a été clôturée par Jude S. (PDG). Merci d'avoir contacté le service support GuinéeGo LAT. Vous pouvez démarrer une nouvelle discussion à tout moment pour toute autre question.",
+        "sentAt": "20:29",
+        "isInternalNote": false
+      }
+    ],
+    "assignmentHistory": [],
+    "assignedAgentName": "Jude S. (PDG)",
+    "assignedAgentRole": "Direction Générale"
+  },
+  {
+    "id": "conv_1789669607510_7ckc",
+    "partnerId": "p1",
+    "partnerName": "Partenaire Principal",
+    "companyName": "Ma Boutique",
+    "phone": "+224 620 00 00 00",
+    "lastMessage": "Bonjour, je souhaite être mis en relation avec un conseiller en direct.",
+    "lastMessageAt": "À l'instant",
+    "unreadCount": 4,
+    "status": "RESOLVED",
+    "priority": "HIGH",
+    "assignedAgentName": "Jude S. (PDG)",
+    "assignedAgentRole": "Direction Générale",
+    "messages": [
+      {
+        "id": "msg_1789669607510",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "Bonjour, je souhaite être mis en relation avec un conseiller en direct.",
+        "sentAt": "19:26"
+      },
+      {
+        "id": "msg_1789669640984_dvpa",
+        "sender": "PDG",
+        "senderName": "Jude S. (PDG)",
+        "text": "Bonjour ! Je suis Jude S. (PDG) de l'équipe GuinéeGo LAT. J'ai pris en charge votre demande en direct. En quoi puis-je vous être utile ?",
+        "sentAt": "19:27",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789669693142_byy8",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "bonjour jude je veux demander si vos closeuse peuvent faire des voix offs en wolof pour moi?",
+        "sentAt": "19:28",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789669703855_wl4n",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "possible?",
+        "sentAt": "19:28",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789670341101_pad4",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "dit moi non pdg",
+        "sentAt": "19:39",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789670364165_h7he",
+        "sender": "PDG",
+        "senderName": "Jude S. (PDG)",
+        "text": "oui possible",
+        "sentAt": "19:39",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789670382222_ityv",
+        "sender": "PDG",
+        "senderName": "Jude S. (PDG)",
+        "text": "laisser moi cette conversation",
+        "sentAt": "19:39",
+        "isInternalNote": true,
+        "attachments": []
+      },
+      {
+        "id": "msg_1789670401956_8bn4",
+        "sender": "PDG",
+        "senderName": "Jude S. (PDG)",
+        "text": "Bonjour ! Je suis Jude S. (PDG) de l'équipe GuinéeGo LAT. J'ai pris en charge votre demande en direct. En quoi puis-je vous être utile ?",
+        "sentAt": "19:40",
+        "isInternalNote": false,
+        "attachments": []
+      },
+      {
+        "id": "msg_resolved_1789671985362",
+        "sender": "BOT",
+        "senderName": "Support GuinéeGo",
+        "text": "🔒 Cette discussion a été clôturée par Sarah Kone. Merci d'avoir contacté le service support GuinéeGo LAT. Vous pouvez démarrer une nouvelle discussion à tout moment pour toute autre question.",
+        "sentAt": "20:06",
+        "isInternalNote": false
+      },
+      {
+        "id": "msg_1789672156595_ztao",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "🚚 Programmer un ramassage de stock",
+        "sentAt": "20:09"
+      },
+      {
+        "id": "msg_1789672165210_64n8",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "bonjour",
+        "sentAt": "20:09"
+      },
+      {
+        "id": "msg_1789672169516_x4dy",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "Bonjour, je souhaite être mis en relation avec un conseiller en direct.",
+        "sentAt": "20:09"
+      },
+      {
+        "id": "msg_1789672171381_j4iq",
+        "sender": "PARTNER",
+        "senderName": "Ma Boutique",
+        "text": "Bonjour, je souhaite être mis en relation avec un conseiller en direct.",
+        "sentAt": "20:09"
+      }
+    ],
+    "assignmentHistory": [
+      {
+        "id": "ah_1789669640984",
+        "assignedToName": "Jude S. (PDG)",
+        "assignedToRole": "Direction Générale",
+        "timestamp": "17 sept. — 19:27",
+        "reason": "Prise en charge validée par l'agent"
       }
     ]
   }

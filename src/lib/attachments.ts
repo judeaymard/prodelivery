@@ -1,4 +1,4 @@
-// Configuration & utilitaires des pièces jointes réelles — ENO LIVRAISON
+// Configuration & utilitaires des pièces jointes réelles — GuinéeGo LAT
 
 import { ChatAttachment } from "./types";
 

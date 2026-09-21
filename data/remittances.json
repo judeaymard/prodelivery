@@ -1,0 +1,61 @@
+[
+  {
+    "id": "rem-103",
+    "reference": "REM-2026-0904-003",
+    "livreurId": "liv-1",
+    "livreurName": "Rachad ADECHINA",
+    "amountExpected": 80000,
+    "amountDeclared": 80000,
+    "ordersCount": 2,
+    "orderIds": [
+      "cmd_001",
+      "cmd_003"
+    ],
+    "period": "Matinée du 04 Septembre 2026",
+    "createdAt": "2026-09-04 10:45",
+    "status": "PENDING_VALIDATION",
+    "notes": "Remise en espèces déposée à la caisse Hub Cadjehoun."
+  },
+  {
+    "id": "rem-102",
+    "reference": "REM-2026-0903-002",
+    "livreurId": "liv-3",
+    "livreurName": "Boris TCHICAYA",
+    "amountExpected": 250000,
+    "amountDeclared": 250000,
+    "amountValidated": 250000,
+    "discrepancyAmount": 0,
+    "ordersCount": 8,
+    "orderIds": [
+      "cmd_004",
+      "cmd_005"
+    ],
+    "period": "Tournée Après-midi 03 Septembre",
+    "createdAt": "2026-09-03 18:30",
+    "validatedAt": "2026-09-03 18:45",
+    "validatedBy": "Direction ENO (Super Admin)",
+    "status": "VALIDATED",
+    "notes": "Comptage physique effectué et validé au coffre-fort."
+  },
+  {
+    "id": "rem-101",
+    "reference": "REM-2026-0902-001",
+    "livreurId": "liv-2",
+    "livreurName": "Wilfried HOUNGBO",
+    "amountExpected": 300000,
+    "amountDeclared": 295000,
+    "amountValidated": 295000,
+    "discrepancyAmount": -5000,
+    "discrepancyJustification": "Écart de 5 000 FCFA sur commande CMD-1047 justifié par le marchand.",
+    "ordersCount": 11,
+    "orderIds": [
+      "cmd_002"
+    ],
+    "period": "Journée du 02 Septembre 2026",
+    "createdAt": "2026-09-02 19:10",
+    "validatedAt": "2026-09-02 19:30",
+    "validatedBy": "Direction ENO (Super Admin)",
+    "status": "PARTIALLY_VALIDATED",
+    "notes": "Écart accepté après vérification avec le commerçant Bénin Shop."
+  }
+]

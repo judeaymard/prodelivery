@@ -92,7 +92,7 @@ export default function AdminNotificationsPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `eno_notifications_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `guineego_notifications_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -148,7 +148,7 @@ export default function AdminNotificationsPage() {
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
             <span className="text-[11px] font-black uppercase tracking-wider text-slate-400">
-              Centre de Surveillance ENO 2027
+              Centre de Surveillance GuinéeGo LAT 2027
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">

@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -46,7 +46,7 @@ export default function AdminCloseusesPage() {
   const [newPhone, setNewPhone] = useState("+229 01 ");
   const [newEmail, setNewEmail] = useState("");
   const [newLanguages, setNewLanguages] = useState("Français, Fon, Yoruba");
-  const [newZones, setNewZones] = useState("Cotonou, Calavi");
+  const [newZones, setNewZones] = useState("Conakry, Kankan");
   const [newSkills, setNewSkills] = useState("High-Ticket, Cosmétique");
   const [newMaxOrders, setNewMaxOrders] = useState("15");
   const [newMaxConvs, setNewMaxConvs] = useState("5");
@@ -97,13 +97,16 @@ export default function AdminCloseusesPage() {
   }, [closeuses, statusFilter, searchTerm]);
 
   // Compute 7 KPIs
-  const totalCloseuses = 8;
-  const availableNow = closeuses.filter((c) => (c.availabilityStatus || "AVAILABLE") === "AVAILABLE").length + 3;
-  const busyCount = closeuses.filter((c) => c.availabilityStatus === "BUSY").length + 2;
-  const avgLoad = "42 %";
-  const toConfirmCount = orders.filter((o) => o.status === "EN_ATTENTE" || o.status === "A_RAPPELER").length + 22;
-  const confirmationRate = "78,4 %";
-  const totalCommissions = 145500;
+  const totalCloseuses = closeuses.length;
+  const availableNow = closeuses.filter((c) => (c.availabilityStatus || "AVAILABLE") === "AVAILABLE").length;
+  const busyCount = closeuses.filter((c) => c.availabilityStatus === "BUSY").length;
+  const totalActiveOrders = closeuses.reduce((sum, c) => sum + getCloserActiveOrders(c.id, c.name), 0);
+  const totalCapacity = closeuses.reduce((sum, c) => sum + (c.maxActiveOrders || 15), 0);
+  const avgLoad = totalCapacity > 0 ? `${Math.round((totalActiveOrders / totalCapacity) * 100)} %` : "0 %";
+  const toConfirmCount = orders.filter((o) => o.status === "EN_ATTENTE" || o.status === "A_RAPPELER").length;
+  const confirmedCount = orders.filter((o) => ["CONFIRMEE", "EN_COURS", "LIVREE"].includes(o.status)).length;
+  const confirmationRate = orders.length > 0 ? `${Math.round((confirmedCount / orders.length) * 100)} %` : "0 %";
+  const totalCommissions = closeuses.reduce((sum, c) => sum + ((c.confirmedTodayCount || 0) * (c.commissionPerConfirmation || 750)), 0);
   const handleCreateCloseuse = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newLastName || !newPhone) return;
@@ -111,7 +114,7 @@ export default function AdminCloseusesPage() {
     const fullName = `${newFirstName.trim()} ${newLastName.trim()}`.trim();
     addCloseuse({
       name: fullName,
-      email: newEmail || `${newLastName.toLowerCase()}@enolivraison.com`,
+      email: newEmail || `${newLastName.toLowerCase()}@guineego.com`,
       phone: newPhone,
       languages: newLanguages.split(",").map((s) => s.trim()).filter(Boolean),
       zones: newZones.split(",").map((s) => s.trim()).filter(Boolean),
@@ -158,14 +161,14 @@ export default function AdminCloseusesPage() {
             `"${getCloserActiveOrders(c.id, c.name)}/${c.maxActiveOrders || 15}"`,
             `"${c.confirmedTodayCount || 0}"`,
             `"${c.conversionRate || 80}%"`,
-            `"${(c.confirmedTodayCount || 0) * (c.commissionPerConfirmation || 750)} FCFA"`,
+            `"${(c.confirmedTodayCount || 0) * (c.commissionPerConfirmation || 750)} GNF"`,
           ].join(",")
         )
         .join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `closeuses_eno_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `closeuses_guineego_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -196,7 +199,7 @@ export default function AdminCloseusesPage() {
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Ajouter une closeuse</span>
+            <span>Ajouter une closeuse</span>
           </button>
         </div>
       </div>
@@ -299,9 +302,9 @@ export default function AdminCloseusesPage() {
                 <div className="flex justify-between items-center text-[10px] text-slate-500 pt-1 border-t border-slate-200/60">
                   <span className="flex items-center gap-1">
                     <MessageSquare className="w-3 h-3 text-slate-400" />
-                    <span>{activeConvs || 2} conversations</span>
+                    <span>{activeConvs} conversation{activeConvs > 1 ? "s" : ""}</span>
                   </span>
-                  <span className="text-slate-400">{c.lastActivityAt || "Il y a 2 min"}</span>
+                  <span className="text-slate-400">{c.lastActivityAt || "—"}</span>
                 </div>
               </div>
             );
@@ -417,7 +420,7 @@ export default function AdminCloseusesPage() {
                       <td className="py-3.5 px-5">
                         <span className="font-semibold text-slate-800 flex items-center gap-1">
                           <MessageSquare className="w-3 h-3 text-slate-400" />
-                          <span>{activeConvs || 2} ouvertes</span>
+                          <span>{activeConvs} ouverte{activeConvs > 1 ? "s" : ""}</span>
                         </span>
                       </td>
 
@@ -426,7 +429,7 @@ export default function AdminCloseusesPage() {
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-slate-900">
-                        {cls.conversionRate || 80}%
+                        {cls.conversionRate || 0}%
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-slate-900">
@@ -434,7 +437,7 @@ export default function AdminCloseusesPage() {
                       </td>
 
                       <td className="py-3.5 px-5 text-slate-500 text-[11px]">
-                        {cls.lastActivityAt || "Il y a 3 min"}
+                        {cls.lastActivityAt || "—"}
                       </td>
 
                       <td className="py-3.5 px-5 text-right" onClick={(e) => e.stopPropagation()}>
@@ -525,7 +528,7 @@ export default function AdminCloseusesPage() {
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[9px]">Conversion</span>
-                      <span className="font-bold text-slate-900">{cls.conversionRate || 80}%</span>
+                      <span className="font-bold text-slate-900">{cls.conversionRate || 0}%</span>
                     </div>
                   </div>
                 </div>
@@ -592,7 +595,7 @@ export default function AdminCloseusesPage() {
                     <label className="font-bold text-slate-700 block mb-1">Email professionnel</label>
                     <input
                       type="email"
-                      placeholder="Ex: sarah.a@enolivraison.com"
+                      placeholder="Ex: sarah.a@guineego.com"
                       value={newEmail}
                       onChange={(e) => setNewEmail(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
@@ -620,7 +623,7 @@ export default function AdminCloseusesPage() {
                     <label className="font-bold text-slate-700 block mb-1">Zones couvertes</label>
                     <input
                       type="text"
-                      placeholder="Ex: Cotonou, Calavi, Porto-Novo"
+                      placeholder="Ex: Conakry, Kankan, Kindia"
                       value={newZones}
                       onChange={(e) => setNewZones(e.target.value)}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
@@ -664,7 +667,7 @@ export default function AdminCloseusesPage() {
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Commission (FCFA)</label>
+                    <label className="font-bold text-slate-700 block mb-1">Commission (GNF)</label>
                     <input
                       type="number"
                       value={newCommission}

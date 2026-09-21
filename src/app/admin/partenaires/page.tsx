@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -32,10 +32,12 @@ import {
   AlertCircle,
   Ban,
   Check,
+  FileCheck,
 } from "lucide-react";
 import { useOperations } from "@/lib/store";
 import { formatCFA } from "@/lib/mock-data";
 import { Partner, PartnerStatus } from "@/lib/types";
+import DailyClosureModal from "@/components/DailyClosureModal";
 export default function AdminPartenairesPage() {
   const router = useRouter();
   const {
@@ -50,6 +52,7 @@ export default function AdminPartenairesPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
   const [showAddModal, setShowAddModal] = useState(false);
+  const [closurePartner, setClosurePartner] = useState<Partner | null>(null);
   const [actionMenuOpenId, setActionMenuOpenId] = useState<string | null>(null);
   const [suspendModalPartner, setSuspendModalPartner] = useState<Partner | null>(null);
   const [suspendReason, setSuspendReason] = useState("");
@@ -61,8 +64,8 @@ export default function AdminPartenairesPage() {
   const [newEmail, setNewEmail] = useState("");
   const [newWebsite, setNewWebsite] = useState("");
   const [newCategory, setNewCategory] = useState("Cosmétique & Beauté");
-  const [newCity, setNewCity] = useState("Cotonou");
-  const [newAddress, setNewAddress] = useState("Cadjehoun, Cotonou");
+  const [newCity, setNewCity] = useState("Conakry");
+  const [newAddress, setNewAddress] = useState("Centre d'Affaires, Kaloum, Conakry");
   const [newDeliveryFee, setNewDeliveryFee] = useState("2000");
   const [newCommission, setNewCommission] = useState("800");
   const [newStatus, setNewStatus] = useState<PartnerStatus>("ACTIVE");
@@ -75,9 +78,31 @@ export default function AdminPartenairesPage() {
   };
 
   // Helper: compute orders for a merchant
-  const getPartnerOrdersCountToday = (partnerId: string, p: Partner) => {
-    const fromStore = orders.filter((o) => o.partnerId === partnerId).length;
-    return fromStore > 0 ? fromStore : p.ordersCountToday || 0;
+  const getPartnerOrdersCountToday = (partnerId: string) => {
+    const todayStr = new Date().toISOString().slice(0, 10);
+    return orders.filter((o) => o.partnerId === partnerId && o.createdAt?.startsWith(todayStr)).length;
+  };
+
+  // Helper: compute monthly orders for a merchant
+  const getPartnerOrdersCountMonth = (partnerId: string, p: Partner) => {
+    const storeCount = orders.filter((o) => o.partnerId === partnerId).length;
+    return storeCount > 0 ? storeCount : (p.ordersCountMonth || 0);
+  };
+
+  // Helper: compute rates
+  const getPartnerConfirmationRate = (partnerId: string, p: Partner) => {
+    const pOrders = orders.filter((o) => o.partnerId === partnerId);
+    if (pOrders.length === 0) return p.confirmationRate || 0;
+    const confirmed = pOrders.filter((o) => ["CONFIRMEE", "EN_COURS", "LIVREE"].includes(o.status)).length;
+    return Math.round((confirmed / pOrders.length) * 100);
+  };
+
+  const getPartnerDeliveryRate = (partnerId: string, p: Partner) => {
+    const pOrders = orders.filter((o) => o.partnerId === partnerId);
+    const completed = pOrders.filter((o) => ["LIVREE", "REFUSEE", "RETOURNEE", "ANNULEE"].includes(o.status)).length;
+    if (completed === 0) return p.deliverySuccessRate || 0;
+    const delivered = pOrders.filter((o) => o.status === "LIVREE").length;
+    return Math.round((delivered / completed) * 100);
   };
 
   // Filtered partners
@@ -107,14 +132,17 @@ export default function AdminPartenairesPage() {
   }, [partners, statusFilter, searchTerm]);
 
   // Compute 8 Fleet/Merchant KPIs
-  const totalActivePartners = 126;
-  const newThisMonth = 8;
-  const activeToday = 94;
-  const totalOrdersToday = 1248;
-  const totalGmvProcessed = 18450000;
-  const deliverySuccessRate = "89,7 %";
-  const totalBalanceDue = 4820000;
-  const pendingPayoutsCount = 12;
+  const totalActivePartners = partners.filter((p) => p.status === "ACTIVE" || p.isActive).length;
+  const newThisMonth = partners.filter((p) => (p.onboardingStep && p.onboardingStep < 6) || p.status === "ONBOARDING").length;
+  const activeToday = partners.filter((p) => orders.some((o) => o.partnerId === p.id)).length;
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const totalOrdersToday = orders.filter((o) => o.createdAt?.startsWith(todayStr)).length;
+  const totalGmvProcessed = orders.filter((o) => o.status === "LIVREE").reduce((sum, o) => sum + (o.totalPrice || 0), 0);
+  const deliveredOrdersCount = orders.filter((o) => o.status === "LIVREE").length;
+  const totalCompletedOrders = orders.filter((o) => ["LIVREE", "REFUSEE", "RETOURNEE", "ANNULEE"].includes(o.status)).length;
+  const deliverySuccessRate = totalCompletedOrders > 0 ? `${Math.round((deliveredOrdersCount / totalCompletedOrders) * 100)} %` : "0 %";
+  const totalBalanceDue = partners.reduce((sum, p) => sum + (p.availableBalance || 0), 0);
+  const pendingPayoutsCount = payoutRequests.filter((p) => p.status === "PENDING").length;
   const handleCreatePartner = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newCompanyName || !newPhone) return;
@@ -176,16 +204,16 @@ export default function AdminPartenairesPage() {
             `"${p.phone}"`,
             `"${p.email}"`,
             `"${p.status || "ACTIVE"}"`,
-            `"${p.availableBalance || 0} FCFA"`,
-            `"${p.deliverySuccessRate || 90}%"`,
-            `"${p.gmvProcessed || 0} FCFA"`,
+            `"${p.availableBalance || 0} GNF"`,
+            `"${p.deliverySuccessRate || 0}%"`,
+            `"${p.gmvProcessed || 0} GNF"`,
           ].join(",")
         )
         .join("\n");
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `ecommercants_eno_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `ecommercants_guineego_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -216,7 +244,7 @@ export default function AdminPartenairesPage() {
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Ajouter un e-commerçant</span>
+            <span>Ajouter un e-commerçant</span>
           </button>
         </div>
       </div>
@@ -329,7 +357,10 @@ export default function AdminPartenairesPage() {
               ) : (
                 filteredPartners.map((part) => {
                   const badge = getStatusBadge(part.status);
-                  const ordersToday = getPartnerOrdersCountToday(part.id, part);
+                  const ordersToday = getPartnerOrdersCountToday(part.id);
+                  const ordersMonth = getPartnerOrdersCountMonth(part.id, part);
+                  const confRate = getPartnerConfirmationRate(part.id, part);
+                  const delRate = getPartnerDeliveryRate(part.id, part);
                   const pendingWithdrawal = getPendingWithdrawal(part.id);
 
                   return (
@@ -367,15 +398,15 @@ export default function AdminPartenairesPage() {
                       </td>
 
                       <td className="py-3.5 px-5 font-mono text-slate-600">
-                        {part.ordersCountMonth || 0}
+                        {ordersMonth}
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-slate-900">
-                        {part.confirmationRate || 85}%
+                        {confRate}%
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-emerald-700">
-                        {part.deliverySuccessRate || 92}%
+                        {delRate}%
                       </td>
 
                       <td className="py-3.5 px-5 font-mono font-bold text-slate-900">
@@ -388,7 +419,7 @@ export default function AdminPartenairesPage() {
                             {formatCFA(pendingWithdrawal)}
                           </span>
                         ) : (
-                          <span className="text-slate-400 text-[11px]">0 FCFA</span>
+                          <span className="text-slate-400 text-[11px]">0 GNF</span>
                         )}
                       </td>
 
@@ -433,6 +464,16 @@ export default function AdminPartenairesPage() {
                                 className="w-full text-left px-3.5 py-1.5 hover:bg-slate-50 font-medium text-slate-800"
                               >
                                 Voir les finances
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setActionMenuOpenId(null);
+                                  setClosurePartner(part);
+                                }}
+                                className="w-full text-left px-3.5 py-1.5 hover:bg-emerald-50 font-bold text-emerald-800 flex items-center gap-1.5"
+                              >
+                                <FileCheck className="w-3.5 h-3.5 text-emerald-600" />
+                                <span>Bilan Clôture Journalière</span>
                               </button>
                               <a
                                 href={`tel:${part.phone.replace(/\s+/g, "")}`}
@@ -511,11 +552,11 @@ export default function AdminPartenairesPage() {
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[9px]">Colis Mois</span>
-                      <span className="font-bold text-slate-900 font-mono">{part.ordersCountMonth || 0}</span>
+                      <span className="font-bold text-slate-900 font-mono">{getPartnerOrdersCountMonth(part.id, part)}</span>
                     </div>
                     <div>
                       <span className="text-slate-400 block text-[9px]">Taux Livr.</span>
-                      <span className="font-bold text-emerald-700">{part.deliverySuccessRate || 92}%</span>
+                      <span className="font-bold text-emerald-700">{getPartnerDeliveryRate(part.id, part)}%</span>
                     </div>
                   </div>
                 </div>
@@ -653,7 +694,7 @@ export default function AdminPartenairesPage() {
                 </span>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Frais Livraison Client (FCFA)</label>
+                    <label className="font-bold text-slate-700 block mb-1">Frais Livraison Client (GNF)</label>
                     <input
                       type="number"
                       value={newDeliveryFee}
@@ -662,7 +703,7 @@ export default function AdminPartenairesPage() {
                     />
                   </div>
                   <div>
-                    <label className="font-bold text-slate-700 block mb-1">Commission Closing (FCFA)</label>
+                    <label className="font-bold text-slate-700 block mb-1">Commission Closing (GNF)</label>
                     <input
                       type="number"
                       value={newCommission}
@@ -758,6 +799,16 @@ export default function AdminPartenairesPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* 📄 MODAL BORDEREAU DE CLÔTURE JOURNALIÈRE DU MARCHAND */}
+      {closurePartner && (
+        <DailyClosureModal
+          isOpen={!!closurePartner}
+          onClose={() => setClosurePartner(null)}
+          partner={closurePartner}
+          orders={orders}
+        />
       )}
     </div>
   );

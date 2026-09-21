@@ -4,6 +4,7 @@ import {
   savePlatformSettings,
   getRolePermissions,
   saveRolePermissions,
+  saveGlobalAuditLog,
 } from "@/lib/server-db";
 import { platformRoles, platformPermissions } from "@/lib/mock-data";
 
@@ -42,6 +43,21 @@ export async function PUT(req: NextRequest) {
 
     if (body.type === "ROLE_PERMISSIONS" && body.roleId && Array.isArray(body.permissions)) {
       const updatedMap = await saveRolePermissions(body.roleId, body.permissions);
+      await saveGlobalAuditLog({
+        id: `aud-perm-${Date.now()}`,
+        timestamp: new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+        isoDate: new Date().toISOString(),
+        actor: { id: "USR-PDG-001", name: body.updatedBy || "Jude S. (PDG)", role: "Super Admin", type: "USER" },
+        action: "PERMISSIONS_UPDATED",
+        actionLabel: "Modification des habilitations",
+        module: "PARAMETRES",
+        entityType: "ROLE",
+        entityId: body.roleId,
+        entityReference: `ROLE-${body.roleId}`,
+        severity: "WARNING",
+        result: "SUCCESS",
+        description: `Mise à jour des permissions pour le rôle ${body.roleId}.`,
+      });
       return NextResponse.json({
         success: true,
         message: "Permissions mises à jour avec succès",
@@ -63,6 +79,24 @@ export async function PUT(req: NextRequest) {
     };
 
     const saved = await savePlatformSettings(updatedSettings);
+
+    await saveGlobalAuditLog({
+      id: `aud-set-${Date.now()}`,
+      timestamp: new Date().toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" }),
+      isoDate: new Date().toISOString(),
+      actor: { id: "USR-PDG-001", name: updatedSettings.updatedBy, role: "Super Admin", type: "USER" },
+      action: "SETTINGS_UPDATED",
+      actionLabel: "Modification des Paramètres Plateforme",
+      module: "PARAMETRES",
+      entityType: "SETTING",
+      entityId: "SYSTEM_SETTINGS",
+      entityReference: "GLOBAL_CONFIG",
+      severity: "WARNING",
+      result: "SUCCESS",
+      description: `Mise à jour de la configuration centrale par ${updatedSettings.updatedBy}. Nouveaux paramètres actifs.`,
+      beforeState: current as any,
+      afterState: saved as any,
+    });
 
     return NextResponse.json({
       success: true,

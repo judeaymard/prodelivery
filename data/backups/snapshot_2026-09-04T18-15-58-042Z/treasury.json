@@ -1,0 +1,53 @@
+[
+  {
+    "id": "tm-1",
+    "firstName": "Jean-Baptiste",
+    "lastName": "AGOSSOU",
+    "name": "Jean-Baptiste AGOSSOU",
+    "email": "jb.agossou@enolivraison.com",
+    "phone": "+229 01 97 12 34 56",
+    "zone": "Hub Central Cotonou (Cadjehoun)",
+    "status": "ACTIF",
+    "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    "createdAt": "2026-06-15 08:30",
+    "lastActiveAt": "Il y a 5 min",
+    "remittancesReceivedCount": 48,
+    "totalFundsReceived": 8450000,
+    "discrepanciesFlaggedCount": 2,
+    "notes": "Responsable principal de la caisse physique et des remises terrain au Hub Central."
+  },
+  {
+    "id": "tm-2",
+    "firstName": "Sandrine",
+    "lastName": "MENSAH",
+    "name": "Sandrine MENSAH",
+    "email": "sandrine.mensah@enolivraison.com",
+    "phone": "+229 01 66 88 99 00",
+    "zone": "Hub Secondaire Calavi (Arconville)",
+    "status": "ACTIF",
+    "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
+    "createdAt": "2026-07-01 09:00",
+    "lastActiveAt": "Il y a 22 min",
+    "remittancesReceivedCount": 31,
+    "totalFundsReceived": 4720000,
+    "discrepanciesFlaggedCount": 1,
+    "notes": "En charge du contrôle physique des fonds collectés par la flotte Calavi/Akassato."
+  },
+  {
+    "id": "tm-3",
+    "firstName": "Armand",
+    "lastName": "KOUASSI",
+    "name": "Armand KOUASSI",
+    "email": "armand.kouassi@enolivraison.com",
+    "phone": "+229 01 95 44 33 22",
+    "zone": "Hub Porto-Novo",
+    "status": "EN_PAUSE",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    "createdAt": "2026-08-10 10:15",
+    "lastActiveAt": "Hier à 17:30",
+    "remittancesReceivedCount": 14,
+    "totalFundsReceived": 2030000,
+    "discrepanciesFlaggedCount": 0,
+    "notes": "En congé de relève, permanence assurée par le Hub Central."
+  }
+]

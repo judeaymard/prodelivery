@@ -1,8 +1,9 @@
 import { PayoutOperator, PlatformSettings } from "./types";
+import { leekpay } from "./leekpay";
 
 /**
  * Adaptateurs des Passerelles de Paiement
- * ENO Livraison 2027 (Section 36.12)
+ * GuinéeGo LAT 2027 (Section 36.12)
  * 
  * Cette architecture unifiée permet au backend de traiter les demandes de virement
  * via les différents providers (LeekPay, Binance Pay, USDT) avec contrôle strict
@@ -66,31 +67,25 @@ export class LeekPayProvider implements PaymentProvider {
   }
 
   async createPayout(params: PayoutExecutionParams): Promise<PayoutExecutionResult> {
-    const isConfigured = this.config?.enabled && this.config?.status === "ACTIVE" && this.config?.apiEndpoint;
     const now = new Date().toISOString();
-    const providerRef = `LP-${Date.now().toString().slice(-6)}-${params.idempotencyKey.slice(0, 4)}`;
-
-    if (!isConfigured) {
-      // Configuration en attente d'API key réelle en production
-      return {
-        success: true,
-        status: "PROCESSING",
-        provider: "LeekPay (Sandbox / Attente API)",
-        providerReference: providerRef,
-        processedAt: now,
-        message: "🟡 Demande transmise à l'adaptateur LeekPay (INTEGRATION REQUIRED pour confirmation webhook production).",
-        isSimulatedOrPending: true,
-      };
-    }
+    
+    // Appel du client LeekPay unifié (Gère Sandbox & Live en toute sécurité)
+    const result = await leekpay.transfer({
+      amount: params.amount,
+      phone: params.recipient.phone || "",
+      country: params.recipient.countryCode?.replace("+", "") || "BJ",
+      reference: params.payoutId,
+      description: `Retrait ${params.payoutId} pour ${params.recipient.name}`,
+    });
 
     return {
-      success: true,
-      status: "PAID",
-      provider: "LeekPay Gateway",
-      providerReference: providerRef,
+      success: result.success,
+      status: result.status === "PAID" ? "PAID" : result.status === "PROCESSING" ? "PROCESSING" : "FAILED",
+      provider: "LeekPay Mobile Money Gateway",
+      providerReference: result.transactionId,
       processedAt: now,
-      message: `Virement Mobile Money de ${params.amount} FCFA transmis avec succès via LeekPay.`,
-      isSimulatedOrPending: false,
+      message: result.message,
+      isSimulatedOrPending: !process.env.LEEKPAY_API_KEY,
     };
   }
 

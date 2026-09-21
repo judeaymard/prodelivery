@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -56,7 +56,7 @@ export default function AdminTresoriersPage() {
   const [formLastName, setFormLastName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formPhone, setFormPhone] = useState("+229 01 ");
-  const [formZone, setFormZone] = useState("Hub Central Cotonou (Cadjehoun)");
+  const [formZone, setFormZone] = useState("Hub Central Conakry (Kaloum)");
   const [formStatus, setFormStatus] = useState<EmployeeStatus>("ACTIF");
   const [formNotes, setFormNotes] = useState("");
 
@@ -90,7 +90,7 @@ export default function AdminTresoriersPage() {
     addTreasuryManager({
       firstName: formFirstName.trim(),
       lastName: formLastName.trim(),
-      email: formEmail.trim() || `${formFirstName.toLowerCase()}.${formLastName.toLowerCase()}@enolivraison.com`,
+      email: formEmail.trim() || `${formFirstName.toLowerCase()}.${formLastName.toLowerCase()}@guineego.com`,
       phone: formPhone.trim(),
       zone: formZone,
       status: formStatus,
@@ -151,7 +151,7 @@ export default function AdminTresoriersPage() {
               setFormLastName("");
               setFormEmail("");
               setFormPhone("+229 01 ");
-              setFormZone("Hub Central Cotonou (Cadjehoun)");
+              setFormZone("Hub Central Conakry (Kaloum)");
               setFormStatus("ACTIF");
               setFormNotes("");
               setShowAddModal(true);
@@ -159,7 +159,7 @@ export default function AdminTresoriersPage() {
             className="flex items-center gap-1.5 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Ajouter un responsable</span>
+            <span>Ajouter un responsable</span>
           </button>
         </div>
       </div>
@@ -413,7 +413,7 @@ export default function AdminTresoriersPage() {
                   <label className="font-bold text-slate-700 block mb-1">Email Professionnel</label>
                   <input
                     type="email"
-                    placeholder="Ex: jb.agossou@enolivraison.com"
+                    placeholder="Ex: jb.agossou@guineego.com"
                     value={formEmail}
                     onChange={(e) => setFormEmail(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
@@ -428,10 +428,10 @@ export default function AdminTresoriersPage() {
                   onChange={(e) => setFormZone(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 font-semibold"
                 >
-                  <option value="Hub Central Cotonou (Cadjehoun)">Hub Central Cotonou (Cadjehoun)</option>
-                  <option value="Hub Secondaire Calavi (Arconville)">Hub Secondaire Calavi (Arconville)</option>
-                  <option value="Hub Porto-Novo">Hub Porto-Novo</option>
-                  <option value="Hub Cotonou Est (Akpakpa)">Hub Cotonou Est (Akpakpa)</option>
+                  <option value="Hub Central Conakry (Kaloum)">Hub Central Conakry (Kaloum)</option>
+                  <option value="Hub Secondaire Kankan (Arconville)">Hub Secondaire Kankan (Arconville)</option>
+                  <option value="Hub Mamou">Hub Mamou</option>
+                  <option value="Hub Conakry Est (Matoto)">Hub Conakry Est (Matoto)</option>
                 </select>
               </div>
 

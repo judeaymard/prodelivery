@@ -1,427 +1,577 @@
 [
   {
-    "id": "aud-paid-1788529183689",
-    "timestamp": "14:39",
-    "isoDate": "2026-09-04T13:39:43.690Z",
-    "actor": {
-      "id": "USR-PDG-001",
-      "name": "Super Admin ENO",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "WITHDRAWAL_PAID",
-    "actionLabel": "Paiement de retrait effectué",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2046",
-    "entityReference": "wd-2046",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "Virement de 220 000 FCFA validé (BINANCE_PAY). Réf: lekk."
-  },
-  {
-    "id": "aud-paid-1788529179045",
-    "timestamp": "14:39",
-    "isoDate": "2026-09-04T13:39:39.045Z",
-    "actor": {
-      "id": "USR-PDG-001",
-      "name": "Super Admin ENO",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "WITHDRAWAL_PAID",
-    "actionLabel": "Paiement de retrait effectué",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2047",
-    "entityReference": "wd-2047",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "Virement de 360 000 FCFA validé (USDT). Réf: leek."
-  },
-  {
-    "id": "aud-app-1788529173877",
-    "timestamp": "14:39",
-    "isoDate": "2026-09-04T13:39:33.878Z",
-    "actor": {
-      "id": "USR-PDG-001",
-      "name": "Direction ENO",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "WITHDRAWAL_APPROVED",
-    "actionLabel": "Approbation de retrait",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2047",
-    "entityReference": "wd-2047",
-    "severity": "WARNING",
-    "result": "SUCCESS",
-    "description": "Demande de retrait de 360000 FCFA approuvée par la direction."
-  },
-  {
-    "id": "aud-paid-1788529143324",
-    "timestamp": "14:39",
-    "isoDate": "2026-09-04T13:39:03.325Z",
-    "actor": {
-      "id": "USR-PDG-001",
-      "name": "Super Admin ENO",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "WITHDRAWAL_PAID",
-    "actionLabel": "Paiement de retrait effectué",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2048",
-    "entityReference": "wd-2048",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "Virement de 500 000 FCFA validé (LEEKPAY). Réf: leeekpay."
-  },
-  {
-    "id": "aud-app-1788529132100",
-    "timestamp": "14:38",
-    "isoDate": "2026-09-04T13:38:52.101Z",
-    "actor": {
-      "id": "USR-PDG-001",
-      "name": "Direction ENO",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "WITHDRAWAL_APPROVED",
-    "actionLabel": "Approbation de retrait",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2048",
-    "entityReference": "wd-2048",
-    "severity": "WARNING",
-    "result": "SUCCESS",
-    "description": "Demande de retrait de 500000 FCFA approuvée par la direction."
-  },
-  {
-    "id": "aud-glob-001",
-    "timestamp": "04 sept. 2026 — 10:42:18",
-    "isoDate": "2026-09-04T10:42:18",
-    "actor": {
-      "id": "tm-1",
-      "name": "Jean-Baptiste AGOSSOU",
-      "role": "Responsable de trésorerie",
-      "type": "USER"
-    },
-    "action": "REMITTANCE_VALIDATED",
-    "actionLabel": "A validé la remise physique",
-    "module": "TRESORERIE",
-    "entityType": "REMITTANCE",
-    "entityId": "rem-103",
-    "entityReference": "RM-1045",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "A validé la remise RM-1045 de 150 000 FCFA au coffre-fort sans écart.",
-    "financeTxRef": "TX-2026-0903-084",
-    "ipAddress": "41.85.160.12",
-    "sessionId": "sess-849201"
-  },
-  {
-    "id": "aud-glob-002",
-    "timestamp": "04 sept. 2026 — 10:38:05",
-    "isoDate": "2026-09-04T10:38:05",
-    "actor": {
-      "id": "cls-1",
-      "name": "Sarah A.",
-      "role": "Closeuse",
-      "type": "USER"
-    },
-    "action": "ORDER_CONFIRMED",
-    "actionLabel": "A confirmé la commande",
-    "module": "COMMANDES",
-    "entityType": "ORDER",
-    "entityId": "o1",
-    "entityReference": "CMD-1048",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "A confirmé la commande CMD-1048 après 1 appel téléphonique (client prêt avec le montant exact).",
-    "beforeState": {
-      "status": "EN_ATTENTE",
-      "callCount": 0
-    },
-    "afterState": {
-      "status": "CONFIRMEE",
-      "callCount": 1,
-      "deliveryTimeSlot": "14h00 - 16h00"
-    },
-    "ipAddress": "197.234.218.44"
-  },
-  {
-    "id": "aud-glob-003",
-    "timestamp": "04 sept. 2026 — 10:31:40",
-    "isoDate": "2026-09-04T10:31:40",
+    "id": "aud-glob-1789673415763-470",
+    "timestamp": "17 sept. 2026 — 20:30:15",
+    "isoDate": "2026-09-17T19:30:15.763Z",
     "actor": {
       "id": "usr-pdg",
       "name": "Jude S. (PDG)",
       "role": "Super Admin",
       "type": "USER"
     },
-    "action": "USER_CREATED",
-    "actionLabel": "A créé un nouvel utilisateur",
-    "module": "UTILISATEURS",
+    "action": "CONVERSATION_TRANSFERRED",
+    "actionLabel": "A transféré la conversation",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "WARNING",
+    "result": "SUCCESS",
+    "description": "Transfert de Jude S. (PDG) vers Amina Tidjani (Closeuse Senior). Motif : rien",
+    "reason": "rien",
+    "beforeState": {
+      "assignedAgentName": "Jude S. (PDG)"
+    },
+    "afterState": {
+      "assignedAgentName": "Amina Tidjani",
+      "assignedAgentRole": "Closeuse Senior"
+    },
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673395372-234",
+    "timestamp": "17 sept. 2026 — 20:29:55",
+    "isoDate": "2026-09-17T19:29:55.372Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_RESOLVED",
+    "actionLabel": "A marqué la conversation comme résolue",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Support pour Ma Boutique marqué comme résolu par Jude S. (PDG).",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673377474-1",
+    "timestamp": "17 sept. 2026 — 20:29:37",
+    "isoDate": "2026-09-17T19:29:37.473Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_REOPENED",
+    "actionLabel": "A réouvert la conversation",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Conversation Ma Boutique réouverte pour suivi.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673366906-789",
+    "timestamp": "17 sept. 2026 — 20:29:26",
+    "isoDate": "2026-09-17T19:29:26.906Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_RESOLVED",
+    "actionLabel": "A marqué la conversation comme résolue",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Support pour Ma Boutique marqué comme résolu par Jude S. (PDG).",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673357274-322",
+    "timestamp": "17 sept. 2026 — 20:29:17",
+    "isoDate": "2026-09-17T19:29:17.274Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "Direction Générale",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_ASSIGNED",
+    "actionLabel": "A validé la prise en charge du marchand",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Jude S. (PDG) (Direction Générale) a validé la prise en charge de la conversation de Ma Boutique.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673152580-720",
+    "timestamp": "17 sept. 2026 — 20:25:52",
+    "isoDate": "2026-09-17T19:25:52.580Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Sarah Kone",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"Votre ramassage de stock a bien été validé et transmis à not...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789673137047-743",
+    "timestamp": "17 sept. 2026 — 20:25:37",
+    "isoDate": "2026-09-17T19:25:37.047Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Sarah Kone",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "ATTACHMENT_UPLOADED",
+    "actionLabel": "A envoyé 1 pièce(s) jointe(s)",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Fichiers envoyés à Ma Boutique : 872b75ad9c3e44abbffc3f00eb7f9681.webp",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789672816250-737",
+    "timestamp": "17 sept. 2026 — 20:20:16",
+    "isoDate": "2026-09-17T19:20:16.250Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Ma Boutique",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"ça va ?...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789672805692-847",
+    "timestamp": "17 sept. 2026 — 20:20:05",
+    "isoDate": "2026-09-17T19:20:05.692Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Sarah Kone",
+      "role": "Closeuse & Support",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_ASSIGNED",
+    "actionLabel": "A validé la prise en charge du marchand",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Sarah Kone (Closeuse & Support) a validé la prise en charge de la conversation de Ma Boutique.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789672780423-147",
+    "timestamp": "17 sept. 2026 — 20:19:40",
+    "isoDate": "2026-09-17T19:19:40.423Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Ma Boutique",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "ATTACHMENT_UPLOADED",
+    "actionLabel": "A envoyé 1 pièce(s) jointe(s)",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789672762508_47dj",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Fichiers envoyés à Ma Boutique : WhatsApp Image 2026-09-17 at 10.51.47.jpeg",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789671984233-178",
+    "timestamp": "17 sept. 2026 — 20:06:24",
+    "isoDate": "2026-09-17T19:06:24.233Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Sarah Kone",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_RESOLVED",
+    "actionLabel": "A marqué la conversation comme résolue",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Support pour Ma Boutique marqué comme résolu par Sarah Kone.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789671068612-300",
+    "timestamp": "17 sept. 2026 — 19:51:08",
+    "isoDate": "2026-09-17T18:51:08.611Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude S. (PDG)",
+      "role": "Super Admin",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_RESOLVED",
+    "actionLabel": "A marqué la conversation comme résolue",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Support pour Ma Boutique marqué comme résolu avec succès.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789670401918-416",
+    "timestamp": "17 sept. 2026 — 19:40:01",
+    "isoDate": "2026-09-17T18:40:01.918Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "Direction Générale",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_ASSIGNED",
+    "actionLabel": "A validé la prise en charge du marchand",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Jude S. (PDG) (Direction Générale) a validé la prise en charge de la conversation de Ma Boutique.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789670382190-751",
+    "timestamp": "17 sept. 2026 — 19:39:42",
+    "isoDate": "2026-09-17T18:39:42.189Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "INTERNAL_NOTE_CREATED",
+    "actionLabel": "A rédigé une note interne confidentielle",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Note interne ajoutée à la conversation Ma Boutique : \"laisser moi cette conversation...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789670364129-530",
+    "timestamp": "17 sept. 2026 — 19:39:24",
+    "isoDate": "2026-09-17T18:39:24.129Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"oui possible...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789670341053-842",
+    "timestamp": "17 sept. 2026 — 19:39:01",
+    "isoDate": "2026-09-17T18:39:01.053Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Ma Boutique",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"dit moi non pdg...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789669811487-46",
+    "timestamp": "17 sept. 2026 — 19:30:11",
+    "isoDate": "2026-09-17T18:30:11.487Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "Direction Générale",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_ASSIGNED",
+    "actionLabel": "A validé la prise en charge du marchand",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Jude S. (PDG) (Direction Générale) a validé la prise en charge de la conversation de Ma Boutique.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789669703817-958",
+    "timestamp": "17 sept. 2026 — 19:28:23",
+    "isoDate": "2026-09-17T18:28:23.817Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"possible?...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789669693091-703",
+    "timestamp": "17 sept. 2026 — 19:28:13",
+    "isoDate": "2026-09-17T18:28:13.091Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "MESSAGE_SENT",
+    "actionLabel": "A envoyé un message support",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Message support envoyé à Ma Boutique : \"bonjour jude je veux demander si vos closeuse peuvent faire ...\"",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789669639910-549",
+    "timestamp": "17 sept. 2026 — 19:27:19",
+    "isoDate": "2026-09-17T18:27:19.910Z",
+    "actor": {
+      "id": "usr-current",
+      "name": "Jude S. (PDG)",
+      "role": "Direction Générale",
+      "type": "USER"
+    },
+    "action": "CONVERSATION_ASSIGNED",
+    "actionLabel": "A validé la prise en charge du marchand",
+    "module": "CONVERSATIONS",
+    "entityType": "CONVERSATION",
+    "entityId": "conv_1789669607510_7ckc",
+    "entityReference": "Ma Boutique",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Jude S. (PDG) (Direction Générale) a validé la prise en charge de la conversation de Ma Boutique.",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-auth-1789667044314",
+    "timestamp": "18:44",
+    "isoDate": "2026-09-17T17:44:04.314Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "LOGIN",
+    "actionLabel": "Connexion utilisateur",
+    "module": "AUTH",
     "entityType": "USER",
-    "entityId": "cls-4",
-    "entityReference": "USR-04 (Marie K.)",
-    "severity": "WARNING",
+    "entityId": "usr-pdg",
+    "entityReference": "judesinaberogui@gmail.com",
+    "severity": "INFO",
     "result": "SUCCESS",
-    "description": "Création du compte closeuse pour Marie KODJO avec permissions standard.",
-    "afterState": {
-      "email": "marie.k@enolivraison.com",
-      "role": "CLOSER",
-      "status": "ACTIF"
-    },
-    "isSensitive": true,
-    "ipAddress": "41.85.160.22"
+    "description": "Connexion réussie pour Jude Sinaberogui (PDG) (PDG) vers /pdg."
   },
   {
-    "id": "aud-glob-004",
-    "timestamp": "04 sept. 2026 — 10:24:12",
-    "isoDate": "2026-09-04T10:24:12",
+    "id": "aud-auth-1789653431712",
+    "timestamp": "14:57",
+    "isoDate": "2026-09-17T13:57:11.712Z",
     "actor": {
-      "id": "liv-1",
-      "name": "Rachad ADECHINA",
-      "role": "Livreur",
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
       "type": "USER"
     },
-    "action": "DRIVER_AVAILABILITY_CHANGED",
-    "actionLabel": "A changé sa disponibilité",
-    "module": "LIVREURS",
-    "entityType": "LIVREUR",
-    "entityId": "liv-1",
-    "entityReference": "LIV-01",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "A changé son statut de disponibilité → Disponible pour tournées Littoral.",
-    "beforeState": {
-      "availabilityStatus": "PAUSED"
-    },
-    "afterState": {
-      "availabilityStatus": "AVAILABLE"
-    },
-    "ipAddress": "197.234.219.88"
-  },
-  {
-    "id": "aud-glob-005",
-    "timestamp": "04 sept. 2026 — 10:15:30",
-    "isoDate": "2026-09-04T10:15:30",
-    "actor": {
-      "id": "sys-smart-assign",
-      "name": "Système",
-      "role": "Automatisation des attributions",
-      "type": "SYSTEM"
-    },
-    "action": "AUTOMATIC_ASSIGNMENT_EXECUTED",
-    "actionLabel": "Attribution automatique exécutée",
-    "module": "AUTOMATISATION",
-    "entityType": "ORDER",
-    "entityId": "o2",
-    "entityReference": "CMD-1047",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "A attribué automatiquement la commande CMD-1047 à Sarah A.",
-    "reason": "Disponibilité confirmée (En ligne), capacité disponible (3/15 commandes actives), charge minimale parmi les candidates éligibles, Round Robin utilisé comme tie-breaker."
-  },
-  {
-    "id": "aud-glob-006",
-    "timestamp": "04 sept. 2026 — 09:55:10",
-    "isoDate": "2026-09-04T09:55:10",
-    "actor": {
-      "id": "sys-security",
-      "name": "Système Sécurité",
-      "role": "WAF & Autorisation",
-      "type": "SYSTEM"
-    },
-    "action": "PERMISSION_UPDATE_BLOCKED",
-    "actionLabel": "Tentative d'action bloquée",
+    "action": "LOGIN",
+    "actionLabel": "Connexion utilisateur",
     "module": "AUTH",
-    "entityType": "RULE",
-    "entityId": "perm-sec-01",
-    "entityReference": "ROLE-CLOSER",
-    "severity": "CRITICAL",
-    "result": "BLOCKED",
-    "description": "Tentative d'élévation de privilèges ou modification de droits financiers non autorisée.",
-    "ipAddress": "197.234.221.14",
-    "isSensitive": true
-  },
-  {
-    "id": "aud-glob-007",
-    "timestamp": "04 sept. 2026 — 09:40:22",
-    "isoDate": "2026-09-04T09:40:22",
-    "actor": {
-      "id": "liv-2",
-      "name": "Wilfried HOUNGBO",
-      "role": "Livreur",
-      "type": "USER"
-    },
-    "action": "DISCREPANCY_FLAGGED",
-    "actionLabel": "Écart d'encaissement signalé",
-    "module": "FINANCES",
-    "entityType": "ORDER",
-    "entityId": "cmd_002",
-    "entityReference": "CMD-1047",
-    "severity": "WARNING",
-    "result": "SUCCESS",
-    "description": "A déclaré un encaissement partiel de 20 000 FCFA sur 25 000 FCFA attendus.",
-    "reason": "Client a retiré un produit après accord téléphonique direct avec la boutique partenaire Bénin Shop.",
-    "financeTxRef": "TX-2026-0903-079",
-    "ipAddress": "197.234.219.92"
-  },
-  {
-    "id": "aud-glob-008",
-    "timestamp": "04 sept. 2026 — 09:12:00",
-    "isoDate": "2026-09-04T09:12:00",
-    "actor": {
-      "id": "usr-pdg",
-      "name": "Jude S. (PDG)",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "CAPACITY_UPDATED",
-    "actionLabel": "Modification de capacité livreur",
-    "module": "LIVREURS",
-    "entityType": "LIVREUR",
-    "entityId": "liv-3",
-    "entityReference": "LIV-03 (Gaston B.)",
-    "severity": "WARNING",
-    "result": "SUCCESS",
-    "description": "Ajustement de la capacité maximale de tournée pour absorber le flux Littoral.",
-    "beforeState": {
-      "maxActiveCapacity": 8
-    },
-    "afterState": {
-      "maxActiveCapacity": 12
-    },
-    "isSensitive": false,
-    "ipAddress": "41.85.160.22"
-  },
-  {
-    "id": "aud-glob-009",
-    "timestamp": "04 sept. 2026 — 08:45:10",
-    "isoDate": "2026-09-04T08:45:10",
-    "actor": {
-      "id": "usr-pdg",
-      "name": "Jude S. (PDG)",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "SETTING_COMMISSION_UPDATED",
-    "actionLabel": "Modification des paramètres de commission",
-    "module": "PARAMETRES",
-    "entityType": "SETTING",
-    "entityId": "conf-comm-global",
-    "entityReference": "CONF-FIN-01",
-    "severity": "CRITICAL",
-    "result": "SUCCESS",
-    "description": "Mise à jour de la grille tarifaire de livraison standard et commission closing.",
-    "beforeState": {
-      "commissionClosing": 800,
-      "deliveryStandardFee": 2000
-    },
-    "afterState": {
-      "commissionClosing": 1000,
-      "deliveryStandardFee": 2200
-    },
-    "isSensitive": true,
-    "ipAddress": "41.85.160.22"
-  },
-  {
-    "id": "aud-glob-010",
-    "timestamp": "04 sept. 2026 — 08:15:00",
-    "isoDate": "2026-09-04T08:15:00",
-    "actor": {
-      "id": "usr-pdg",
-      "name": "Jude S. (PDG)",
-      "role": "Super Admin",
-      "type": "USER"
-    },
-    "action": "LOGIN_SUCCESS",
-    "actionLabel": "Connexion réussie",
-    "module": "AUTH",
-    "entityType": "SESSION",
-    "entityId": "sess-984210",
-    "entityReference": "SESS-PDG-01",
+    "entityType": "USER",
+    "entityId": "usr-pdg",
+    "entityReference": "judesinaberogui@gmail.com",
     "severity": "INFO",
     "result": "SUCCESS",
-    "description": "Authentification multifacteur validée depuis macOS Safari.",
-    "ipAddress": "41.85.160.22",
-    "sessionId": "sess-984210"
+    "description": "Connexion réussie pour Jude Sinaberogui (PDG) (PDG) vers /pdg."
   },
   {
-    "id": "aud-glob-011",
-    "timestamp": "03 sept. 2026 — 18:45:00",
-    "isoDate": "2026-09-03T18:45:00",
+    "id": "aud-glob-1789653305310-608",
+    "timestamp": "17 sept. 2026 — 14:55:05",
+    "isoDate": "2026-09-17T13:55:05.310Z",
     "actor": {
-      "id": "usr-pdg",
-      "name": "Jude S. (PDG)",
-      "role": "Super Admin",
+      "id": "usr-treasury",
+      "name": "Amina Tidjani",
+      "role": "Responsable Trésorerie",
       "type": "USER"
     },
-    "action": "WITHDRAWAL_APPROVED",
-    "actionLabel": "A approuvé un retrait e-commerçant",
-    "module": "FINANCES",
-    "entityType": "PAYOUT",
-    "entityId": "wd-2048",
-    "entityReference": "WD-2048",
-    "severity": "CRITICAL",
+    "action": "GENERAL_LEDGER_VIEWED",
+    "actionLabel": "Consultation du Grand Livre & Journal",
+    "module": "TRESORERIE",
+    "entityType": "FINANCE",
+    "entityId": "GRAND_LIVRE",
+    "entityReference": "JOURNAL_COMPTABLE",
+    "severity": "INFO",
     "result": "SUCCESS",
-    "description": "A approuvé le virement LeekPay de 500 000 FCFA en faveur d'Afrimarket.",
-    "financeTxRef": "TX-2026-0903-082",
-    "isSensitive": true,
+    "description": "Consultation centralisée des écritures comptables et mouvements de trésorerie",
     "ipAddress": "41.85.160.22"
   },
   {
-    "id": "aud-glob-012",
-    "timestamp": "03 sept. 2026 — 16:30:15",
-    "isoDate": "2026-09-03T16:30:15",
+    "id": "audit-1789653111224",
+    "timestamp": "17/09/2026 14:51:51",
+    "isoDate": "2026-09-17T13:51:51.224Z",
     "actor": {
-      "id": "sys-notify",
-      "name": "Système",
-      "role": "Centre de Notifications",
-      "type": "SYSTEM"
-    },
-    "action": "NOTIFICATION_SENT",
-    "actionLabel": "Notification broadcast envoyée",
-    "module": "AUTOMATISATION",
-    "entityType": "SYSTEM",
-    "entityId": "notif-bc-01",
-    "entityReference": "NOTIF-CMD-ALERT",
-    "severity": "INFO",
-    "result": "SUCCESS",
-    "description": "Alerte temps réel envoyée aux livreurs de zone Calavi pour prise en charge prioritaire."
-  },
-  {
-    "id": "aud-glob-013",
-    "timestamp": "03 sept. 2026 — 14:10:00",
-    "isoDate": "2026-09-03T14:10:00",
-    "actor": {
-      "id": "usr-pdg",
-      "name": "Jude S. (PDG)",
-      "role": "Super Admin",
+      "id": "usr-partner-111224",
+      "name": "Aurele Dossou",
+      "role": "PARTNER",
       "type": "USER"
     },
-    "action": "MERCHANT_SUSPENDED",
-    "actionLabel": "A suspendu un e-commerçant",
+    "action": "REGISTER_PARTNER",
+    "actionLabel": "Nouvelle inscription partenaire",
     "module": "ECOMMERCE",
     "entityType": "PARTNER",
-    "entityId": "p4",
-    "entityReference": "Lokossa Tech",
-    "severity": "CRITICAL",
+    "entityId": "usr-partner-111224",
+    "entityReference": "Dossou Store",
+    "severity": "INFO",
     "result": "SUCCESS",
-    "description": "Suspension temporaire pour non-conformité répétée sur l'emballage colis.",
-    "beforeState": {
-      "status": "ACTIVE"
+    "description": "Inscription partenaire : Dossou Store (test_marchand_1789653110812@guineego.com)",
+    "ipAddress": "::1",
+    "partnerId": "usr-partner-111224",
+    "partnerName": "Dossou Store"
+  },
+  {
+    "id": "aud-glob-1789651404945-906",
+    "timestamp": "17 sept. 2026 — 14:23:24",
+    "isoDate": "2026-09-17T13:23:24.945Z",
+    "actor": {
+      "id": "usr-treasury",
+      "name": "Amina Tidjani",
+      "role": "Responsable Trésorerie",
+      "type": "USER"
     },
-    "afterState": {
-      "status": "SUSPENDED",
-      "suspensionReason": "Non-conformité emballage"
+    "action": "GENERAL_LEDGER_VIEWED",
+    "actionLabel": "Consultation du Grand Livre & Journal",
+    "module": "TRESORERIE",
+    "entityType": "FINANCE",
+    "entityId": "GRAND_LIVRE",
+    "entityReference": "JOURNAL_COMPTABLE",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Consultation centralisée des écritures comptables et mouvements de trésorerie",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789649977704-952",
+    "timestamp": "17 sept. 2026 — 13:59:37",
+    "isoDate": "2026-09-17T12:59:37.704Z",
+    "actor": {
+      "id": "tm-1",
+      "name": "Amina Tidjani",
+      "role": "Responsable Trésorerie",
+      "type": "USER"
     },
-    "isSensitive": true,
+    "action": "WITHDRAWALS_MODULE_VIEWED",
+    "actionLabel": "Consultation du module Retraits & Virements",
+    "module": "TRESORERIE",
+    "entityType": "FINANCE",
+    "entityId": "RETRAITS_VIREMENTS",
+    "entityReference": "PAYOUTS_REGISTRY",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Consultation du registre central des retraits et exécutions de virements",
+    "ipAddress": "41.85.160.22"
+  },
+  {
+    "id": "aud-glob-1789649977701-953",
+    "timestamp": "17 sept. 2026 — 13:59:37",
+    "isoDate": "2026-09-17T12:59:37.701Z",
+    "actor": {
+      "id": "tm-1",
+      "name": "Amina Tidjani",
+      "role": "Responsable Trésorerie",
+      "type": "USER"
+    },
+    "action": "WITHDRAWALS_MODULE_VIEWED",
+    "actionLabel": "Consultation du module Retraits & Virements",
+    "module": "TRESORERIE",
+    "entityType": "FINANCE",
+    "entityId": "RETRAITS_VIREMENTS",
+    "entityReference": "PAYOUTS_REGISTRY",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Consultation du registre central des retraits et exécutions de virements",
     "ipAddress": "41.85.160.22"
   }
 ]

@@ -12,6 +12,10 @@ import {
   FinancialTransaction,
   GlobalAuditLog,
   Partner,
+  LivreurProfile,
+  CloseuseProfile,
+  TreasuryManagerProfile,
+  CodRemittance,
 } from "./types";
 import {
   initialConversations,
@@ -24,6 +28,10 @@ import {
   initialTransactions,
   initialGlobalAuditLogs,
   partners as initialPartners,
+  livreurs as initialLivreurs,
+  closeuses as initialCloseuses,
+  initialTreasuryManagers,
+  initialCodRemittances,
 } from "./mock-data";
 
 const DATA_DIR = path.join(process.cwd(), "data");
@@ -38,6 +46,10 @@ const ORDERS_FILE = path.join(DATA_DIR, "orders.json");
 const TRANSACTIONS_FILE = path.join(DATA_DIR, "transactions.json");
 const AUDIT_FILE = path.join(DATA_DIR, "audit.json");
 const PARTNERS_FILE = path.join(DATA_DIR, "partners.json");
+const DRIVERS_FILE = path.join(DATA_DIR, "drivers.json");
+const CLOSERS_FILE = path.join(DATA_DIR, "closers.json");
+const TREASURY_FILE = path.join(DATA_DIR, "treasury.json");
+const REMITTANCES_FILE = path.join(DATA_DIR, "remittances.json");
 const STORAGE_DIR = path.join(process.cwd(), "storage", "attachments");
 const PUBLIC_UPLOADS_DIR = path.join(process.cwd(), "public", "uploads", "conversations");
 
@@ -166,6 +178,50 @@ export async function initDatabase(): Promise<void> {
         "utf-8"
       );
     }
+
+    // Initialisation du fichier drivers.json s'il n'existe pas
+    try {
+      await fs.access(DRIVERS_FILE);
+    } catch {
+      await fs.writeFile(
+        DRIVERS_FILE,
+        JSON.stringify(initialLivreurs, null, 2),
+        "utf-8"
+      );
+    }
+
+    // Initialisation du fichier closers.json s'il n'existe pas
+    try {
+      await fs.access(CLOSERS_FILE);
+    } catch {
+      await fs.writeFile(
+        CLOSERS_FILE,
+        JSON.stringify(initialCloseuses, null, 2),
+        "utf-8"
+      );
+    }
+
+    // Initialisation du fichier treasury.json s'il n'existe pas
+    try {
+      await fs.access(TREASURY_FILE);
+    } catch {
+      await fs.writeFile(
+        TREASURY_FILE,
+        JSON.stringify(initialTreasuryManagers, null, 2),
+        "utf-8"
+      );
+    }
+
+    // Initialisation du fichier remittances.json s'il n'existe pas
+    try {
+      await fs.access(REMITTANCES_FILE);
+    } catch {
+      await fs.writeFile(
+        REMITTANCES_FILE,
+        JSON.stringify(initialCodRemittances, null, 2),
+        "utf-8"
+      );
+    }
   } catch (error) {
     console.error("Erreur lors de l'initialisation de la base de données serveur:", error);
   }
@@ -270,7 +326,12 @@ export async function saveAttachment(attachment: ChatAttachment): Promise<ChatAt
  */
 export async function saveMessageToConversation(
   conversationId: string,
-  message: ChatMessage
+  message: ChatMessage,
+  convUpdates?: {
+    assignedAgentName?: string;
+    assignedAgentRole?: string;
+    status?: Conversation["status"];
+  }
 ): Promise<{ conversation: Conversation; message: ChatMessage }> {
   await initDatabase();
   const conversations = await getConversations();
@@ -326,6 +387,17 @@ export async function saveMessageToConversation(
     }
   }
 
+  // Appliquer les métadonnées d'assignation ou de statut si fournies
+  if (convUpdates?.assignedAgentName) {
+    targetConv.assignedAgentName = convUpdates.assignedAgentName;
+    targetConv.assignedAgentRole = convUpdates.assignedAgentRole || "Support";
+  }
+  if (convUpdates?.status) {
+    targetConv.status = convUpdates.status;
+  } else if (targetConv.status === "RESOLVED") {
+    targetConv.status = "OPEN";
+  }
+
   // Ajouter le message à la conversation
   const updatedMessages = [...targetConv.messages, message];
   const hasAtts = message.attachments && message.attachments.length > 0;
@@ -336,7 +408,6 @@ export async function saveMessageToConversation(
   targetConv.messages = updatedMessages;
   targetConv.lastMessage = `${message.text || "Fichier joint"}${attLabel}`;
   targetConv.lastMessageAt = "À l'instant";
-  targetConv.status = targetConv.status === "RESOLVED" ? "OPEN" : targetConv.status;
 
   await fs.writeFile(
     CONVERSATIONS_FILE,
@@ -711,6 +782,16 @@ export async function getTransactions(): Promise<FinancialTransaction[]> {
 export async function saveTransaction(tx: FinancialTransaction): Promise<FinancialTransaction> {
   await initDatabase();
   const list = await getTransactions();
+  // Protection Idempotence : Ne pas insérer de doublon si la même référence ou note existe déjà
+  const isDuplicate = list.some(
+    (t) =>
+      t.id === tx.id ||
+      (tx.txReference && t.txReference === tx.txReference) ||
+      (tx.notes && t.notes && t.notes === tx.notes)
+  );
+  if (isDuplicate) {
+    return tx;
+  }
   list.unshift(tx);
   await fs.writeFile(TRANSACTIONS_FILE, JSON.stringify(list, null, 2), "utf-8");
   return tx;
@@ -784,6 +865,201 @@ export async function updatePartner(
     partners[index] = { ...partners[index], ...updates };
     await fs.writeFile(PARTNERS_FILE, JSON.stringify(partners, null, 2), "utf-8");
     return partners[index];
+  }
+  return null;
+}
+
+// ==========================================
+// 🛵 GESTION DES LIVREURS (DRIVERS)
+// ==========================================
+
+export async function getDrivers(): Promise<LivreurProfile[]> {
+  await initDatabase();
+  try {
+    const data = await fs.readFile(DRIVERS_FILE, "utf-8");
+    const parsed = JSON.parse(data);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (error) {
+    console.error("Erreur lecture drivers.json:", error);
+  }
+  return initialLivreurs;
+}
+
+export async function saveDriver(driver: LivreurProfile): Promise<LivreurProfile> {
+  await initDatabase();
+  const list = await getDrivers();
+  const index = list.findIndex((d) => d.id === driver.id);
+  if (index >= 0) {
+    list[index] = driver;
+  } else {
+    list.push(driver);
+  }
+  await fs.writeFile(DRIVERS_FILE, JSON.stringify(list, null, 2), "utf-8");
+  return driver;
+}
+
+export async function updateDriver(
+  id: string,
+  updates: Partial<LivreurProfile>
+): Promise<LivreurProfile | null> {
+  await initDatabase();
+  const list = await getDrivers();
+  const index = list.findIndex((d) => d.id === id);
+  if (index >= 0) {
+    list[index] = { ...list[index], ...updates };
+    await fs.writeFile(DRIVERS_FILE, JSON.stringify(list, null, 2), "utf-8");
+    return list[index];
+  }
+  return null;
+}
+
+// ==========================================
+// 📞 GESTION DES CLOSEUSES (CLOSERS)
+// ==========================================
+
+export async function getClosers(): Promise<CloseuseProfile[]> {
+  await initDatabase();
+  try {
+    const data = await fs.readFile(CLOSERS_FILE, "utf-8");
+    const parsed = JSON.parse(data);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (error) {
+    console.error("Erreur lecture closers.json:", error);
+  }
+  return initialCloseuses;
+}
+
+export async function saveCloser(closer: CloseuseProfile): Promise<CloseuseProfile> {
+  await initDatabase();
+  const list = await getClosers();
+  const index = list.findIndex((c) => c.id === closer.id);
+  if (index >= 0) {
+    list[index] = closer;
+  } else {
+    list.push(closer);
+  }
+  await fs.writeFile(CLOSERS_FILE, JSON.stringify(list, null, 2), "utf-8");
+  return closer;
+}
+
+export async function updateCloser(
+  id: string,
+  updates: Partial<CloseuseProfile>
+): Promise<CloseuseProfile | null> {
+  await initDatabase();
+  const list = await getClosers();
+  const index = list.findIndex((c) => c.id === id);
+  if (index >= 0) {
+    list[index] = { ...list[index], ...updates };
+    await fs.writeFile(CLOSERS_FILE, JSON.stringify(list, null, 2), "utf-8");
+    return list[index];
+  }
+  return null;
+}
+
+// ==========================================
+// 💰 GESTION DE LA TRÉSORERIE & REMISES (TREASURY)
+// ==========================================
+
+export async function getTreasuryManagers(): Promise<TreasuryManagerProfile[]> {
+  await initDatabase();
+  try {
+    const data = await fs.readFile(TREASURY_FILE, "utf-8");
+    const parsed = JSON.parse(data);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (error) {
+    console.error("Erreur lecture treasury.json:", error);
+  }
+  return initialTreasuryManagers;
+}
+
+export async function saveTreasuryManager(
+  manager: TreasuryManagerProfile
+): Promise<TreasuryManagerProfile> {
+  await initDatabase();
+  const list = await getTreasuryManagers();
+  const index = list.findIndex((m) => m.id === manager.id);
+  if (index >= 0) {
+    list[index] = manager;
+  } else {
+    list.push(manager);
+  }
+  await fs.writeFile(TREASURY_FILE, JSON.stringify(list, null, 2), "utf-8");
+  return manager;
+}
+
+export async function updateTreasuryManager(
+  id: string,
+  updates: Partial<TreasuryManagerProfile>
+): Promise<TreasuryManagerProfile | null> {
+  await initDatabase();
+  const list = await getTreasuryManagers();
+  const index = list.findIndex((m) => m.id === id);
+  if (index >= 0) {
+    list[index] = { ...list[index], ...updates };
+    await fs.writeFile(TREASURY_FILE, JSON.stringify(list, null, 2), "utf-8");
+    return list[index];
+  }
+  return null;
+}
+
+export async function deleteTreasuryManager(id: string): Promise<boolean> {
+  await initDatabase();
+  const list = await getTreasuryManagers();
+  const filtered = list.filter((m) => m.id !== id);
+  if (filtered.length !== list.length) {
+    await fs.writeFile(TREASURY_FILE, JSON.stringify(filtered, null, 2), "utf-8");
+    return true;
+  }
+  return false;
+}
+
+export async function getCodRemittances(): Promise<CodRemittance[]> {
+  await initDatabase();
+  try {
+    const data = await fs.readFile(REMITTANCES_FILE, "utf-8");
+    const parsed = JSON.parse(data);
+    if (Array.isArray(parsed)) {
+      return parsed;
+    }
+  } catch (error) {
+    console.error("Erreur lecture remittances.json:", error);
+  }
+  return initialCodRemittances;
+}
+
+export async function saveCodRemittance(
+  remittance: CodRemittance
+): Promise<CodRemittance> {
+  await initDatabase();
+  const list = await getCodRemittances();
+  const index = list.findIndex((r) => r.id === remittance.id);
+  if (index >= 0) {
+    list[index] = remittance;
+  } else {
+    list.unshift(remittance);
+  }
+  await fs.writeFile(REMITTANCES_FILE, JSON.stringify(list, null, 2), "utf-8");
+  return remittance;
+}
+
+export async function updateCodRemittance(
+  id: string,
+  updates: Partial<CodRemittance>
+): Promise<CodRemittance | null> {
+  await initDatabase();
+  const list = await getCodRemittances();
+  const index = list.findIndex((r) => r.id === id);
+  if (index >= 0) {
+    list[index] = { ...list[index], ...updates };
+    await fs.writeFile(REMITTANCES_FILE, JSON.stringify(list, null, 2), "utf-8");
+    return list[index];
   }
   return null;
 }

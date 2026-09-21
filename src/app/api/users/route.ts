@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
       role: body.role,
       roleLabel: body.roleLabel || body.role,
       status: body.status || "active",
-      zone: body.zone || "Cotonou",
+      zone: body.zone || "Conakry",
       createdAt: new Date().toISOString().slice(0, 10),
       lastActiveAt: "Nouveau compte",
       is2FAEnabled: body.is2FAEnabled ?? false,

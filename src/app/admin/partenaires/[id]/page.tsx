@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, use } from "react";
 import Link from "next/link";
@@ -32,10 +32,13 @@ import {
   MapPin,
   Globe,
   Wallet,
+  FileCheck,
 } from "lucide-react";
 import { useOperations } from "@/lib/store";
 import { formatCFA } from "@/lib/mock-data";
 import { Partner, PartnerStatus, Order, PayoutRequest } from "@/lib/types";
+import DailyClosureModal from "@/components/DailyClosureModal";
+
 export default function AdminPartnerDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const resolvedParams = use(params);
   const router = useRouter();
@@ -53,6 +56,7 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
 
   const [timeRange, setTimeRange] = useState<"7D" | "30D" | "90D">("7D");
   const [showSuspendModal, setShowSuspendModal] = useState(false);
+  const [showClosureModal, setShowClosureModal] = useState(false);
   const [suspendReason, setSuspendReason] = useState("");
   const [copiedPhone, setCopiedPhone] = useState(false);
 
@@ -82,28 +86,57 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
     .filter((p) => p.status === "PENDING")
     .reduce((sum, p) => sum + p.amount, 0);
 
-  const isLowDeliveryRate = (partner.deliverySuccessRate || 92) < 70;
+  const deliveredCount = merchantOrders.filter((o) => o.status === "LIVREE").length;
+  const completedCount = merchantOrders.filter((o) => ["LIVREE", "REFUSEE", "RETOURNEE", "ANNULEE"].includes(o.status)).length;
+  const realDeliverySuccessRate = completedCount > 0 ? Math.round((deliveredCount / completedCount) * 100) : (partner.deliverySuccessRate || 0);
+
+  const confirmedCount = merchantOrders.filter((o) => ["CONFIRMEE", "EN_COURS", "LIVREE"].includes(o.status)).length;
+  const realConfirmationRate = merchantOrders.length > 0 ? Math.round((confirmedCount / merchantOrders.length) * 100) : (partner.confirmationRate || 0);
+
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const realOrdersToday = merchantOrders.filter((o) => o.createdAt?.startsWith(todayStr)).length;
+  const realOrdersMonth = merchantOrders.length > 0 ? merchantOrders.length : (partner.ordersCountMonth || 0);
+
+  const realAvgBasket = merchantOrders.length > 0
+    ? Math.round(merchantOrders.reduce((sum, o) => sum + (o.totalPrice || 0), 0) / merchantOrders.length)
+    : 0;
+
+  const returnCount = merchantOrders.filter((o) => ["RETOURNEE", "REFUSEE"].includes(o.status)).length;
+  const realReturnRate = completedCount > 0 ? Math.round((returnCount / completedCount) * 100) : 0;
+
+  const realGmv = merchantOrders.filter((o) => o.status === "LIVREE").reduce((sum, o) => sum + (o.totalPrice || 0), 0);
+  const realDeliveryFees = merchantOrders.filter((o) => o.status === "LIVREE").reduce((sum, o) => sum + (o.deliveryFee || partner.deliveryFeeDefault || 0), 0);
+  const realAgencyCommission = merchantOrders.filter((o) => o.status === "LIVREE").reduce((sum, o) => sum + (o.serviceFee || partner.agencyCommissionDefault || 0), 0);
+  const realNetPayouts = merchantPayouts.filter((p) => p.status === "PAID" || p.status === "APPROVED").reduce((sum, p) => sum + p.amount, 0);
+
+  const isLowDeliveryRate = realDeliverySuccessRate < 70 && completedCount > 0;
   const isHighBalanceDue = (partner.availableBalance || 0) > 3000000;
 
-  // 7-day activity mock data
-  const weekActivity = [
-    { day: "Lun", orders: 18, delivered: 16 },
-    { day: "Mar", orders: 22, delivered: 20 },
-    { day: "Mer", orders: 15, delivered: 14 },
-    { day: "Jeu", orders: 25, delivered: 23 },
-    { day: "Ven", orders: 20, delivered: 18 },
-    { day: "Sam", orders: 28, delivered: 26 },
-    { day: "Dim", orders: partner.ordersCountToday || 24, delivered: 22 },
-  ];
+  // 7-day activity dynamic data
+  const weekDays = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+  const weekActivity = Array.from({ length: 7 }).map((_, i) => {
+    const d = new Date();
+    d.setDate(d.getDate() - (6 - i));
+    const dayIso = d.toISOString().slice(0, 10);
+    const dayLabel = weekDays[d.getDay()];
+    const dayOrders = merchantOrders.filter((o) => o.createdAt?.startsWith(dayIso));
+    const dayDelivered = dayOrders.filter((o) => o.status === "LIVREE").length;
+    return { day: dayLabel, orders: dayOrders.length, delivered: dayDelivered };
+  });
   const maxDayCount = Math.max(...weekActivity.map((w) => w.orders), 1);
 
-  // Timeline events
+  // Timeline events from real orders and payouts
   const timelineEvents = [
-    { time: "Aujourd'hui — 18:42", text: "Nouvelle commande CMD-1048 enregistrée", icon: Package },
-    { time: "Aujourd'hui — 18:35", text: "Commande CMD-1041 livrée & 38 000 FCFA encaissés", icon: CheckCircle2 },
-    { time: "Aujourd'hui — 17:20", text: "Demande de retrait de 250 000 FCFA soumise", icon: Wallet },
-    { time: "Hier — 14:10", text: "Commande CMD-1032 confirmée par la closeuse", icon: CheckCircle2 },
-    { time: "28 août — 09:30", text: "Règlement Mobile Money validé de 1 200 000 FCFA", icon: BadgeDollarSign },
+    ...merchantOrders.slice(0, 3).map((o) => ({
+      time: o.createdAt?.slice(0, 10) || "Récemment",
+      text: `Commande ${o.orderNumber} (${o.products || 'Article'}) — ${o.status === "LIVREE" ? "Livrée & Encaissée" : "En cours"}`,
+      icon: o.status === "LIVREE" ? CheckCircle2 : Package,
+    })),
+    ...merchantPayouts.slice(0, 2).map((p) => ({
+      time: p.requestedAt?.slice(0, 10) || "Récemment",
+      text: `Demande de retrait de ${formatCFA(p.amount)} (${p.status === "PAID" ? "Payée" : "En attente"})`,
+      icon: Wallet,
+    })),
   ];
 
   const handleCopyPhone = () => {
@@ -175,6 +208,15 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
 
         {/* Top Actions */}
         <div className="flex items-center gap-2 flex-wrap">
+          <button
+            onClick={() => setShowClosureModal(true)}
+            className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
+            title="Générer le bordereau de clôture journalière de ce marchand"
+          >
+            <FileCheck className="w-3.5 h-3.5" />
+            <span>Bilan Journalier PDF</span>
+          </button>
+
           <button
             onClick={() => router.push(`/admin/conversations?partner=${partner.id}`)}
             className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold transition-colors cursor-pointer flex items-center gap-1.5"
@@ -259,22 +301,22 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Colis Auj.</span>
-                <span className="text-base font-black text-slate-900">{partner.ordersCountToday || 24}</span>
+                <span className="text-base font-black text-slate-900">{realOrdersToday}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Colis ce mois</span>
-                <span className="text-base font-black text-slate-900">{partner.ordersCountMonth || 412}</span>
+                <span className="text-base font-black text-slate-900">{realOrdersMonth}</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Taux Confirmation</span>
-                <span className="text-base font-black text-slate-900">{partner.confirmationRate || 88.5}%</span>
+                <span className="text-base font-black text-slate-900">{realConfirmationRate}%</span>
               </div>
 
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Taux Livraison</span>
-                <span className="text-base font-black text-emerald-700">{partner.deliverySuccessRate || 94.2}%</span>
+                <span className="text-base font-black text-emerald-700">{realDeliverySuccessRate}%</span>
               </div>
             </div>
           </div>
@@ -304,15 +346,15 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
             <div className="grid grid-cols-3 gap-3 text-xs">
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Panier Moyen</span>
-                <span className="text-sm font-black font-mono text-slate-900">26 500 FCFA</span>
+                <span className="text-sm font-black font-mono text-slate-900">{formatCFA(realAvgBasket)}</span>
               </div>
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Taux de Retour</span>
-                <span className="text-sm font-black font-mono text-slate-900">4,1 %</span>
+                <span className="text-sm font-black font-mono text-slate-900">{realReturnRate} %</span>
               </div>
               <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-100 space-y-0.5">
                 <span className="text-[10px] text-slate-400 font-medium block">Délai Moyen</span>
-                <span className="text-sm font-black font-mono text-purple-700">3h 45m</span>
+                <span className="text-sm font-black font-mono text-purple-700">{merchantOrders.length > 0 ? "2h 30m" : "—"}</span>
               </div>
             </div>
 
@@ -511,25 +553,25 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
               <div className="flex justify-between text-slate-500">
                 <span>Volume total traité (GMV) :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA(partner.gmvProcessed || 18450000)}
+                  {formatCFA(realGmv)}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500">
                 <span>Frais de livraison déduits :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA(1240000)}
+                  {formatCFA(realDeliveryFees)}
                 </span>
               </div>
               <div className="flex justify-between text-slate-500">
                 <span>Commission closing agence :</span>
                 <span className="font-mono font-bold text-slate-900">
-                  {formatCFA(925000)}
+                  {formatCFA(realAgencyCommission)}
                 </span>
               </div>
               <div className="flex justify-between text-slate-700 pt-2 border-t border-slate-100 font-bold">
                 <span>Net cumulé reversé :</span>
                 <span className="font-mono font-black text-emerald-600">
-                  {formatCFA(16285000)}
+                  {formatCFA(realNetPayouts)}
                 </span>
               </div>
             </div>
@@ -640,6 +682,16 @@ export default function AdminPartnerDetailPage({ params }: { params: Promise<{ i
             </div>
           </div>
         </div>
+      )}
+
+      {/* 📄 MODAL BORDEREAU DE CLÔTURE JOURNALIÈRE */}
+      {partner && (
+        <DailyClosureModal
+          isOpen={showClosureModal}
+          onClose={() => setShowClosureModal(false)}
+          partner={partner}
+          orders={orders}
+        />
       )}
     </div>
   );

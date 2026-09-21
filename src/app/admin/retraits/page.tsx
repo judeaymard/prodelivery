@@ -112,7 +112,7 @@ export default function AdminRetraitsPage() {
   }, [payoutRequests, statusFilter, searchTerm]);
 
   // Aggregate Metrics
-  const totalAvailableBalanceToPay = partners.reduce((acc, p) => acc + (p.availableBalance || 0), 0) || 4820000;
+  const totalAvailableBalanceToPay = partners.reduce((acc, p) => acc + (p.availableBalance || 0), 0);
   const pendingPayouts = payoutRequests.filter((p) => p.status === "PENDING" || p.status === "IN_VERIFICATION");
   const pendingAmount = pendingPayouts.reduce((acc, p) => acc + p.amount, 0);
 
@@ -120,7 +120,7 @@ export default function AdminRetraitsPage() {
   const approvedAmount = approvedPayouts.reduce((acc, p) => acc + p.amount, 0);
 
   const paidPayouts = payoutRequests.filter((p) => p.status === "PAID");
-  const paidAmount = paidPayouts.reduce((acc, p) => acc + p.amount, 0) || 28450000;
+  const paidAmount = paidPayouts.reduce((acc, p) => acc + p.amount, 0);
 
   const rejectedPayouts = payoutRequests.filter((p) => p.status === "REJECTED" || p.status === "FAILED");
 
@@ -170,7 +170,7 @@ export default function AdminRetraitsPage() {
 
     setIsProcessing(true);
     try {
-      await payPayout(showPayModal.id, paymentRefInput.trim(), "Super Admin ENO");
+      await payPayout(showPayModal.id, paymentRefInput.trim(), "Super Admin GuinéeGo");
       setShowPayModal(null);
       setPaymentRefInput("");
       if (selectedPayout && selectedPayout.id === showPayModal.id) {
@@ -237,7 +237,7 @@ export default function AdminRetraitsPage() {
           [
             `"${p.id}"`,
             `"${p.partnerName}"`,
-            `"${p.amount} FCFA"`,
+            `"${p.amount} GNF"`,
             `"${p.operator}"`,
             `"${p.phone || p.cryptoAddress || "-"}"`,
             `"${p.requestedAt}"`,
@@ -249,7 +249,7 @@ export default function AdminRetraitsPage() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `retraits_marchands_eno_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `retraits_marchands_guineego_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -630,7 +630,7 @@ export default function AdminRetraitsPage() {
 
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="font-bold text-slate-700">Montant Demandé (FCFA) *</label>
+                  <label className="font-bold text-slate-700">Montant Demandé (GNF) *</label>
                   <span className="text-[10px] text-slate-500 font-mono">Min. configuré : {formatCFA(minThreshold)}</span>
                 </div>
                 <input
@@ -821,7 +821,7 @@ export default function AdminRetraitsPage() {
               <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">E-commerçant</span>
                 <p className="text-sm font-black text-slate-900">{selectedPayout.partnerName}</p>
-                <p className="text-slate-500 text-[11px]">Boutique Partenaire certifiée ENO</p>
+                <p className="text-slate-500 text-[11px]">Boutique Partenaire certifiée GuinéeGo</p>
               </div>
 
               {/* Amount & Balances */}
@@ -829,8 +829,8 @@ export default function AdminRetraitsPage() {
                 <span className="text-[10px] uppercase font-bold text-slate-400 block">Montant Demandé</span>
                 <p className="text-2xl font-black font-mono text-emerald-400">{formatCFA(selectedPayout.amount)}</p>
                 <div className="flex justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-800">
-                  <span>Solde avant : {formatCFA(selectedPayout.balanceBefore || selectedPayout.amount + 500000)}</span>
-                  <span>Solde après : {formatCFA(selectedPayout.balanceAfter || 500000)}</span>
+                  <span>Solde avant : {formatCFA(selectedPayout.balanceBefore || 0)}</span>
+                  <span>Solde après : {formatCFA(selectedPayout.balanceAfter || 0)}</span>
                 </div>
               </div>
 

@@ -31,7 +31,7 @@ export default function AdminCommissionsPage() {
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Commissions & Revenus Agence</h2>
           <p className="text-xs text-slate-500 mt-0.5">
-            Détail de la rentabilité opérationnelle (800 FCFA Closing + 2 000 FCFA Livraison par colis livré).
+            Détail de la rentabilité opérationnelle (800 GNF Closing + 2 000 GNF Livraison par colis livré).
           </p>
         </div>
 
@@ -71,13 +71,13 @@ export default function AdminCommissionsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
             <span className="font-bold text-slate-900 block">Prestation de Télévente & Closing</span>
-            <p className="text-slate-500">800 FCFA facturés uniquement sur commande confirmée et livrée.</p>
+            <p className="text-slate-500">800 GNF facturés uniquement sur commande confirmée et livrée.</p>
             <p className="font-mono font-bold text-slate-900 pt-1">Total collecté : {formatCFA(closingCommissions)}</p>
           </div>
 
           <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-1">
             <span className="font-bold text-slate-900 block">Prestation Logistique & Livraison</span>
-            <p className="text-slate-500">2 000 FCFA par colis remis au client final à Cotonou et Calavi.</p>
+            <p className="text-slate-500">2 000 GNF par colis remis au client final à Conakry et Kankan.</p>
             <p className="font-mono font-bold text-slate-900 pt-1">Total collecté : {formatCFA(deliveryCommissions)}</p>
           </div>
         </div>

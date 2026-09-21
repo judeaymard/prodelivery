@@ -27,6 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={`${jakarta.variable} h-full antialiased scroll-smooth`}>
       <head>
         <meta name="theme-color" content="#16a34a" />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="ENO Coursier" />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-white text-slate-900 selection:bg-[#16a34a] selection:text-white">
         <Providers>{children}</Providers>

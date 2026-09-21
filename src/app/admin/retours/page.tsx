@@ -66,7 +66,7 @@ export default function AdminRetoursPage() {
         <div className="p-5 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1">
           <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-700">Taux Réintégration</span>
           <p className="text-3xl font-black text-emerald-600">100%</p>
-          <p className="text-[11px] text-slate-400">Entrepôt central Cotonou</p>
+          <p className="text-[11px] text-slate-400">Entrepôt central Conakry</p>
         </div>
       </div>
 

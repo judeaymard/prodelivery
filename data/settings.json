@@ -1,15 +1,15 @@
 {
   "general": {
-    "platformName": "ENO LIVRAISON",
-    "companyName": "ENO LOGISTICS TECH SARL",
-    "logoUrl": "/images/eno_livraison_logo.png",
-    "supportEmail": "contact@enolivraison.com",
-    "supportPhone": "+229 01 64 29 18 84",
-    "secondaryPhone": "+229 01 93 83 79 06",
-    "whatsappContact": "+229 01 64 29 18 84",
-    "headquartersAddress": "Cadjehoun / Haie Vive, Rue 340, Cotonou, Bénin",
-    "currency": "FCFA",
-    "timezone": "Africa/Porto-Novo (GMT+1)",
+    "platformName": "GuinéeGo LAT",
+    "companyName": "GuinéeGo LAT SARL",
+    "logoUrl": "/images/guineego_logo.jpg",
+    "supportEmail": "contact@guineego.com",
+    "supportPhone": "+224 620 00 00 00",
+    "secondaryPhone": "+224 660 00 00 00",
+    "whatsappContact": "+224 620 00 00 00",
+    "headquartersAddress": "Centre d'Affaires, Kaloum, Conakry, Guinée",
+    "currency": "GNF",
+    "timezone": "Africa/Kankan (GMT+1)",
     "dateFormat": "DD/MM/YYYY",
     "maintenanceMode": false,
     "allowPublicRegistration": true
@@ -28,12 +28,13 @@
     "sundayDeliveries": false,
     "requireDeliveryPhotoConfirmation": true,
     "enableCodSecurityLimits": true,
-    "maxDriverCodCeilingFCFA": 150000
+    "maxDriverCodCeilingGNF": 150000,
+    "driverRemittanceCeiling": 150000
   },
   "financial": {
     "defaultClosingFee": 800,
     "defaultDeliveryFee": 2000,
-    "defaultCommissionRate": 6.5,
+    "defaultCommissionRate": 5,
     "minWithdrawalThreshold": 15000,
     "maxDailyWithdrawalLimit": 5000000,
     "payoutProcessingDelayHours": 24,
@@ -48,8 +49,8 @@
       "status": "ACTIVE",
       "webhookConfigured": true,
       "supportedChannels": [
-        "MTN Mobile Money",
-        "Moov Money Bénin",
+        "MTN Mobile Money Guinée",
+        "Moov Money Guinée",
         "Orange Money CI",
         "Wave Côte d'Ivoire"
       ],
@@ -119,6 +120,6 @@
     ],
     "auditAllAdminActions": true
   },
-  "lastUpdated": "04 sept. 2026 à 13:56",
-  "updatedBy": "Robot Testeur E2E (PDG)"
+  "lastUpdated": "17 sept. 2026 à 13:00",
+  "updatedBy": "Système (Initialisation)"
 }

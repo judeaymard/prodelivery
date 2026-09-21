@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -93,8 +93,14 @@ export default function SpotlightSearchModal({ isOpen, onClose }: SpotlightSearc
   };
 
   return (
-    <div className="fixed inset-0 z-100 bg-slate-950/60 backdrop-blur-xs flex items-start justify-center p-4 sm:p-6 pt-16 sm:pt-24 animate-fade-in-up font-sans">
-      <div className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[80vh]">
+    <div
+      onClick={onClose}
+      className="fixed inset-0 z-100 bg-slate-950/60 backdrop-blur-xs flex items-start justify-center p-4 sm:p-6 pt-16 sm:pt-24 animate-fade-in-up font-sans cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="bg-white rounded-3xl border border-slate-200/90 shadow-2xl max-w-2xl w-full overflow-hidden flex flex-col max-h-[80vh] cursor-default"
+      >
         {/* Search Input Bar */}
         <div className="p-4 sm:p-5 border-b border-slate-100 flex items-center gap-3 bg-slate-50/50">
           <Search className="w-5 h-5 text-slate-700 shrink-0" />
@@ -106,17 +112,21 @@ export default function SpotlightSearchModal({ isOpen, onClose }: SpotlightSearc
             placeholder="Rechercher une commande (#CMD), un marchand, un livreur, un message..."
             className="w-full bg-transparent text-sm sm:text-base font-semibold text-slate-900 placeholder:text-slate-400 focus:outline-none"
           />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              className="p-1 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
-          <kbd className="hidden sm:inline-block text-[10px] font-mono font-bold bg-slate-200/80 text-slate-600 px-2 py-1 rounded-md">
-            ESC
-          </kbd>
+          {/* Bouton croix unique : efface le texte si du texte est saisi, sinon ferme la modal */}
+          <button
+            onClick={() => {
+              if (query) {
+                setQuery("");
+              } else {
+                onClose();
+              }
+            }}
+            className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 transition-all flex items-center justify-center cursor-pointer shrink-0"
+            title={query ? "Effacer le texte" : "Fermer"}
+            aria-label={query ? "Effacer le texte" : "Fermer la recherche"}
+          >
+            <X className="w-4 h-4" />
+          </button>
         </div>
 
         {/* Results Container */}
@@ -273,12 +283,6 @@ export default function SpotlightSearchModal({ isOpen, onClose }: SpotlightSearc
           )}
         </div>
 
-        {/* Footer Shortcut Helper */}
-        <div className="p-3 bg-slate-100/70 border-t border-slate-200/80 text-center text-[11px] text-slate-500 font-medium">
-          Appuyez sur <kbd className="font-mono bg-white px-1.5 py-0.5 rounded border text-[10px]">↑</kbd>{" "}
-          <kbd className="font-mono bg-white px-1.5 py-0.5 rounded border text-[10px]">↓</kbd> pour naviguer ou{" "}
-          <kbd className="font-mono bg-white px-1.5 py-0.5 rounded border text-[10px]">Entrée</kbd> pour sélectionner.
-        </div>
       </div>
     </div>
   );

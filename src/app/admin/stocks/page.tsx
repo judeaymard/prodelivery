@@ -1,60 +1,44 @@
-﻿"use client";
+"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
 import { Boxes, Package, Plus, Minus, Building, Check, Store, ArrowRight, X } from "lucide-react";
-import { products as initialProducts, partners, formatCFA } from "@/lib/mock-data";
+import { useOperations } from "@/lib/store";
+import { formatCFA } from "@/lib/mock-data";
 import { Product } from "@/lib/types";
 
 export default function AdminStocksPage() {
-  const [productList, setProductList] = useState<Product[]>(initialProducts);
+  const { products, partners, addProduct, adjustProductStock } = useOperations();
   const [selectedPartner, setSelectedPartner] = useState<string>("ALL");
 
   // Add Product Modal
   const [showAddModal, setShowAddModal] = useState(false);
-  const [targetPartnerId, setTargetPartnerId] = useState(partners[0].id);
+  const [targetPartnerId, setTargetPartnerId] = useState(partners[0]?.id || "");
   const [newProdName, setNewProdName] = useState("");
   const [newProdPrice, setNewProdPrice] = useState("");
   const [newProdStock, setNewProdStock] = useState("");
-
-  const adjustStock = (productId: string, delta: number) => {
-    setProductList((prev) =>
-      prev.map((prod) => {
-        if (prod.id === productId) {
-          const newRemaining = Math.max(0, prod.remainingStock + delta);
-          return {
-            ...prod,
-            remainingStock: newRemaining,
-          };
-        }
-        return prod;
-      })
-    );
-  };
 
   const handleCreateProduct = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newProdName) return;
 
-    const newProd: Product = {
-      id: `prod_${Date.now()}`,
+    addProduct({
       name: newProdName.toUpperCase(),
-      price: parseInt(newProdPrice) || 5000,
-      initialStock: parseInt(newProdStock) || 10,
-      remainingStock: parseInt(newProdStock) || 10,
+      price: parseInt(newProdPrice) || 0,
+      initialStock: parseInt(newProdStock) || 0,
+      remainingStock: parseInt(newProdStock) || 0,
       deliveredCount: 0,
-      partnerId: targetPartnerId,
+      partnerId: targetPartnerId || partners[0]?.id || "",
       createdAt: new Date().toISOString().split("T")[0],
-    };
+    });
 
-    setProductList((prev) => [...prev, newProd]);
     setShowAddModal(false);
     setNewProdName("");
     setNewProdPrice("");
     setNewProdStock("");
   };
 
-  const filteredProducts = productList.filter(
+  const filteredProducts = products.filter(
     (prod) => selectedPartner === "ALL" || prod.partnerId === selectedPartner
   );
 
@@ -145,13 +129,13 @@ export default function AdminStocksPage() {
                   <span className="text-[10px] font-bold text-slate-400">Ajustement inventaire :</span>
                   <div className="flex items-center gap-1.5">
                     <button
-                      onClick={() => adjustStock(prod.id, -1)}
+                      onClick={() => adjustProductStock(prod.id, -1)}
                       className="w-7 h-7 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold flex items-center justify-center cursor-pointer"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
                     <button
-                      onClick={() => adjustStock(prod.id, 1)}
+                      onClick={() => adjustProductStock(prod.id, 1)}
                       className="w-7 h-7 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold flex items-center justify-center cursor-pointer"
                     >
                       <Plus className="w-3 h-3" />

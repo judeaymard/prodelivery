@@ -37,8 +37,8 @@ function AuthForm() {
   }, [searchParams]);
 
   // Login form state
-  const [loginEmail, setLoginEmail] = useState("judesinaberogui@gmail.com");
-  const [loginPassword, setLoginPassword] = useState("Mercredi12@");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
   // Signup form state
   const [fullName, setFullName] = useState("");
@@ -52,30 +52,83 @@ function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      if (role === "agence") {
+    setErrorMsg("");
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: loginEmail,
+          password: loginPassword,
+          role,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMsg(data.error || "Identifiants incorrects. Veuillez vérifier vos accès.");
+        setLoading(false);
+        return;
+      }
+
+      if (data.redirectUrl) {
+        router.push(data.redirectUrl);
+      } else if (role === "agence") {
         router.push("/admin");
       } else {
         router.push("/dashboard");
       }
-    }, 500);
+    } catch (err: any) {
+      console.error("Erreur login:", err);
+      setErrorMsg("Impossible de joindre le serveur d'authentification. Vérifiez votre connexion.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setSuccessMsg("");
+    setErrorMsg("");
 
-    setTimeout(() => {
-      setLoading(false);
-      setSuccessMsg("Compte créé avec succès ! Bienvenue chez ENO LIVRAISON.");
+    try {
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          shopName,
+          email: signupEmail,
+          phone,
+          password: signupPassword,
+          city,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        setErrorMsg(data.error || "Échec de l'inscription. Veuillez vérifier les informations.");
+        setLoading(false);
+        return;
+      }
+
+      setSuccessMsg("Votre compte partenaire a été créé avec succès ! Redirection en cours...");
       setTimeout(() => {
-        router.push("/dashboard");
-      }, 1000);
-    }, 700);
+        router.push(data.redirectUrl || "/dashboard");
+      }, 900);
+    } catch (err: any) {
+      console.error("Erreur inscription:", err);
+      setErrorMsg("Erreur réseau lors de l'inscription. Veuillez réessayer.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -85,8 +138,8 @@ function AuthForm() {
         <Link href="/" className="inline-flex items-center gap-2">
           <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-500 shadow-md bg-white">
             <Image
-              src="/images/eno_livraison_logo.png"
-              alt="Logo ENO LIVRAISON"
+              src="/images/guineego_logo.jpg"
+              alt="Logo GuinéeGo LAT"
               fill
               className="object-contain p-0.5"
               priority
@@ -154,6 +207,14 @@ function AuthForm() {
         </div>
       )}
 
+      {/* Error Toast */}
+      {errorMsg && (
+        <div className="p-2.5 rounded-xl bg-rose-50 border border-rose-300 text-rose-800 text-xs font-bold flex items-center gap-2 shadow-sm animate-fade-in-up">
+          <Shield className="w-4 h-4 text-rose-600 shrink-0" />
+          <span>{errorMsg}</span>
+        </div>
+      )}
+
       {/* FORM TITLE & SUBTITLE */}
       <div className="space-y-1">
         <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">
@@ -161,7 +222,7 @@ function AuthForm() {
         </h2>
         <p className="text-xs text-slate-500 font-medium">
           {isRegister
-            ? "Inscrivez votre boutique chez ENO LIVRAISON"
+            ? "Inscrivez votre boutique chez GuinéeGo LAT"
             : role === "partenaire"
             ? "Connectez-vous à votre espace e-commerçant"
             : "Connexion sécurisée pour l'équipe agence"}
@@ -379,7 +440,7 @@ function AuthForm() {
           {/* 🔘 SECTION BAS DE FORMULAIRE */}
           {role === "agence" ? (
             <p className="pt-3 text-center text-xs text-slate-500 font-medium tracking-tight">
-              Accès réservé à l&apos;équipe Eno Livraison
+              Accès réservé à l&apos;équipe GuinéeGo LAT
             </p>
           ) : (
             <>
@@ -458,8 +519,8 @@ export default function LoginPage() {
           <div className="flex items-center gap-3">
             <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-emerald-500 bg-white shadow-lg shadow-emerald-500/20 shrink-0">
               <Image
-                src="/images/eno_livraison_logo.png"
-                alt="Logo ENO LIVRAISON"
+                src="/images/guineego_logo.jpg"
+                alt="Logo GuinéeGo LAT"
                 fill
                 className="object-contain p-0.5"
                 priority
@@ -484,7 +545,7 @@ export default function LoginPage() {
               <span className="text-[#22c55e]">en toute sérénité</span>
             </h1>
             <p className="text-emerald-100/70 text-xs mt-1.5 leading-relaxed font-normal">
-              Rejoignez le réseau ENO LIVRAISON et accédez à des outils puissants pour automatiser votre closing, stockage et vos livraisons express au Bénin.
+              Rejoignez le réseau GuinéeGo LAT et accédez à des outils puissants pour automatiser votre closing, stockage et vos livraisons express au Bénin.
             </p>
           </div>
 
@@ -530,7 +591,7 @@ export default function LoginPage() {
             <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-emerald-700 shrink-0">
               <Image
                 src="/images/eno_card_1.png"
-                alt="Flotte ENO LIVRAISON"
+                alt="Flotte GuinéeGo LAT"
                 fill
                 className="object-cover"
               />

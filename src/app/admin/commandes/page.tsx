@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
@@ -57,7 +57,7 @@ export default function AdminCommandesPage() {
   // Add Order Form State
   const [newOrderClient, setNewOrderClient] = useState("");
   const [newOrderPhone, setNewOrderPhone] = useState("+229 01 ");
-  const [newOrderCity, setNewOrderCity] = useState("Cotonou");
+  const [newOrderCity, setNewOrderCity] = useState("Conakry");
   const [newOrderAddress, setNewOrderAddress] = useState("");
   const [newOrderProduct, setNewOrderProduct] = useState("");
   const [newOrderPrice, setNewOrderPrice] = useState("15000");
@@ -257,7 +257,7 @@ export default function AdminCommandesPage() {
             className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer"
           >
             <Plus className="w-4 h-4" />
-            <span>+ Ajouter une commande</span>
+            <span>Ajouter une commande</span>
           </button>
         </div>
       </div>
@@ -336,9 +336,9 @@ export default function AdminCommandesPage() {
                 className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
               >
                 <option value="ALL">Toutes les zones</option>
-                <option value="Cotonou">Cotonou</option>
-                <option value="Calavi">Abomey-Calavi</option>
-                <option value="Porto-Novo">Porto-Novo</option>
+                <option value="Conakry">Cotonou</option>
+                <option value="Kankan">Abomey-Kankan</option>
+                <option value="Mamou">Mamou</option>
               </select>
             </div>
 
@@ -589,9 +589,9 @@ export default function AdminCommandesPage() {
                     onChange={(e) => setNewOrderCity(e.target.value)}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900"
                   >
-                    <option value="Cotonou">Cotonou</option>
-                    <option value="Abomey-Calavi">Abomey-Calavi</option>
-                    <option value="Porto-Novo">Porto-Novo</option>
+                    <option value="Conakry">Cotonou</option>
+                    <option value="Abomey-Kankan">Abomey-Kankan</option>
+                    <option value="Mamou">Mamou</option>
                   </select>
                 </div>
 
@@ -621,7 +621,7 @@ export default function AdminCommandesPage() {
                 </div>
 
                 <div>
-                  <label className="font-bold text-slate-700 block mb-1">Montant Total COD (FCFA)</label>
+                  <label className="font-bold text-slate-700 block mb-1">Montant Total COD (GNF)</label>
                   <input
                     type="number"
                     required

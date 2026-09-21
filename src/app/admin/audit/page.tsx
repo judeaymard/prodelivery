@@ -110,20 +110,19 @@ export default function GlobalAuditPage() {
 
   // Executive KPIs calculation
   const totalActionsToday = useMemo(() => {
-    return globalAuditLogs.length > 0 ? 1482 + globalAuditLogs.length : 1482;
+    return globalAuditLogs.length;
   }, [globalAuditLogs]);
 
   const activeUsersCount = useMemo(() => {
-    const active = auditSessions.filter((s) => s.status === "ACTIVE").length;
-    return active > 0 ? active + 34 : 37;
+    return auditSessions.filter((s) => s.status === "ACTIVE").length;
   }, [auditSessions]);
 
   const sensitiveActionsCount = useMemo(() => {
-    return globalAuditLogs.filter((l) => l.isSensitive || l.severity === "CRITICAL").length + 78;
+    return globalAuditLogs.filter((l) => l.isSensitive || l.severity === "CRITICAL").length;
   }, [globalAuditLogs]);
 
   const autoEventsCount = useMemo(() => {
-    return globalAuditLogs.filter((l) => l.actor.type === "SYSTEM").length + 322;
+    return globalAuditLogs.filter((l) => l.actor.type === "SYSTEM").length;
   }, [globalAuditLogs]);
 
   const anomaliesCount = useMemo(() => {
@@ -365,8 +364,8 @@ export default function GlobalAuditPage() {
           <div className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
             {totalActionsToday.toLocaleString("fr-FR")}
           </div>
-          <div className="text-[11px] font-medium text-emerald-600 mt-1 flex items-center gap-1">
-            <span>+14% vs moyenne 30j</span>
+          <div className="text-[11px] font-medium text-slate-500 mt-1 flex items-center gap-1">
+            <span>Journal système en temps réel</span>
           </div>
         </div>
 
@@ -476,7 +475,9 @@ export default function GlobalAuditPage() {
               Activité nécessitant votre attention (Supervision PDG)
             </h4>
             <p className="text-xs text-slate-300 mt-0.5">
-              1 tentative d&apos;élévation de droits bloquée à 09:55 • 1 écart de remise terrain de -5 000 FCFA signalé sur CMD-1047 • 1 modification de capacité livreur effectuée.
+              {anomaliesCount > 0
+                ? `${anomaliesCount} événement(s) suspect(s) et ${sensitiveActionsCount} action(s) sensible(s) répertoriés dans les registres d'audit.`
+                : "Aucune anomalie suspecte détectée. Tous les journaux d'audit sont conformes."}
             </p>
           </div>
         </div>

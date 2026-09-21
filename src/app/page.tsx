@@ -71,14 +71,14 @@ export default function LandingPage() {
       number: "01",
       icon: PhoneCall,
       title: "Contactez notre agence",
-      desc: "Inscrivez-vous sur l'Espace Partenaire ou contactez directement l'Agence de Cotonou ou Lokossa sur WhatsApp.",
-      color: "bg-[#16a34a]",
+      desc: "Inscrivez-vous sur l'Espace Partenaire ou contactez directement l'Agence de Conakry ou Kankan sur WhatsApp.",
+      color: "bg-[#0d8f4f]",
     },
     {
       number: "02",
       icon: Package,
       title: "Stockage & Dépôt Offert",
-      desc: "Notre coursier récupère vos articles ou vous déposez votre stock dans nos entrepôts sécurisés à Cotonou ou Lokossa.",
+      desc: "Notre coursier récupère vos articles ou vous déposez votre stock dans nos entrepôts sécurisés à Conakry ou Kankan.",
       color: "bg-[#0f291e]",
     },
     {
@@ -86,7 +86,7 @@ export default function LandingPage() {
       icon: Truck,
       title: "Closing & Livraison Express",
       desc: "Nos closeuses confirment vos prospects sous 15 min et nos livreurs à moto livrent à domicile en moins de 2h.",
-      color: "bg-[#16a34a]",
+      color: "bg-[#0d8f4f]",
     },
     {
       number: "04",
@@ -103,8 +103,8 @@ export default function LandingPage() {
       a: "Tous les soirs ou à chaque livraison validée, l'argent collecté par nos livreurs vous est reversé directement par MTN Mobile Money (+229 01 64 29 18 84), Moov Money ou Virement selon vos préférences déclarées.",
     },
     {
-      q: "Quelles sont les villes et agences couvertes par ENO LIVRAISON ?",
-      a: "Nous disposons de 2 grandes agences physiques opérationnelles : l'Agence Principale de Cotonou (couvrant Cotonou, Abomey-Calavi et Porto-Novo) et l'Agence Régionale de Lokossa (couvrant Lokossa et la zone Mono/Couffo). Nous assurons également des expéditions vers tout le Bénin.",
+      q: "Quelles sont les villes et agences couvertes par GuinéeGo LAT ?",
+      a: "Nous disposons de 2 grandes agences physiques opérationnelles : l'Agence Principale de Cotonou (couvrant Cotonou, Abomey-Calavi et Porto-Novo) et l'Agence Régionale de Lokossa (couvrant Lokossa et la zone Mono/Couffo). Nous assurons également des expéditions vers tout le Guinée.",
     },
     {
       q: "Que se passe-t-il si un client annule au moment de la livraison ?",
@@ -112,12 +112,12 @@ export default function LandingPage() {
     },
     {
       q: "Le stockage de mes marchandises est-il vraiment 100% gratuit ?",
-      a: "Oui ! Le stockage et l'entreposage de vos produits sont 100% offerts et sécurisés dans nos hubs de Cotonou et Lokossa. Vous ne payez que les frais de closing et de livraison lorsqu'un colis est remis au client.",
+      a: "Oui ! Le stockage et l'entreposage de vos produits sont 100% offerts et sécurisés dans nos hubs de Conakry et Kankan. Vous ne payez que les frais de closing et de livraison lorsqu'un colis est remis au client.",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#16a34a] selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-white text-slate-900 font-sans selection:bg-[#0d8f4f] selection:text-white overflow-x-hidden">
       {/* 💎 NAVIGATION BAR: DESIGN ÉPURÉ SANS DÉBORDEMENT */}
       <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,8 +126,8 @@ export default function LandingPage() {
             <Link href="/" className="flex items-center gap-3 group shrink-0">
               <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-emerald-500 shadow-sm shadow-emerald-600/20 group-hover:scale-105 transition-transform bg-white shrink-0">
                 <Image
-                  src="/images/eno_livraison_logo.png"
-                  alt="Logo ENO LIVRAISON"
+                  src="/images/guineego_logo.jpg"
+                  alt="Logo GuinéeGo LAT"
                   fill
                   className="object-contain p-0.5"
                   priority
@@ -135,7 +135,7 @@ export default function LandingPage() {
               </div>
               <div className="flex flex-col">
                 <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
-                  ENO <span className="text-[#16a34a]">LIVRAISON</span>
+                  ENO <span className="text-[#0d8f4f]">LIVRAISON</span>
                 </span>
                 <span className="text-[9px] tracking-widest uppercase font-black text-emerald-600 mt-1">
                   VOS COLIS, NOTRE PRIORITÉ
@@ -145,26 +145,26 @@ export default function LandingPage() {
 
             {/* Desktop Navigation Links — Serrés pour rester strictement sur une seule ligne */}
             <div className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-xs xl:text-sm font-semibold text-slate-700 whitespace-nowrap flex-nowrap">
-              <a href="#services" className="hover:text-[#16a34a] transition-colors">
+              <a href="#services" className="hover:text-[#0d8f4f] transition-colors">
                 Services
               </a>
-              <a href="#comment-ca-marche" className="hover:text-[#16a34a] transition-colors">
+              <a href="#comment-ca-marche" className="hover:text-[#0d8f4f] transition-colors">
                 Comment ça marche
               </a>
               <button
                 onClick={() => setRiderModalOpen(true)}
-                className="hover:text-[#16a34a] transition-colors flex items-center gap-1 cursor-pointer font-semibold text-emerald-700 hover:text-emerald-800"
+                className="hover:text-[#0d8f4f] transition-colors flex items-center gap-1 cursor-pointer font-semibold text-emerald-700 hover:text-emerald-800"
               >
-                <Truck className="w-3.5 h-3.5 text-[#16a34a]" />
+                <Truck className="w-3.5 h-3.5 text-[#0d8f4f]" />
                 <span>Devenir livreur</span>
               </button>
-              <a href="#communaute" className="hover:text-[#16a34a] transition-colors flex items-center gap-1">
+              <a href="#communaute" className="hover:text-[#0d8f4f] transition-colors flex items-center gap-1">
                 <Flame className="w-3 h-3 text-rose-500" /> Communauté
               </a>
-              <a href="#pourquoi" className="hover:text-[#16a34a] transition-colors">
-                Pourquoi ENO
+              <a href="#pourquoi" className="hover:text-[#0d8f4f] transition-colors">
+                Pourquoi GuinéeGo
               </a>
-              <a href="#faq" className="hover:text-[#16a34a] transition-colors">
+              <a href="#faq" className="hover:text-[#0d8f4f] transition-colors">
                 FAQ
               </a>
             </div>
@@ -175,14 +175,14 @@ export default function LandingPage() {
                 href={enoSocials.whatsappCotonou}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-emerald-50 hover:bg-emerald-100 text-[#16a34a] border border-emerald-200 text-xs font-bold transition-all active:scale-95 whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-emerald-50 hover:bg-emerald-100 text-[#0d8f4f] border border-emerald-200 text-xs font-bold transition-all active:scale-95 whitespace-nowrap"
               >
                 <MessageSquare className="w-3.5 h-3.5 text-[#25d366] fill-[#25d366]" />
                 <span>WhatsApp</span>
               </a>
               <Link
                 href="/partenaire"
-                className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full bg-[#16a34a] hover:bg-[#15803d] text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all active:scale-95 whitespace-nowrap"
+                className="inline-flex items-center gap-1.5 px-4.5 py-2 rounded-full bg-[#0d8f4f] hover:bg-[#15803d] text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all active:scale-95 whitespace-nowrap"
               >
                 <Users className="w-3.5 h-3.5 text-emerald-100" />
                 <span>Espace Partenaire</span>
@@ -194,7 +194,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-2 lg:hidden">
               <Link
                 href="/partenaire"
-                className="px-3.5 py-2 rounded-full bg-[#16a34a] text-white text-xs font-bold sm:hidden"
+                className="px-3.5 py-2 rounded-full bg-[#0d8f4f] text-white text-xs font-bold sm:hidden"
               >
                 Connexion
               </Link>
@@ -215,7 +215,7 @@ export default function LandingPage() {
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
               Nos Services
             </a>
-            <a href="#comment-ca-marche" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-[#16a34a]">
+            <a href="#comment-ca-marche" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-[#0d8f4f]">
               Comment ça marche
             </a>
             <button
@@ -225,18 +225,18 @@ export default function LandingPage() {
               }}
               className="w-full text-left text-sm font-bold text-emerald-700 flex items-center gap-2"
             >
-              <Truck className="w-4 h-4 text-[#16a34a]" /> Devenir livreur (Recrutement)
+              <Truck className="w-4 h-4 text-[#0d8f4f]" /> Devenir livreur (Recrutement)
             </button>
             <a href="#communaute" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
-              Réseaux Sociaux (@enolivraison)
+              Réseaux Sociaux (@guineego)
             </a>
             <a href="#pourquoi" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
-              Pourquoi ENO LIVRAISON
+              Pourquoi GuinéeGo LAT
             </a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
               FAQ
             </a>
-            <Link href="/partenaire" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-black text-[#16a34a] pt-2 border-t border-slate-100">
+            <Link href="/partenaire" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-black text-[#0d8f4f] pt-2 border-t border-slate-100">
               Accès Espace Partenaire →
             </Link>
             <div className="pt-2 flex flex-col gap-2">
@@ -248,7 +248,7 @@ export default function LandingPage() {
               </a>
               <a
                 href={enoSocials.whatsappLokossa}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#16a34a] text-white font-bold text-xs shadow-md"
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#0d8f4f] text-white font-bold text-xs shadow-md"
               >
                 <MessageSquare className="w-4 h-4 fill-white" /> WhatsApp Lokossa : 01 67 51 00 82
               </a>
@@ -264,18 +264,18 @@ export default function LandingPage() {
             {/* Left Copy (6 cols) */}
             <div className="lg:col-span-6 space-y-6 text-center lg:text-left reveal-left">
               <h1 className="text-3xl sm:text-5xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">
-                Vos colis, notre priorité avec <span className="text-[#16a34a]">ENO LIVRAISON</span>
+                Vos colis, notre priorité avec <span className="text-[#0d8f4f]">Guinée</span><span className="text-[#e52320]">Go</span> <span className="text-slate-900">LAT</span>
               </h1>
 
               <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
-                <strong>ENO LIVRAISON</strong> s&apos;occupe de toutes vos livraisons de colis à <strong>Cotonou, Abomey-Calavi, Porto-Novo et Lokossa</strong>. Nous combinons un <strong>closing téléphonique en 15 min</strong> pour confirmer vos commandes, le <strong>stockage 100% offert</strong> et l&apos;encaissement Cash On Delivery avec reversement immédiat par Mobile Money.
+                <strong>GuinéeGo LAT</strong> s&apos;occupe de toutes vos livraisons de colis à <strong>Conakry (Kaloum, Dixinn, Matam, Ratoma, Matoto) et Kankan</strong>. Nous combinons un <strong>closing téléphonique en 15 min</strong> pour confirmer vos commandes, le <strong>stockage 100% offert</strong> et l&apos;encaissement Cash On Delivery avec reversement immédiat par Mobile Money.
               </p>
 
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-1">
                 <Link
                   href="/partenaire"
-                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#16a34a] hover:bg-[#15803d] text-white font-black text-sm shadow-xl shadow-emerald-600/25 transition-all flex items-center justify-center gap-2 active:scale-95"
+                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#e52320] hover:bg-[#c91d1a] text-white font-black text-sm shadow-xl shadow-rose-600/25 transition-all flex items-center justify-center gap-2 active:scale-95"
                 >
                   <Users className="w-4 h-4 text-emerald-100" />
                   Rejoindre l&apos;Espace Partenaire
@@ -300,7 +300,7 @@ export default function LandingPage() {
                     <p className="text-[11px] text-slate-500 font-semibold">Taux de réussite</p>
                   </div>
                   <div>
-                    <p className="text-xl sm:text-2xl font-black text-[#16a34a]">2 Agences</p>
+                    <p className="text-xl sm:text-2xl font-black text-[#0d8f4f]">2 Agences</p>
                     <p className="text-[11px] text-slate-500 font-semibold">Cotonou & Lokossa</p>
                   </div>
                   <div>
@@ -319,18 +319,18 @@ export default function LandingPage() {
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/eno_courier_bike.png"
-                      alt="Livreur ENO LIVRAISON à moto avec caisson vert officiel"
+                      alt="Livreur GuinéeGo LAT à moto avec caisson vert officiel"
                       fill
                       className="object-cover"
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                    <div className="absolute top-3 left-3 bg-[#16a34a] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
-                      FLOTTE OFFICIELLE ENO
+                    <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
+                      FLOTTE GUINÉECO LAT
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
                       <p className="text-xs font-black">Caisson Isotherme Sécurisé</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Cotonou, Calavi & Porto-Novo</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Grand Conakry & Régions</p>
                     </div>
                   </div>
                 </div>
@@ -340,7 +340,7 @@ export default function LandingPage() {
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/eno_delivery_handover.png"
-                      alt="Remise de colis en main propre par un coursier ENO"
+                      alt="Remise de colis en main propre par un coursier GuinéeGo"
                       fill
                       className="object-cover"
                       priority
@@ -351,7 +351,7 @@ export default function LandingPage() {
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
                       <p className="text-xs font-black">Remise en main propre</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Lokossa & Région Mono</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Kankan & Haute-Guinée</p>
                     </div>
                   </div>
                 </div>
@@ -361,13 +361,13 @@ export default function LandingPage() {
                   <div className="relative w-full h-full">
                     <Image
                       src="/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif"
-                      alt="Closeuse professionnelle ENO LIVRAISON"
+                      alt="Closeuse professionnelle GuinéeGo LAT"
                       fill
                       className="object-cover"
                       priority
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
-                    <div className="absolute top-3 left-3 bg-[#16a34a] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
+                    <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
                       CLOSING 15 MIN
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
@@ -401,11 +401,11 @@ export default function LandingPage() {
 
               {/* Floating Trust Badge */}
               <div className="mt-6 bg-white/90 backdrop-blur-md px-5 py-2.5 rounded-full shadow-md border border-emerald-100 flex items-center justify-center gap-3">
-                <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-[#16a34a] flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-[#0d8f4f] flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-4 h-4" />
                 </div>
                 <div className="text-left">
-                  <p className="text-xs font-black text-slate-900">Plus de 1 An de Confiance au Bénin</p>
+                  <p className="text-xs font-black text-slate-900">Plus de 1 An de Confiance en Guinée</p>
                   <p className="text-[10px] text-emerald-700 font-bold">Des milliers de colis livrés avec succès</p>
                 </div>
               </div>
@@ -519,7 +519,7 @@ export default function LandingPage() {
               Simple, rapide et efficace
             </h2>
             <p className="text-slate-600 text-sm sm:text-base font-normal">
-              En 4 étapes simples, vos colis sont livrés et votre argent encaissé en toute sécurité au Bénin.
+              En 4 étapes simples, vos colis sont livrés et votre argent encaissé en toute sécurité en Guinée.
             </p>
           </div>
 
@@ -571,7 +571,7 @@ export default function LandingPage() {
               Vivez l&apos;expérience sur <span className="text-[#22c55e]">TikTok</span> & nos Réseaux
             </h2>
             <p className="text-emerald-100/70 text-sm sm:text-base font-normal">
-              Découvrez le quotidien de nos livreurs, les réceptions en entrepôt, les tournées à Cotonou et Lokossa, et les retours d&apos;expérience de nos clients.
+              Découvrez le quotidien de nos livreurs, les réceptions en entrepôt, les tournées à Conakry et Kankan, et les retours d&apos;expérience de nos clients.
             </p>
           </div>
 
@@ -581,7 +581,7 @@ export default function LandingPage() {
             <div className="flex items-center gap-3.5 text-center sm:text-left shrink-0">
               <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#22c55e] shadow-lg bg-white shrink-0">
                 <Image
-                  src="/images/eno_livraison_logo.png"
+                  src="/images/guineego_logo.jpg"
                   alt="Avatar EnoLivraison TikTok"
                   fill
                   className="object-contain p-1"
@@ -594,7 +594,7 @@ export default function LandingPage() {
                     ✓
                   </span>
                 </div>
-                <p className="text-xs font-semibold text-emerald-400 font-mono">@enolivraison</p>
+                <p className="text-xs font-semibold text-emerald-400 font-mono">@guineego</p>
                 <p className="text-[11px] text-slate-300 mt-0.5 whitespace-nowrap">« Vos colis, notre priorité ! 📍 Cotonou & Lokossa »</p>
               </div>
             </div>
@@ -653,7 +653,7 @@ export default function LandingPage() {
                   Cotonou & Calavi
                 </span>
                 <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @enolivraison
+                  TikTok @guineego
                 </span>
               </div>
 
@@ -695,7 +695,7 @@ export default function LandingPage() {
                   Lokossa & Mono
                 </span>
                 <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @enolivraison
+                  TikTok @guineego
                 </span>
               </div>
 
@@ -734,17 +734,17 @@ export default function LandingPage() {
               {/* Top Tag */}
               <div className="relative z-10 flex justify-between items-center">
                 <span className="px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 text-[10px] font-bold uppercase tracking-wider">
-                  Bénin
+                  Guinée
                 </span>
                 <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @enolivraison
+                  TikTok @guineego
                 </span>
               </div>
 
               {/* Bottom Info */}
               <div className="relative z-10 space-y-2">
                 <h3 className="text-lg font-bold text-white leading-snug">
-                  1 An d&apos;Existence au Bénin
+                  1 An d&apos;Existence en Guinée
                 </h3>
                 <p className="text-xs text-slate-300 font-normal">
                   Plus de 5 000 colis distribués et 4 350+ mentions J&apos;aime.
@@ -780,7 +780,7 @@ export default function LandingPage() {
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-black text-white">TikTok</p>
-                    <p className="text-[10px] text-emerald-300 font-mono">@enolivraison</p>
+                    <p className="text-[10px] text-emerald-300 font-mono">@guineego</p>
                   </div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
@@ -799,7 +799,7 @@ export default function LandingPage() {
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-black text-white">Facebook</p>
-                    <p className="text-[10px] text-emerald-300 font-medium">Eno Livraison</p>
+                    <p className="text-[10px] text-emerald-300 font-medium">GuinéeGo LAT</p>
                   </div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
@@ -818,7 +818,7 @@ export default function LandingPage() {
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-black text-white">Instagram</p>
-                    <p className="text-[10px] text-emerald-300 font-mono">@enolivraison</p>
+                    <p className="text-[10px] text-emerald-300 font-mono">@guineego</p>
                   </div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
@@ -846,7 +846,7 @@ export default function LandingPage() {
                   <div className="flip-card-front bg-slate-950 border-4 border-white shadow-2xl overflow-hidden flex flex-col justify-between p-5">
                     <Image
                       src="/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif"
-                      alt="Opératrice téléconseillère ENO LIVRAISON au centre d'appel"
+                      alt="Opératrice téléconseillère GuinéeGo LAT au centre d'appel"
                       fill
                       className="object-cover"
                       priority
@@ -855,7 +855,7 @@ export default function LandingPage() {
 
                     {/* Top Tag & Hint */}
                     <div className="relative z-10 flex justify-between items-center">
-                      <span className="px-3 py-1 rounded-full bg-[#16a34a] text-white text-[10px] font-black uppercase tracking-wider shadow">
+                      <span className="px-3 py-1 rounded-full bg-[#0d8f4f] text-white text-[10px] font-black uppercase tracking-wider shadow">
                         Centre Closing ENO Cotonou
                       </span>
                       <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-emerald-300 text-[10px] font-bold border border-emerald-500/30 flex items-center gap-1">
@@ -942,14 +942,14 @@ export default function LandingPage() {
               </h2>
 
               <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                En Afrique, l&apos;achat en ligne repose d&apos;abord sur la confiance humaine. Chez <strong>ENO LIVRAISON</strong>, nos opératrices téléphoniques appellent vos prospects sous 15 minutes pour valider leur commande, préciser l&apos;adresse exacte et convenir du créneau de livraison.
+                En Afrique, l&apos;achat en ligne repose d&apos;abord sur la confiance humaine. Chez <strong>GuinéeGo LAT</strong>, nos opératrices téléphoniques appellent vos prospects sous 15 minutes pour valider leur commande, préciser l&apos;adresse exacte et convenir du créneau de livraison.
               </p>
 
               {/* 2 Pro Feature Cards with Float Animation */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                 <div className="animate-float-closing-1 p-4 rounded-2xl bg-white border border-emerald-200/80 shadow-md hover:shadow-xl hover:border-emerald-400 hover:-translate-y-1 transition-all duration-300 space-y-2 group cursor-default">
                   <div className="flex justify-between items-center">
-                    <CheckCircle2 className="w-5 h-5 text-[#16a34a] group-hover:scale-110 transition-transform" />
+                    <CheckCircle2 className="w-5 h-5 text-[#0d8f4f] group-hover:scale-110 transition-transform" />
                     <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                       98% de Réponse
@@ -965,7 +965,7 @@ export default function LandingPage() {
 
                 <div className="animate-float-closing-2 p-4 rounded-2xl bg-white border border-emerald-200/80 shadow-md hover:shadow-xl hover:border-emerald-400 hover:-translate-y-1 transition-all duration-300 space-y-2 group cursor-default">
                   <div className="flex justify-between items-center">
-                    <Activity className="w-5 h-5 text-[#16a34a] animate-heartbeat" />
+                    <Activity className="w-5 h-5 text-[#0d8f4f] animate-heartbeat" />
                     <span className="text-[10px] font-extrabold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                       Synchro Dashboard
@@ -1033,7 +1033,7 @@ export default function LandingPage() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-                <div className="absolute top-3 left-3 bg-[#16a34a] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
+                <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
                   1. Closing Téléphonique
                 </div>
                 <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold">
@@ -1044,12 +1044,12 @@ export default function LandingPage() {
                 <div className="space-y-2">
                   <h3 className="text-xl font-black text-slate-900">1. Closing Téléphonique Pro</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                    Nos opératrices béninoises qualifiées appellent vos prospects sous 15 min pour valider l&apos;achat et l&apos;adresse exacte.
+                    Nos opératrices guinéennes qualifiées appellent vos prospects sous 15 min pour valider l&apos;achat et l&apos;adresse exacte.
                   </p>
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
                   <span className="font-bold text-slate-900">800 F CFA / commande</span>
-                  <Link href="/partenaire" className="text-[#16a34a] font-black hover:underline">
+                  <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Détails →
                   </Link>
                 </div>
@@ -1082,7 +1082,7 @@ export default function LandingPage() {
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
                   <span className="font-bold text-emerald-600">100% OFFERT</span>
-                  <Link href="/partenaire" className="text-[#16a34a] font-black hover:underline">
+                  <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Détails →
                   </Link>
                 </div>
@@ -1094,12 +1094,12 @@ export default function LandingPage() {
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
                   src="/images/eno_delivery_handover.png"
-                  alt="Remise colis client ENO LIVRAISON"
+                  alt="Remise colis client GuinéeGo LAT"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                <div className="absolute top-3 left-3 bg-[#16a34a] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
+                <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">
                   3. Livraison Express
                 </div>
                 <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold">
@@ -1115,7 +1115,7 @@ export default function LandingPage() {
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
                   <span className="font-bold text-slate-900">2 000 F CFA / course</span>
-                  <Link href="/partenaire" className="text-[#16a34a] font-black hover:underline">
+                  <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Détails →
                   </Link>
                 </div>
@@ -1147,7 +1147,7 @@ export default function LandingPage() {
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
                   <span className="font-bold text-emerald-600">GRATUIT</span>
-                  <Link href="/partenaire" className="text-[#16a34a] font-black hover:underline">
+                  <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Accéder →
                   </Link>
                 </div>
@@ -1167,10 +1167,10 @@ export default function LandingPage() {
               <Sparkles className="w-3.5 h-3.5" /> PERFORMANCE LOGISTIQUE AU BÉNIN
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Pourquoi choisir <span className="text-[#22c55e]">ENO LIVRAISON</span> ?
+              Pourquoi choisir <span className="text-[#22c55e]">GuinéeGo LAT</span> ?
             </h2>
             <p className="text-emerald-100/70 text-sm sm:text-base font-normal">
-              Découvrez la différence entre les coursiers classiques et le système intégré ENO LIVRAISON.
+              Découvrez la différence entre les coursiers classiques et le système intégré GuinéeGo LAT.
             </p>
           </div>
 
@@ -1221,15 +1221,15 @@ export default function LandingPage() {
 
             {/* Center VS Emblem */}
             <div className="lg:col-span-2 flex justify-center py-2 reveal-scale delay-200">
-              <div className="w-14 h-14 rounded-full bg-[#16a34a] text-white font-black text-lg flex items-center justify-center shadow-[0_0_25px_rgba(22,163,74,0.6)] border-4 border-[#071710] animate-pulse">
+              <div className="w-14 h-14 rounded-full bg-[#0d8f4f] text-white font-black text-lg flex items-center justify-center shadow-[0_0_25px_rgba(22,163,74,0.6)] border-4 border-[#071710] animate-pulse">
                 VS
               </div>
             </div>
 
-            {/* Right Card: ENO LIVRAISON */}
+            {/* Right Card: GuinéeGo LAT */}
             <div className="lg:col-span-5 reveal-right delay-100">
               <div className="animate-float-right bg-gradient-to-br from-[#0c2419] to-[#071710] border-2 border-emerald-500 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_0_35px_rgba(22,163,74,0.35)] relative group transition-all duration-300">
-                <div className="absolute -top-3.5 right-6 bg-[#16a34a] text-white font-black text-[10px] uppercase tracking-widest px-3.5 py-1 rounded-full shadow-lg">
+                <div className="absolute -top-3.5 right-6 bg-[#0d8f4f] text-white font-black text-[10px] uppercase tracking-widest px-3.5 py-1 rounded-full shadow-lg">
                   Recommandé E-commerce
                 </div>
 
@@ -1238,7 +1238,7 @@ export default function LandingPage() {
                     <span className="text-[10px] font-black text-emerald-300 bg-emerald-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider border border-emerald-500/30">
                       Solution Complète
                     </span>
-                    <h3 className="text-xl font-black text-white mt-1">ENO LIVRAISON</h3>
+                    <h3 className="text-xl font-black text-white mt-1">GuinéeGo LAT</h3>
                   </div>
                   <CheckCircle2 className="w-7 h-7 text-[#22c55e] stroke-[2]" />
                 </div>
@@ -1268,7 +1268,7 @@ export default function LandingPage() {
                     <span className="text-emerald-400 font-black">94% +</span>
                   </div>
                   <div className="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden">
-                    <div className="bg-[#16a34a] h-full w-[94%] rounded-full shadow-[0_0_10px_#16a34a]"></div>
+                    <div className="bg-[#0d8f4f] h-full w-[94%] rounded-full shadow-[0_0_10px_#0d8f4f]"></div>
                   </div>
                 </div>
               </div>
@@ -1281,12 +1281,12 @@ export default function LandingPage() {
       <section id="faq" className="py-20 bg-slate-50 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 space-y-2 reveal-up">
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#16a34a]">
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#0d8f4f]">
               TRANSPARENCE TOTALE
             </span>
             <h2 className="text-3xl font-black text-slate-900">Questions Fréquentes</h2>
             <p className="text-slate-500 text-xs sm:text-sm">
-              Tout ce que vous devez savoir sur nos services de closing et livraison au Bénin.
+              Tout ce que vous devez savoir sur nos services de closing et livraison en Guinée.
             </p>
           </div>
 
@@ -1295,12 +1295,12 @@ export default function LandingPage() {
               <div key={index} className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
                 <button
                   onClick={() => setActiveFaq(activeFaq === index ? null : index)}
-                  className="w-full p-5 text-left font-bold text-xs sm:text-sm text-slate-900 flex justify-between items-center gap-4 hover:text-[#16a34a] transition-colors"
+                  className="w-full p-5 text-left font-bold text-xs sm:text-sm text-slate-900 flex justify-between items-center gap-4 hover:text-[#0d8f4f] transition-colors"
                 >
                   <span>{faq.q}</span>
                   <ChevronRight
                     className={`w-4 h-4 text-slate-400 transition-transform ${
-                      activeFaq === index ? "rotate-90 text-[#16a34a]" : ""
+                      activeFaq === index ? "rotate-90 text-[#0d8f4f]" : ""
                     }`}
                   />
                 </button>
@@ -1320,11 +1320,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-[#0c2419] to-[#071710] rounded-3xl p-8 sm:p-14 text-white text-center space-y-6 shadow-2xl relative overflow-hidden border border-emerald-900 reveal-scale">
             <div className="max-w-xl mx-auto space-y-3 relative z-10">
-              <span className="px-3.5 py-1 rounded-full bg-[#16a34a] text-white text-[10px] font-black uppercase tracking-wider">
-                Rejoignez ENO LIVRAISON
+              <span className="px-3.5 py-1 rounded-full bg-[#0d8f4f] text-white text-[10px] font-black uppercase tracking-wider">
+                Rejoignez GuinéeGo LAT
               </span>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
-                Booster vos ventes e-commerce au Bénin dès aujourd&apos;hui
+                Booster vos ventes e-commerce en Guinée dès aujourd&apos;hui
               </h2>
               <p className="text-emerald-100/80 text-xs sm:text-sm font-medium">
                 Cotonou : 01 64 29 18 84 • Lokossa : 01 67 51 00 82. Vos colis, notre priorité.
@@ -1334,7 +1334,7 @@ export default function LandingPage() {
             <div className="flex flex-wrap justify-center gap-3.5 relative z-10 pt-2">
               <Link
                 href="/partenaire"
-                className="px-8 py-4 rounded-full bg-[#16a34a] text-white font-black text-xs hover:bg-emerald-700 transition-all flex items-center gap-2 shadow-xl shadow-emerald-600/30"
+                className="px-8 py-4 rounded-full bg-[#0d8f4f] text-white font-black text-xs hover:bg-emerald-700 transition-all flex items-center gap-2 shadow-xl shadow-emerald-600/30"
               >
                 <Users className="w-4 h-4" />
                 Accéder à l&apos;Espace Partenaire
@@ -1346,7 +1346,7 @@ export default function LandingPage() {
                 className="px-8 py-4 rounded-full bg-[#25d366] hover:bg-emerald-600 text-white font-black text-xs transition-all flex items-center gap-2 shadow-xl"
               >
                 <MessageSquare className="w-4 h-4 fill-white" />
-                WhatsApp Agence Cotonou
+                WhatsApp Agence Conakry
               </a>
             </div>
           </div>
@@ -1362,8 +1362,8 @@ export default function LandingPage() {
               <Link href="/" className="inline-flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-emerald-500 bg-white">
                   <Image
-                    src="/images/eno_livraison_logo.png"
-                    alt="Logo ENO LIVRAISON"
+                    src="/images/guineego_logo.jpg"
+                    alt="Logo GuinéeGo LAT"
                     fill
                     className="object-contain p-0.5"
                   />
@@ -1379,17 +1379,17 @@ export default function LandingPage() {
               </Link>
 
               <p className="text-[11px] text-slate-400 leading-relaxed font-normal max-w-sm">
-                Agence béninoise de closing téléphonique, stockage sécurisé et livraison express Cash On Delivery pour e-commerçants. Présente à Cotonou et Lokossa.
+                Agence guinéenne de closing téléphonique, stockage sécurisé et livraison express Cash On Delivery pour e-commerçants. Présente à Conakry et Kankan.
               </p>
 
               <div className="space-y-1.5 pt-1">
                 <div className="flex items-center gap-2 text-[10px] font-semibold text-emerald-200 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60 w-fit">
                   <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                  <span>Agence Cotonou : Haie-Vive / Cadjehoun</span>
+                  <span>Agence Conakry : Centre d'Affaires, Kaloum</span>
                 </div>
                 <div className="flex items-center gap-2 text-[10px] font-semibold text-emerald-200 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60 w-fit">
                   <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                  <span>Agence Lokossa : Centre-Ville / Mono</span>
+                  <span>Agence Kankan : Avenue Principale, Kankan</span>
                 </div>
               </div>
             </div>
@@ -1422,7 +1422,7 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <a href="#pourquoi" className="hover:text-emerald-300 transition-colors">
-                    Pourquoi ENO
+                    Pourquoi GuinéeGo
                   </a>
                 </li>
               </ul>
@@ -1471,7 +1471,7 @@ export default function LandingPage() {
 
               <div className="pt-2">
                 <p className="text-[10px] text-slate-400 font-semibold uppercase">Reconnaissance</p>
-                <p className="text-[11px] text-emerald-400 font-bold mt-0.5">Plus de 1 an d&apos;activité au Bénin</p>
+                <p className="text-[11px] text-emerald-400 font-bold mt-0.5">Plus de 1 an d&apos;activité en Guinée</p>
               </div>
             </div>
 
@@ -1482,7 +1482,7 @@ export default function LandingPage() {
               </h4>
               <div className="space-y-2 text-slate-300 font-medium">
                 <div>
-                  <p className="text-[10px] text-emerald-400 font-bold uppercase">Agence Cotonou</p>
+                  <p className="text-[10px] text-emerald-400 font-bold uppercase">Agence Conakry</p>
                   <p className="flex items-center gap-2 mt-0.5">
                     <PhoneCall className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
                     <span>+229 01 64 29 18 84</span>
@@ -1494,7 +1494,7 @@ export default function LandingPage() {
                 </div>
 
                 <div className="pt-1 border-t border-emerald-900/60">
-                  <p className="text-[10px] text-emerald-400 font-bold uppercase">Agence Lokossa</p>
+                  <p className="text-[10px] text-emerald-400 font-bold uppercase">Agence Kankan</p>
                   <p className="flex items-center gap-2 mt-0.5">
                     <PhoneCall className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
                     <span>+229 01 67 51 00 82</span>
@@ -1521,7 +1521,7 @@ export default function LandingPage() {
 
           {/* Copyright Bottom Bar */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500 font-medium">
-            <p>© {new Date().getFullYear()} ENO LIVRAISON (Bénin) — Cotonou & Lokossa. Tous droits réservés.</p>
+            <p>© {new Date().getFullYear()} GuinéeGo LAT (Guinée) — Cotonou & Lokossa. Tous droits réservés.</p>
             <div className="flex items-center gap-4">
               <Link href="/partenaire" className="text-slate-400 hover:text-emerald-400 transition-colors">
                 Espace Partenaire
@@ -1538,12 +1538,12 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-      {/* 🛵 MODALE INTERACTIVE: DEVENIR LIVREUR ENO LIVRAISON */}
+      {/* 🛵 MODALE INTERACTIVE: DEVENIR LIVREUR GuinéeGo LAT */}
       {riderModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fade-in">
           <div className="relative w-full max-w-lg bg-[#071710] border border-emerald-800/80 rounded-3xl p-6 sm:p-8 text-white shadow-2xl space-y-6 overflow-hidden">
             {/* Ambient Background */}
-            <div className="absolute top-0 right-0 w-48 h-48 bg-[#16a34a]/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div className="absolute top-0 right-0 w-48 h-48 bg-[#0d8f4f]/20 rounded-full blur-3xl pointer-events-none"></div>
 
             {/* Close Button */}
             <button
@@ -1556,14 +1556,14 @@ export default function LandingPage() {
 
             {/* Header */}
             <div className="space-y-2">
-              <span className="px-3 py-1 rounded-full bg-[#16a34a] text-white text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow">
+              <span className="px-3 py-1 rounded-full bg-[#0d8f4f] text-white text-[10px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow">
                 <Truck className="w-3.5 h-3.5" /> RECRUTEMENT LIVREURS OUVERT
               </span>
               <h3 className="text-2xl font-black text-white">
-                Rejoignez la Flotte <span className="text-[#22c55e]">ENO LIVRAISON</span>
+                Rejoignez la Flotte <span className="text-[#22c55e]">GuinéeGo LAT</span>
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                Vous possédez une moto et connaissez bien votre ville ? Devenez livreur officiel ENO à Cotonou ou Lokossa avec un volume journalier de colis garanti.
+                Vous possédez une moto et connaissez bien votre ville ? Devenez livreur officiel ENO à Conakry ou Kankan avec un volume journalier de colis garanti.
               </p>
             </div>
 
@@ -1572,7 +1572,7 @@ export default function LandingPage() {
               <div className="sm:col-span-4 relative h-28 rounded-xl overflow-hidden border border-emerald-700/60">
                 <Image
                   src="/images/eno_courier_bike.png"
-                  alt="Livreur ENO LIVRAISON à moto"
+                  alt="Livreur GuinéeGo LAT à moto"
                   fill
                   className="object-cover"
                 />
@@ -1608,7 +1608,7 @@ export default function LandingPage() {
                   className="p-3.5 rounded-2xl bg-[#25d366] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
                 >
                   <MessageSquare className="w-4 h-4 fill-white shrink-0" />
-                  <span>Agence Cotonou<br /><span className="text-[10px] font-mono font-normal">01 64 29 18 84</span></span>
+                  <span>Agence Conakry<br /><span className="text-[10px] font-mono font-normal">01 64 29 18 84</span></span>
                 </a>
 
                 {/* Lokossa Application */}
@@ -1616,10 +1616,10 @@ export default function LandingPage() {
                   href="https://wa.me/2290167510082?text=Bonjour%20ENO%20LIVRAISON%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20LOKOSSA.%20Voici%20mes%20informations%20%3A"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3.5 rounded-2xl bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
+                  className="p-3.5 rounded-2xl bg-[#0d8f4f] hover:bg-[#15803d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
                 >
                   <MessageSquare className="w-4 h-4 fill-white shrink-0" />
-                  <span>Agence Lokossa<br /><span className="text-[10px] font-mono font-normal">01 67 51 00 82</span></span>
+                  <span>Agence Kankan<br /><span className="text-[10px] font-mono font-normal">01 67 51 00 82</span></span>
                 </a>
               </div>
             </div>

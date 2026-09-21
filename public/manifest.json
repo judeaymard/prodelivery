@@ -1,0 +1,24 @@
+{
+  "name": "ENO Livraison — Espace Coursier",
+  "short_name": "ENO Coursier",
+  "description": "Application mobile de livraison, closing et encaissement COD au Bénin",
+  "start_url": "/livreur",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#16a34a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/eno_livraison_logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/eno_livraison_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
