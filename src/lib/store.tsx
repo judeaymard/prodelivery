@@ -321,10 +321,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [orders, setOrders] = useState<Order[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_orders_v1");
+        const saved = localStorage.getItem("eno_v2_orders");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -333,10 +333,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [partners, setPartners] = useState<Partner[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_partners_v1");
+        const saved = localStorage.getItem("eno_v2_partners");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -345,10 +345,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [products, setProducts] = useState<Product[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_products_v1");
+        const saved = localStorage.getItem("eno_v2_products");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -357,10 +357,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [livreurs, setLivreurs] = useState<LivreurProfile[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_drivers_v1");
+        const saved = localStorage.getItem("eno_v2_drivers");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -369,10 +369,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [closeuses, setCloseuses] = useState<CloseuseProfile[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_closers_v1");
+        const saved = localStorage.getItem("eno_v2_closers");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -381,10 +381,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [treasuryManagers, setTreasuryManagers] = useState<TreasuryManagerProfile[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_treasury_v1");
+        const saved = localStorage.getItem("eno_v2_treasury");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -393,10 +393,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [payoutRequests, setPayoutRequests] = useState<PayoutRequest[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_payouts_v1");
+        const saved = localStorage.getItem("eno_v2_payouts");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -405,10 +405,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [transactions, setTransactions] = useState<FinancialTransaction[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_transactions_v1");
+        const saved = localStorage.getItem("eno_v2_transactions");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -417,10 +417,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [codCollections, setCodCollections] = useState<CodCollection[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_cod_collections_v1");
+        const saved = localStorage.getItem("eno_v2_cod_collections");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -429,10 +429,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [codRemittances, setCodRemittances] = useState<CodRemittance[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_remittances_v1");
+        const saved = localStorage.getItem("eno_v2_remittances");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -442,10 +442,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [globalAuditLogs, setGlobalAuditLogs] = useState<GlobalAuditLog[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_audit_v1");
+        const saved = localStorage.getItem("eno_v2_audit");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -455,10 +455,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [conversations, setConversations] = useState<Conversation[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_conversations_v1");
+        const saved = localStorage.getItem("eno_v2_conversations");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
             return parsed;
           }
         }
@@ -469,10 +469,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [activities, setActivities] = useState<ActivityItem[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_activities_v1");
+        const saved = localStorage.getItem("eno_v2_activities");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -481,14 +481,25 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [alerts, setAlerts] = useState<AgencyAlert[]>(initialAgencyAlerts);
   const [period, setPeriod] = useState<PeriodFilter>("TODAY");
 
-    // 🧹 Nettoyage immédiat et complet de tous les caches obsolètes ENO
+    // 🧹 Nettoyage immédiat et complet de tous les anciens caches de test et legacy (guineego_* et eno_*)
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
         const keysToRemove: string[] = [];
         for (let i = 0; i < localStorage.length; i++) {
           const key = localStorage.key(i);
-          if (key && (key.startsWith("eno_") || key.includes("v3") || key.includes("v4") || key.includes("v5"))) {
+          if (
+            key &&
+            (key.startsWith("guineego_") ||
+              key.includes("guineego") ||
+              key.startsWith("eno_orders") ||
+              key.startsWith("eno_conversations") ||
+              key.startsWith("eno_notifications") ||
+              key.includes("_v1") ||
+              key.includes("_v3") ||
+              key.includes("_v4") ||
+              key.includes("_v5"))
+          ) {
             keysToRemove.push(key);
           }
         }
@@ -505,7 +516,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
         if (data.success && Array.isArray(data.orders)) {
           setOrders(data.orders);
           try {
-            localStorage.setItem("guineego_orders_v1", JSON.stringify(data.orders));
+            localStorage.setItem("eno_v2_orders", JSON.stringify(data.orders));
           } catch {}
         }
       })
@@ -514,9 +525,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (orders && orders.length > 0) {
-        localStorage.setItem("guineego_orders_v1", JSON.stringify(orders));
-      }
+      localStorage.setItem("eno_v2_orders", JSON.stringify(orders));
     } catch {}
   }, [orders]);
 
@@ -526,21 +535,21 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          if (Array.isArray(data.drivers) && data.drivers.length > 0) {
+          if (Array.isArray(data.drivers)) {
             setLivreurs(data.drivers);
-            try { localStorage.setItem("guineego_drivers_v1", JSON.stringify(data.drivers)); } catch {}
+            try { localStorage.setItem("eno_v2_drivers", JSON.stringify(data.drivers)); } catch {}
           }
-          if (Array.isArray(data.closers) && data.closers.length > 0) {
+          if (Array.isArray(data.closers)) {
             setCloseuses(data.closers);
-            try { localStorage.setItem("guineego_closers_v1", JSON.stringify(data.closers)); } catch {}
+            try { localStorage.setItem("eno_v2_closers", JSON.stringify(data.closers)); } catch {}
           }
-          if (Array.isArray(data.treasuryManagers) && data.treasuryManagers.length > 0) {
+          if (Array.isArray(data.treasuryManagers)) {
             setTreasuryManagers(data.treasuryManagers);
-            try { localStorage.setItem("guineego_treasury_v1", JSON.stringify(data.treasuryManagers)); } catch {}
+            try { localStorage.setItem("eno_v2_treasury", JSON.stringify(data.treasuryManagers)); } catch {}
           }
-          if (Array.isArray(data.remittances) && data.remittances.length > 0) {
+          if (Array.isArray(data.remittances)) {
             setCodRemittances(data.remittances);
-            try { localStorage.setItem("guineego_remittances_v1", JSON.stringify(data.remittances)); } catch {}
+            try { localStorage.setItem("eno_v2_remittances", JSON.stringify(data.remittances)); } catch {}
           }
         }
       })
@@ -549,41 +558,31 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (livreurs && livreurs.length > 0) {
-        localStorage.setItem("guineego_drivers_v1", JSON.stringify(livreurs));
-      }
+      localStorage.setItem("eno_v2_drivers", JSON.stringify(livreurs));
     } catch {}
   }, [livreurs]);
 
   useEffect(() => {
     try {
-      if (closeuses && closeuses.length > 0) {
-        localStorage.setItem("guineego_closers_v1", JSON.stringify(closeuses));
-      }
+      localStorage.setItem("eno_v2_closers", JSON.stringify(closeuses));
     } catch {}
   }, [closeuses]);
 
   useEffect(() => {
     try {
-      if (treasuryManagers && treasuryManagers.length > 0) {
-        localStorage.setItem("guineego_treasury_v1", JSON.stringify(treasuryManagers));
-      }
+      localStorage.setItem("eno_v2_treasury", JSON.stringify(treasuryManagers));
     } catch {}
   }, [treasuryManagers]);
 
   useEffect(() => {
     try {
-      if (codRemittances && codRemittances.length > 0) {
-        localStorage.setItem("guineego_remittances_v1", JSON.stringify(codRemittances));
-      }
+      localStorage.setItem("eno_v2_remittances", JSON.stringify(codRemittances));
     } catch {}
   }, [codRemittances]);
 
   useEffect(() => {
     try {
-      if (codCollections && codCollections.length > 0) {
-        localStorage.setItem("guineego_cod_collections_v1", JSON.stringify(codCollections));
-      }
+      localStorage.setItem("eno_v2_cod_collections", JSON.stringify(codCollections));
     } catch {}
   }, [codCollections]);
 
@@ -592,10 +591,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
     fetch("/api/audit")
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && Array.isArray(data.logs) && data.logs.length > 0) {
+        if (data.success && Array.isArray(data.logs)) {
           setGlobalAuditLogs(data.logs);
           try {
-            localStorage.setItem("guineego_audit_v1", JSON.stringify(data.logs));
+            localStorage.setItem("eno_v2_audit", JSON.stringify(data.logs));
           } catch {}
         }
       })
@@ -604,9 +603,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (globalAuditLogs && globalAuditLogs.length > 0) {
-        localStorage.setItem("guineego_audit_v1", JSON.stringify(globalAuditLogs));
-      }
+      localStorage.setItem("eno_v2_audit", JSON.stringify(globalAuditLogs));
     } catch {}
   }, [globalAuditLogs]);
 
@@ -619,19 +616,19 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
           if (Array.isArray(data.payouts)) {
             setPayoutRequests(data.payouts);
             try {
-              localStorage.setItem("guineego_payouts_v1", JSON.stringify(data.payouts));
+              localStorage.setItem("eno_v2_payouts", JSON.stringify(data.payouts));
             } catch {}
           }
-          if (Array.isArray(data.partners) && data.partners.length > 0) {
+          if (Array.isArray(data.partners)) {
             setPartners(data.partners);
             try {
-              localStorage.setItem("guineego_partners_v1", JSON.stringify(data.partners));
+              localStorage.setItem("eno_v2_partners", JSON.stringify(data.partners));
             } catch {}
           }
           if (Array.isArray(data.transactions)) {
             setTransactions(data.transactions);
             try {
-              localStorage.setItem("guineego_transactions_v1", JSON.stringify(data.transactions));
+              localStorage.setItem("eno_v2_transactions", JSON.stringify(data.transactions));
             } catch {}
           }
         }
@@ -643,33 +640,25 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (payoutRequests && payoutRequests.length > 0) {
-        localStorage.setItem("guineego_payouts_v1", JSON.stringify(payoutRequests));
-      }
+      localStorage.setItem("eno_v2_payouts", JSON.stringify(payoutRequests));
     } catch {}
   }, [payoutRequests]);
 
   useEffect(() => {
     try {
-      if (partners && partners.length > 0) {
-        localStorage.setItem("guineego_partners_v1", JSON.stringify(partners));
-      }
+      localStorage.setItem("eno_v2_partners", JSON.stringify(partners));
     } catch {}
   }, [partners]);
 
   useEffect(() => {
     try {
-      if (products && products.length > 0) {
-        localStorage.setItem("guineego_products_v1", JSON.stringify(products));
-      }
+      localStorage.setItem("eno_v2_products", JSON.stringify(products));
     } catch {}
   }, [products]);
 
   useEffect(() => {
     try {
-      if (transactions && transactions.length > 0) {
-        localStorage.setItem("guineego_transactions_v1", JSON.stringify(transactions));
-      }
+      localStorage.setItem("eno_v2_transactions", JSON.stringify(transactions));
     } catch {}
   }, [transactions]);
 
@@ -679,10 +668,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
       fetch("/api/conversations")
         .then((res) => res.json())
         .then((data) => {
-          if (data.success && Array.isArray(data.conversations) && data.conversations.length > 0) {
+          if (data.success && Array.isArray(data.conversations)) {
             setConversations(data.conversations);
             try {
-              localStorage.setItem("guineego_conversations_v1", JSON.stringify(data.conversations));
+              localStorage.setItem("eno_v2_conversations", JSON.stringify(data.conversations));
             } catch {}
           }
         })
@@ -698,17 +687,13 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (conversations && conversations.length > 0) {
-        localStorage.setItem("guineego_conversations_v1", JSON.stringify(conversations));
-      }
+      localStorage.setItem("eno_v2_conversations", JSON.stringify(conversations));
     } catch {}
   }, [conversations]);
 
   useEffect(() => {
     try {
-      if (activities && activities.length > 0) {
-        localStorage.setItem("guineego_activities_v1", JSON.stringify(activities));
-      }
+      localStorage.setItem("eno_v2_activities", JSON.stringify(activities));
     } catch {}
   }, [activities]);
 
@@ -716,10 +701,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [notifications, setNotifications] = useState<PlatformNotification[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_notifications_v5");
+        const saved = localStorage.getItem("eno_v2_notifications");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) {
+          if (Array.isArray(parsed)) {
             return parsed;
           }
         }
@@ -733,10 +718,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
     fetch("/api/notifications")
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && Array.isArray(data.notifications) && data.notifications.length > 0) {
+        if (data.success && Array.isArray(data.notifications)) {
           setNotifications(data.notifications);
           try {
-            localStorage.setItem("guineego_notifications_v5", JSON.stringify(data.notifications));
+            localStorage.setItem("eno_v2_notifications", JSON.stringify(data.notifications));
           } catch {}
         }
       })
@@ -747,9 +732,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     try {
-      if (notifications && notifications.length > 0) {
-        localStorage.setItem("guineego_notifications_v5", JSON.stringify(notifications));
-      }
+      localStorage.setItem("eno_v2_notifications", JSON.stringify(notifications));
     } catch {}
   }, [notifications]);
 
@@ -856,7 +839,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [platformSettings, setPlatformSettings] = useState<PlatformSettings>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_settings_v1");
+        const saved = localStorage.getItem("eno_v2_settings");
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && typeof parsed === "object") return parsed;
@@ -870,10 +853,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [platformUsers, setPlatformUsers] = useState<PlatformUser[]>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_users_v1");
+        const saved = localStorage.getItem("eno_v2_users");
         if (saved) {
           const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch {}
     }
@@ -884,7 +867,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [rolePermissions, setRolePermissions] = useState<Record<string, string[]>>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_role_perms_v1");
+        const saved = localStorage.getItem("eno_v2_role_perms");
         if (saved) {
           const parsed = JSON.parse(saved);
           if (parsed && typeof parsed === "object") return parsed;
@@ -907,13 +890,13 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
         if (data.success && data.settings) {
           setPlatformSettings(data.settings);
           try {
-            localStorage.setItem("guineego_settings_v1", JSON.stringify(data.settings));
+            localStorage.setItem("eno_v2_settings", JSON.stringify(data.settings));
           } catch {}
         }
         if (data.success && data.rolePermissions) {
           setRolePermissions(data.rolePermissions);
           try {
-            localStorage.setItem("guineego_role_perms_v1", JSON.stringify(data.rolePermissions));
+            localStorage.setItem("eno_v2_role_perms", JSON.stringify(data.rolePermissions));
           } catch {}
         }
       })
@@ -922,10 +905,10 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
     fetch("/api/users")
       .then((res) => res.json())
       .then((data) => {
-        if (data.success && Array.isArray(data.users) && data.users.length > 0) {
+        if (data.success && Array.isArray(data.users)) {
           setPlatformUsers(data.users);
           try {
-            localStorage.setItem("guineego_users_v1", JSON.stringify(data.users));
+            localStorage.setItem("eno_v2_users", JSON.stringify(data.users));
           } catch {}
         }
       })
@@ -935,19 +918,19 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   // Sauvegarde automatique dans localStorage
   useEffect(() => {
     try {
-      localStorage.setItem("guineego_settings_v1", JSON.stringify(platformSettings));
+      localStorage.setItem("eno_v2_settings", JSON.stringify(platformSettings));
     } catch {}
   }, [platformSettings]);
 
   useEffect(() => {
     try {
-      localStorage.setItem("guineego_users_v1", JSON.stringify(platformUsers));
+      localStorage.setItem("eno_v2_users", JSON.stringify(platformUsers));
     } catch {}
   }, [platformUsers]);
 
   useEffect(() => {
     try {
-      localStorage.setItem("guineego_role_perms_v1", JSON.stringify(rolePermissions));
+      localStorage.setItem("eno_v2_role_perms", JSON.stringify(rolePermissions));
     } catch {}
   }, [rolePermissions]);
 
@@ -1254,7 +1237,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [assignmentConfig, setAssignmentConfig] = useState<AssignmentConfig>(() => {
     if (typeof window !== "undefined") {
       try {
-        const saved = localStorage.getItem("guineego_assignment_config_v1");
+        const saved = localStorage.getItem("eno_v2_assignment_config");
         if (saved) return JSON.parse(saved);
       } catch {}
     }
@@ -1263,8 +1246,8 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
   const [assignmentLogs, setAssignmentLogs] = useState<AssignmentLog[]>(initialAssignmentLogs);
   const [closerAvailability, setCloserAvailability] = useState<Record<string, CloseuseStatus>>({
     "cls-1": "AVAILABLE",
-    "cls-2": "BUSY",
-    "cls-3": "PAUSED",
+    "cls-2": "AVAILABLE",
+    "cls-3": "AVAILABLE",
   });
   const [roundRobinPointer, setRoundRobinPointer] = useState<number>(0);
 
@@ -1299,7 +1282,7 @@ export function OperationsProvider({ children }: { children: React.ReactNode }) 
     const updated = { ...assignmentConfig, ...newConfig };
     setAssignmentConfig(updated);
     try {
-      localStorage.setItem("guineego_assignment_config_v1", JSON.stringify(updated));
+      localStorage.setItem("eno_v2_assignment_config", JSON.stringify(updated));
     } catch {}
 
     logAuditEvent({

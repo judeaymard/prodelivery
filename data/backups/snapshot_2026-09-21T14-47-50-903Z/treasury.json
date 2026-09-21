@@ -10,10 +10,10 @@
     "status": "ACTIF",
     "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
     "createdAt": "2026-06-15 08:30",
-    "lastActiveAt": "Nouveau compte",
-    "remittancesReceivedCount": 0,
-    "totalFundsReceived": 0,
-    "discrepanciesFlaggedCount": 0,
+    "lastActiveAt": "Il y a 5 min",
+    "remittancesReceivedCount": 48,
+    "totalFundsReceived": 8450000,
+    "discrepanciesFlaggedCount": 2,
     "notes": "Responsable principal de la caisse physique et des remises terrain au Hub Central."
   },
   {
@@ -27,10 +27,10 @@
     "status": "ACTIF",
     "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
     "createdAt": "2026-07-01 09:00",
-    "lastActiveAt": "Nouveau compte",
-    "remittancesReceivedCount": 0,
-    "totalFundsReceived": 0,
-    "discrepanciesFlaggedCount": 0,
+    "lastActiveAt": "Il y a 22 min",
+    "remittancesReceivedCount": 31,
+    "totalFundsReceived": 4720000,
+    "discrepanciesFlaggedCount": 1,
     "notes": "En charge du contrôle physique des fonds collectés par la flotte Calavi/Akassato."
   },
   {
@@ -44,9 +44,9 @@
     "status": "EN_PAUSE",
     "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
     "createdAt": "2026-08-10 10:15",
-    "lastActiveAt": "Nouveau compte",
-    "remittancesReceivedCount": 0,
-    "totalFundsReceived": 0,
+    "lastActiveAt": "Hier à 17:30",
+    "remittancesReceivedCount": 14,
+    "totalFundsReceived": 2030000,
     "discrepanciesFlaggedCount": 0,
     "notes": "En congé de relève, permanence assurée par le Hub Central."
   }

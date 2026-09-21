@@ -7,20 +7,20 @@
     "isActive": true,
     "availabilityStatus": "AVAILABLE",
     "mustChangePassword": false,
-    "callsTodayCount": 0,
-    "confirmedTodayCount": 0,
-    "confirmedWeekCount": 0,
-    "confirmedMonthCount": 0,
-    "cancelledTodayCount": 0,
-    "unreachableTodayCount": 0,
-    "callbacksScheduledToday": 0,
-    "conversionRate": 0,
+    "callsTodayCount": 42,
+    "confirmedTodayCount": 34,
+    "confirmedWeekCount": 198,
+    "confirmedMonthCount": 840,
+    "cancelledTodayCount": 3,
+    "unreachableTodayCount": 5,
+    "callbacksScheduledToday": 4,
+    "conversionRate": 82.5,
     "maxActiveOrders": 15,
     "maxActiveConversations": 5,
-    "activeOrdersCount": 0,
-    "activeConversationsCount": 0,
+    "activeOrdersCount": 4,
+    "activeConversationsCount": 2,
     "commissionPerConfirmation": 750,
-    "avgProcessingTimeMinutes": 0,
+    "avgProcessingTimeMinutes": 4.2,
     "languages": [
       "Français",
       "Fon",
@@ -35,7 +35,7 @@
       "Cosmétique",
       "B2B"
     ],
-    "lastActivityAt": "Nouveau compte"
+    "lastActivityAt": "Il y a 2 min"
   },
   {
     "id": "cls-2",
@@ -45,20 +45,20 @@
     "isActive": true,
     "availabilityStatus": "BUSY",
     "mustChangePassword": false,
-    "callsTodayCount": 0,
-    "confirmedTodayCount": 0,
-    "confirmedWeekCount": 0,
-    "confirmedMonthCount": 0,
-    "cancelledTodayCount": 0,
-    "unreachableTodayCount": 0,
-    "callbacksScheduledToday": 0,
-    "conversionRate": 0,
+    "callsTodayCount": 38,
+    "confirmedTodayCount": 29,
+    "confirmedWeekCount": 176,
+    "confirmedMonthCount": 790,
+    "cancelledTodayCount": 4,
+    "unreachableTodayCount": 5,
+    "callbacksScheduledToday": 6,
+    "conversionRate": 78.4,
     "maxActiveOrders": 15,
     "maxActiveConversations": 5,
-    "activeOrdersCount": 0,
-    "activeConversationsCount": 0,
+    "activeOrdersCount": 11,
+    "activeConversationsCount": 4,
     "commissionPerConfirmation": 750,
-    "avgProcessingTimeMinutes": 0,
+    "avgProcessingTimeMinutes": 5.1,
     "languages": [
       "Français",
       "Fon"
@@ -71,7 +71,7 @@
       "Mode & Textile",
       "Électronique"
     ],
-    "lastActivityAt": "Nouveau compte"
+    "lastActivityAt": "Il y a 5 min"
   },
   {
     "id": "cls-3",
@@ -81,20 +81,20 @@
     "isActive": true,
     "availabilityStatus": "PAUSED",
     "mustChangePassword": false,
-    "callsTodayCount": 0,
-    "confirmedTodayCount": 0,
-    "confirmedWeekCount": 0,
-    "confirmedMonthCount": 0,
-    "cancelledTodayCount": 0,
-    "unreachableTodayCount": 0,
-    "callbacksScheduledToday": 0,
-    "conversionRate": 0,
+    "callsTodayCount": 28,
+    "confirmedTodayCount": 22,
+    "confirmedWeekCount": 145,
+    "confirmedMonthCount": 650,
+    "cancelledTodayCount": 2,
+    "unreachableTodayCount": 4,
+    "callbacksScheduledToday": 3,
+    "conversionRate": 81,
     "maxActiveOrders": 15,
     "maxActiveConversations": 5,
-    "activeOrdersCount": 0,
-    "activeConversationsCount": 0,
+    "activeOrdersCount": 6,
+    "activeConversationsCount": 1,
     "commissionPerConfirmation": 750,
-    "avgProcessingTimeMinutes": 0,
+    "avgProcessingTimeMinutes": 4.8,
     "languages": [
       "Français",
       "Goun",
@@ -108,7 +108,7 @@
       "Gadgets Tech",
       "Maison"
     ],
-    "lastActivityAt": "Nouveau compte"
+    "lastActivityAt": "Il y a 18 min"
   },
   {
     "id": "cls-4",
@@ -118,20 +118,20 @@
     "isActive": true,
     "availabilityStatus": "AVAILABLE",
     "mustChangePassword": false,
-    "callsTodayCount": 0,
-    "confirmedTodayCount": 0,
-    "confirmedWeekCount": 0,
-    "confirmedMonthCount": 0,
-    "cancelledTodayCount": 0,
-    "unreachableTodayCount": 0,
-    "callbacksScheduledToday": 0,
-    "conversionRate": 0,
+    "callsTodayCount": 31,
+    "confirmedTodayCount": 26,
+    "confirmedWeekCount": 160,
+    "confirmedMonthCount": 710,
+    "cancelledTodayCount": 2,
+    "unreachableTodayCount": 3,
+    "callbacksScheduledToday": 2,
+    "conversionRate": 83.8,
     "maxActiveOrders": 15,
     "maxActiveConversations": 5,
-    "activeOrdersCount": 0,
-    "activeConversationsCount": 0,
+    "activeOrdersCount": 3,
+    "activeConversationsCount": 1,
     "commissionPerConfirmation": 750,
-    "avgProcessingTimeMinutes": 0,
+    "avgProcessingTimeMinutes": 3.9,
     "languages": [
       "Français",
       "Fon",
@@ -144,7 +144,7 @@
       "Vente Express",
       "Relations VIP"
     ],
-    "lastActivityAt": "Nouveau compte"
+    "lastActivityAt": "Il y a 8 min"
   },
   {
     "id": "cls-5",
@@ -157,18 +157,18 @@
     "temporaryCode": "315792",
     "callsTodayCount": 0,
     "confirmedTodayCount": 0,
-    "confirmedWeekCount": 0,
-    "confirmedMonthCount": 0,
+    "confirmedWeekCount": 45,
+    "confirmedMonthCount": 190,
     "cancelledTodayCount": 0,
     "unreachableTodayCount": 0,
     "callbacksScheduledToday": 0,
-    "conversionRate": 0,
+    "conversionRate": 75,
     "maxActiveOrders": 15,
     "maxActiveConversations": 5,
     "activeOrdersCount": 0,
     "activeConversationsCount": 0,
     "commissionPerConfirmation": 750,
-    "avgProcessingTimeMinutes": 0,
+    "avgProcessingTimeMinutes": 5.5,
     "languages": [
       "Français",
       "Fon"
@@ -179,6 +179,6 @@
     "skills": [
       "Généraliste"
     ],
-    "lastActivityAt": "Nouveau compte"
+    "lastActivityAt": "Hier à 18:40"
   }
 ]

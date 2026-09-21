@@ -1,0 +1,125 @@
+{
+  "general": {
+    "platformName": "GuinéeGo LAT",
+    "companyName": "GuinéeGo LAT SARL",
+    "logoUrl": "/images/guineego_logo.jpg",
+    "supportEmail": "contact@guineego.com",
+    "supportPhone": "+224 620 00 00 00",
+    "secondaryPhone": "+224 660 00 00 00",
+    "whatsappContact": "+224 620 00 00 00",
+    "headquartersAddress": "Centre d'Affaires, Kaloum, Conakry, Guinée",
+    "currency": "GNF",
+    "timezone": "Africa/Kankan (GMT+1)",
+    "dateFormat": "DD/MM/YYYY",
+    "maintenanceMode": false,
+    "allowPublicRegistration": true
+  },
+  "operational": {
+    "ordersAssignmentMode": "SMART_AUTO",
+    "conversationsAssignmentMode": "SMART_AUTO",
+    "maxCapacityPerCloser": 15,
+    "maxCapacityPerDriver": 20,
+    "estimatedDeliveryMinutes": 120,
+    "criticalDelayHours": 4,
+    "autoRedistribute": true,
+    "redistributeTimeoutMinutes": 30,
+    "operatingHoursStart": "08:00",
+    "operatingHoursEnd": "20:30",
+    "sundayDeliveries": false,
+    "requireDeliveryPhotoConfirmation": true,
+    "enableCodSecurityLimits": true,
+    "maxDriverCodCeilingGNF": 150000,
+    "driverRemittanceCeiling": 150000
+  },
+  "financial": {
+    "defaultClosingFee": 800,
+    "defaultDeliveryFee": 2000,
+    "defaultCommissionRate": 5,
+    "minWithdrawalThreshold": 15000,
+    "maxDailyWithdrawalLimit": 5000000,
+    "payoutProcessingDelayHours": 24,
+    "autoApprovePayoutsBelow": 50000,
+    "requireDoubleValidationAbove": 500000,
+    "codReconciliationDeadlineHours": 24
+  },
+  "paymentGateways": {
+    "leekpay": {
+      "enabled": true,
+      "environment": "PRODUCTION",
+      "status": "ACTIVE",
+      "webhookConfigured": true,
+      "supportedChannels": [
+        "MTN Mobile Money Guinée",
+        "Moov Money Guinée",
+        "Orange Money CI",
+        "Wave Côte d'Ivoire"
+      ],
+      "publicKeyMasked": "pk_live_••••••••••••••••94f2",
+      "apiEndpoint": "https://api.leekpay.com/v1"
+    },
+    "binancePay": {
+      "enabled": true,
+      "status": "ACTIVE",
+      "merchantIdMasked": "BNP_••••••••2841",
+      "webhookConfigured": true,
+      "supportedCurrencies": [
+        "USDT",
+        "BUSD",
+        "BNB"
+      ]
+    },
+    "usdtCrypto": {
+      "enabled": true,
+      "status": "ACTIVE",
+      "supportedNetworks": [
+        "TRC-20 (Tron)",
+        "BEP-20 (BNB Smart Chain)",
+        "ERC-20 (Ethereum)",
+        "Polygon"
+      ],
+      "defaultNetwork": "TRC-20 (Tron)",
+      "walletAddressMasked": "TXk7••••••••••••••••••••••••••3z8K",
+      "minWithdrawalUsdt": 20
+    }
+  },
+  "notifications": {
+    "orders": {
+      "newOrder": true,
+      "unassignedOrder": true,
+      "cancelledOrder": true,
+      "orderDelivered": true
+    },
+    "deliveries": {
+      "delayedDelivery": true,
+      "failedDelivery": true,
+      "criticalDelay": true
+    },
+    "finances": {
+      "newPayoutRequest": true,
+      "codDiscrepancy": true,
+      "highValueRemittance": true,
+      "withdrawalPaid": true
+    },
+    "system": {
+      "criticalIncident": true,
+      "securityAlert": true,
+      "dailyBackupSummary": true,
+      "userSuspension": true
+    }
+  },
+  "security": {
+    "enforce2FAForAdmins": true,
+    "sessionTimeoutMinutes": 120,
+    "maxFailedLoginAttempts": 5,
+    "lockoutDurationMinutes": 30,
+    "requirePasswordChangeDays": 90,
+    "ipWhitelistEnabled": false,
+    "allowedIps": [
+      "41.85.160.22",
+      "197.234.221.10"
+    ],
+    "auditAllAdminActions": true
+  },
+  "lastUpdated": "17 sept. 2026 à 13:00",
+  "updatedBy": "Système (Initialisation)"
+}

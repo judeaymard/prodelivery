@@ -1,0 +1,24 @@
+{
+  "id": "bkp_1790002070916",
+  "createdAt": "2026-09-21T14:47:50.903Z",
+  "triggeredBy": "CLI_SCRIPT",
+  "filesCount": 15,
+  "totalSizeBytes": 62231,
+  "files": [
+    "attachments.json",
+    "audit.json",
+    "closers.json",
+    "conversations.json",
+    "drivers.json",
+    "notifications.json",
+    "orders.json",
+    "partners.json",
+    "payouts.json",
+    "remittances.json",
+    "roles_permissions.json",
+    "settings.json",
+    "transactions.json",
+    "treasury.json",
+    "users.json"
+  ]
+}
