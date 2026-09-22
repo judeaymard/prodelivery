@@ -36,6 +36,7 @@ import {
   ArrowRight,
   Info,
   Clock,
+  Globe,
 } from "lucide-react";
 import { useOperations } from "@/lib/store";
 import SpotlightSearchModal from "@/components/admin/SpotlightSearchModal";
@@ -48,6 +49,7 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
   badge?: number | string;
   badgeColor?: string;
+  permission?: string;
 }
 
 interface NavSection {
@@ -74,6 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     unreadNotificationsCount,
     markNotificationAsRead,
     markAllNotificationsAsRead,
+    hasPermission,
   } = useOperations();
 
   const pendingPayoutsCount = payoutRequests.filter((p) => p.status === "PENDING").length;
@@ -114,6 +117,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     if (pathname === "/admin/rapports") return { title: "Rapports & Exports", subtitle: "Téléchargement de données" };
     if (pathname === "/admin/notifications" || pathname === "/pdg/notifications") return { title: "Notifications & Centre d'Alertes", subtitle: "Surveillance centralisée des alertes, signaux opérationnels et événements de la plateforme" };
     if (pathname === "/admin/parametres" || pathname === "/pdg/parametres") return { title: "Paramètres & Permissions", subtitle: "Centre de configuration, gouvernance et contrôle des accès" };
+    if (pathname === "/admin/site-public" || pathname === "/pdg/site-public") return { title: "Site public", subtitle: "Gérez l'identité et le contenu affichés sur votre page d'accueil." };
     return { title: "Espace Direction", subtitle: "Supervision des opérations" };
   };
 
@@ -191,6 +195,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     {
       title: "SYSTÈME & SÉCURITÉ",
       items: [
+        {
+          id: "nav-site-public",
+          label: "Site public",
+          href: "/admin/site-public",
+          icon: Globe,
+          permission: "settings.manage",
+        },
         { id: "nav-audit", label: "Audit & Activité", href: "/admin/audit", icon: ShieldAlert },
         {
           id: "nav-notifications",
@@ -284,9 +295,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               )}
               <div className="space-y-1">
                 {sec.items.map((item) => {
+                  if (item.permission && !hasPermission(item.permission)) {
+                    return null;
+                  }
                   const Icon = item.icon;
-                  // Exact match ONLY: guarantees no other item is ever active
-                  const isActive = pathname === item.href;
+                  // Exact match or /pdg alias: guarantees proper highlighting
+                  const isActive =
+                    pathname === item.href ||
+                    (pathname.startsWith("/pdg/") &&
+                      pathname.replace("/pdg/", "/admin/") === item.href);
 
                   return (
                     <div key={item.id} className="block">
@@ -449,8 +466,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 <span className="text-[9px] font-bold uppercase text-slate-400 px-2 block">{sec.title}</span>
                 <div className="space-y-1">
                   {sec.items.map((item) => {
+                    if (item.permission && !hasPermission(item.permission)) {
+                      return null;
+                    }
                     const Icon = item.icon;
-                    const isActive = pathname === item.href;
+                    const isActive =
+                      pathname === item.href ||
+                      (pathname.startsWith("/pdg/") &&
+                        pathname.replace("/pdg/", "/admin/") === item.href);
 
                     return (
                       <Link

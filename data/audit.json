@@ -1,1 +1,536 @@
-[]
+[
+  {
+    "id": "aud-brand-1790019929099-kgju",
+    "timestamp": "20:45",
+    "isoDate": "2026-09-21T19:45:29.100Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-tmpl-1790019929088-gqlz",
+    "timestamp": "20:45",
+    "isoDate": "2026-09-21T19:45:29.088Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_TEMPLATE_CHANGED",
+    "actionLabel": "Changement du template de la landing page",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_TEMPLATE",
+    "entityReference": "TEMPLATE-MODERN",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Template de la landing page modifié de \"express\" vers \"modern\".",
+    "reason": "from: express, to: modern, updatedBy: Jude Sinaberogui (PDG)",
+    "metadata": {
+      "from": "express",
+      "to": "modern",
+      "updatedBy": "Jude Sinaberogui (PDG) (PDG)"
+    }
+  },
+  {
+    "id": "aud-brand-1790019911747-tuxi",
+    "timestamp": "20:45",
+    "isoDate": "2026-09-21T19:45:11.747Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-tmpl-1790019911739-mykv",
+    "timestamp": "20:45",
+    "isoDate": "2026-09-21T19:45:11.739Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_TEMPLATE_CHANGED",
+    "actionLabel": "Changement du template de la landing page",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_TEMPLATE",
+    "entityReference": "TEMPLATE-EXPRESS",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Template de la landing page modifié de \"commerce\" vers \"express\".",
+    "reason": "from: commerce, to: express, updatedBy: Jude Sinaberogui (PDG)",
+    "metadata": {
+      "from": "commerce",
+      "to": "express",
+      "updatedBy": "Jude Sinaberogui (PDG) (PDG)"
+    }
+  },
+  {
+    "id": "aud-brand-1790018982760-e7r1",
+    "timestamp": "20:29",
+    "isoDate": "2026-09-21T19:29:42.761Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790018977996-n3rv",
+    "timestamp": "20:29",
+    "isoDate": "2026-09-21T19:29:37.996Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790018800644-nx4z",
+    "timestamp": "20:26",
+    "isoDate": "2026-09-21T19:26:40.645Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790018786581-5jfb",
+    "timestamp": "20:26",
+    "isoDate": "2026-09-21T19:26:26.581Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790018784747-4mav",
+    "timestamp": "20:26",
+    "isoDate": "2026-09-21T19:26:24.747Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790018368212-mx8t",
+    "timestamp": "20:19",
+    "isoDate": "2026-09-21T19:19:28.213Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790017890896-xgxz",
+    "timestamp": "20:11",
+    "isoDate": "2026-09-21T19:11:30.896Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790017849019-4auu",
+    "timestamp": "20:10",
+    "isoDate": "2026-09-21T19:10:49.020Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790016940588-smwe",
+    "timestamp": "19:55",
+    "isoDate": "2026-09-21T18:55:40.588Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790016141375-vzkl",
+    "timestamp": "19:42",
+    "isoDate": "2026-09-21T18:42:21.376Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790016094475-kw4b",
+    "timestamp": "19:41",
+    "isoDate": "2026-09-21T18:41:34.476Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790014935255-t1zi",
+    "timestamp": "19:22",
+    "isoDate": "2026-09-21T18:22:15.256Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790014037896-nufo",
+    "timestamp": "19:07",
+    "isoDate": "2026-09-21T18:07:17.896Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790014018856-h4zt",
+    "timestamp": "19:06",
+    "isoDate": "2026-09-21T18:06:58.857Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude Sinaberogui (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790013773543-jp7e",
+    "timestamp": "19:02",
+    "isoDate": "2026-09-21T18:02:53.543Z",
+    "actor": {
+      "id": "usr_pdg_001",
+      "name": "Alpha Diallo",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Alpha Diallo (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790013773504-oghl",
+    "timestamp": "19:02",
+    "isoDate": "2026-09-21T18:02:53.504Z",
+    "actor": {
+      "id": "usr_pdg_001",
+      "name": "Alpha Diallo",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-TEST AGE",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Alpha Diallo (PDG).",
+    "reason": "Nom: Test Agency, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790013701162-xh2o",
+    "timestamp": "19:01",
+    "isoDate": "2026-09-21T18:01:41.162Z",
+    "actor": {
+      "id": "usr_pdg_001",
+      "name": "Alpha Diallo",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-TEST AGE",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Alpha Diallo (PDG).",
+    "reason": "Nom: Test Agency, Agences: 2"
+  },
+  {
+    "id": "aud-auth-1790013122242",
+    "timestamp": "18:52",
+    "isoDate": "2026-09-21T17:52:02.243Z",
+    "actor": {
+      "id": "usr-pdg",
+      "name": "Jude Sinaberogui (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "LOGIN",
+    "actionLabel": "Connexion utilisateur",
+    "module": "AUTH",
+    "entityType": "USER",
+    "entityId": "usr-pdg",
+    "entityReference": "judesinaberogui@gmail.com",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Connexion réussie pour Jude Sinaberogui (PDG) (PDG) vers /pdg."
+  },
+  {
+    "id": "aud-brand-1790012913625-x6h8",
+    "timestamp": "18:48",
+    "isoDate": "2026-09-21T17:48:33.625Z",
+    "actor": {
+      "id": "usr-pdg-test",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-GUINÉEGO",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude S. (PDG) (PDG).",
+    "reason": "Nom: GuinéeGo LAT, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790012913601-j3q3",
+    "timestamp": "18:48",
+    "isoDate": "2026-09-21T17:48:33.602Z",
+    "actor": {
+      "id": "usr-pdg-test",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-AGENCE S",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude S. (PDG) (PDG).",
+    "reason": "Nom: Agence Sécurisée, Agences: 2"
+  },
+  {
+    "id": "aud-brand-1790012913573-gzju",
+    "timestamp": "18:48",
+    "isoDate": "2026-09-21T17:48:33.573Z",
+    "actor": {
+      "id": "usr-pdg-test",
+      "name": "Jude S. (PDG)",
+      "role": "PDG",
+      "type": "USER"
+    },
+    "action": "BRAND_CONFIG_UPDATED",
+    "actionLabel": "Mise à jour de la configuration de marque",
+    "module": "PARAMETRES",
+    "entityType": "SETTING",
+    "entityId": "BRAND_CONFIG",
+    "entityReference": "BRAND-TEST AGE",
+    "severity": "INFO",
+    "result": "SUCCESS",
+    "description": "Configuration de marque mise à jour avec succès par Jude S. (PDG) (PDG).",
+    "reason": "Nom: Test Agency, Agences: 2"
+  }
+]
