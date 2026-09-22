@@ -63,20 +63,22 @@ export default function LandingPage() {
       ? hero.coverageCities
       : agencyCities;
   const agencyCitiesLabel =
-    coverageCitiesList.length > 0 ? coverageCitiesList.join(" & ") : (identity?.country || "Guinée");
+    coverageCitiesList.length > 2
+      ? `${coverageCitiesList[0]} & Environs`
+      : (coverageCitiesList.length > 0 ? coverageCitiesList.join(" & ") : (identity?.country || "Guinée"));
   const primaryAgency = agencies && agencies.length > 0 ? agencies[0] : null;
-  const secondaryAgency = agencies && agencies.length > 1 ? agencies[1] : primaryAgency;
+  const secondaryAgency = agencies && agencies.length > 1 ? agencies[1] : null;
 
   const tiktokUrl = typeof socials?.tiktok === "string" ? socials.tiktok : socials?.tiktok?.url || "https://tiktok.com/@guineego";
   const facebookUrl = typeof socials?.facebook === "string" ? socials.facebook : socials?.facebook?.url || "https://facebook.com/guineego";
   const instagramUrl = typeof socials?.instagram === "string" ? socials.instagram : socials?.instagram?.url || "https://instagram.com/guineego";
   const tiktokHandle = typeof socials?.tiktok === "object" ? socials?.tiktok?.handle || "@guineego" : "@guineego";
-  const facebookName = typeof socials?.facebook === "object" ? socials?.facebook?.name || (identity?.displayName || "GuinéeGo LAT") : (identity?.displayName || "GuinéeGo LAT");
+  const facebookName = typeof socials?.facebook === "object" ? socials?.facebook?.name || (identity?.displayName || "GuinéeGo") : (identity?.displayName || "GuinéeGo");
   const instagramHandle = typeof socials?.instagram === "object" ? socials?.instagram?.handle || "@guineego" : "@guineego";
 
   const whatsappPrimaryUrl = primaryAgency?.whatsapp
     ? `https://wa.me/${primaryAgency.whatsapp.replace(/[^0-9]/g, "")}`
-    : "https://wa.me/224613242013";
+    : "https://wa.me/224612117070";
   const whatsappSecondaryUrl = secondaryAgency?.whatsapp
     ? `https://wa.me/${secondaryAgency.whatsapp.replace(/[^0-9]/g, "")}`
     : whatsappPrimaryUrl;
@@ -114,14 +116,14 @@ export default function LandingPage() {
       number: "01",
       icon: PhoneCall,
       title: "Contactez notre agence",
-      desc: "Inscrivez-vous sur l'Espace Partenaire ou contactez directement l'Agence de Conakry ou Kankan sur WhatsApp.",
+      desc: "Inscrivez-vous sur l'Espace Partenaire ou contactez directement notre siège de Conakry sur WhatsApp.",
       color: "bg-[#0d8f4f]",
     },
     {
       number: "02",
       icon: Package,
       title: "Stockage & Dépôt Offert",
-      desc: "Notre coursier récupère vos articles ou vous déposez votre stock dans nos entrepôts sécurisés à Conakry ou Kankan.",
+      desc: "Notre coursier récupère vos articles ou vous déposez votre stock dans notre entrepôt sécurisé à Conakry.",
       color: "bg-[#0f291e]",
     },
     {
@@ -135,7 +137,7 @@ export default function LandingPage() {
       number: "04",
       icon: CheckCircle2,
       title: "Reversement Cash Quotidien",
-      desc: "L'argent est collecté auprès du client (COD) et vous est reversé le jour même par MTN Mobile Money ou Moov Money.",
+      desc: "L'argent est collecté auprès du client (COD) et vous est reversé le jour même par MTN Mobile Money Guinée ou Moov Money Guinée.",
       color: "bg-[#22c55e]",
     },
   ];
@@ -143,11 +145,11 @@ export default function LandingPage() {
   const faqs = [
     {
       q: "Comment s'effectue le reversement de mon argent encaissé (Cash On Delivery) ?",
-      a: "Tous les soirs ou à chaque livraison validée, l'argent collecté par nos livreurs vous est reversé directement par MTN Mobile Money (+229 01 64 29 18 84), Moov Money ou Virement selon vos préférences déclarées.",
+      a: "Tous les soirs ou à chaque livraison validée, l'argent collecté par nos livreurs vous est reversé directement par MTN Mobile Money Guinée, Moov Money Guinée ou Virement selon vos préférences déclarées.",
     },
     {
-      q: "Quelles sont les villes et agences couvertes par GuinéeGo LAT ?",
-      a: "Nous disposons de 2 grandes agences physiques opérationnelles : l'Agence Principale de Cotonou (couvrant Cotonou, Abomey-Calavi et Porto-Novo) et l'Agence Régionale de Lokossa (couvrant Lokossa et la zone Mono/Couffo). Nous assurons également des expéditions vers tout le Guinée.",
+      q: "Quelles sont les communes et zones couvertes par GuinéeGo ?",
+      a: "Notre siège et entrepôt opérationnel est situé à Conakry (Centre d'Affaires, Kaloum). Nos livreurs couvrent l'ensemble de la capitale : Kaloum, Ratoma, Matam, Dixinn et communes environnantes.",
     },
     {
       q: "Que se passe-t-il si un client annule au moment de la livraison ?",
@@ -155,7 +157,7 @@ export default function LandingPage() {
     },
     {
       q: "Le stockage de mes marchandises est-il vraiment 100% gratuit ?",
-      a: "Oui ! Le stockage et l'entreposage de vos produits sont 100% offerts et sécurisés dans nos hubs de Conakry et Kankan. Vous ne payez que les frais de closing et de livraison lorsqu'un colis est remis au client.",
+      a: "Oui ! Le stockage et l'entreposage de vos produits sont 100% offerts et sécurisés dans notre hub de Conakry. Vous ne payez que les frais de closing et de livraison lorsqu'un colis est remis au client.",
     },
   ];
 
@@ -303,7 +305,7 @@ export default function LandingPage() {
               Réseaux Sociaux (@guineego)
             </a>
             <a href="#pourquoi" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
-              Pourquoi GuinéeGo LAT
+              Pourquoi {identity?.displayName || "GuinéeGo"}
             </a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="block text-sm font-bold text-slate-900">
               FAQ
@@ -316,14 +318,16 @@ export default function LandingPage() {
                 href={whatsappPrimaryUrl}
                 className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#25d366] text-white font-bold text-xs shadow-md"
               >
-                <MessageSquare className="w-4 h-4 fill-white" /> WhatsApp Cotonou : 01 64 29 18 84
+                <MessageSquare className="w-4 h-4 fill-white" /> WhatsApp {primaryAgency?.city || "Conakry"} : {primaryAgency?.primaryPhone || "+224 612 11 31 31"}
               </a>
-              <a
-                href={whatsappSecondaryUrl}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#0d8f4f] text-white font-bold text-xs shadow-md"
-              >
-                <MessageSquare className="w-4 h-4 fill-white" /> WhatsApp Lokossa : 01 67 51 00 82
-              </a>
+              {secondaryAgency && (
+                <a
+                  href={whatsappSecondaryUrl}
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl bg-[#0d8f4f] text-white font-bold text-xs shadow-md"
+                >
+                  <MessageSquare className="w-4 h-4 fill-white" /> WhatsApp {secondaryAgency.city} : {secondaryAgency.primaryPhone}
+                </a>
+              )}
             </div>
           </div>
         )}
@@ -359,7 +363,7 @@ export default function LandingPage() {
               <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed max-w-xl mx-auto lg:mx-0">
                 {hero?.subtext || (
                   <>
-                    <strong>{identity?.displayName || "GuinéeGo LAT"}</strong> s&apos;occupe de toutes vos livraisons de colis à <strong>{agencyCitiesLabel}</strong>. Nous combinons un <strong>closing téléphonique en {closing?.callDelay || "15 min"}</strong> pour confirmer vos commandes, le <strong>stockage 100% offert</strong> et l&apos;encaissement Cash On Delivery avec reversement immédiat par Mobile Money.
+                    <strong>{identity?.displayName || "GuinéeGo"}</strong> s&apos;occupe de toutes vos livraisons de colis à <strong>{agencyCitiesLabel}</strong>. Nous combinons un <strong>closing téléphonique en {closing?.callDelay || "15 min"}</strong> pour confirmer vos commandes, le <strong>stockage 100% offert</strong> et l&apos;encaissement Cash On Delivery avec reversement immédiat par Mobile Money.
                   </>
                 )}
               </p>
@@ -396,9 +400,9 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <p className="text-xl sm:text-2xl font-black text-[#0d8f4f]">
-                      {stats?.agencyCount ? `${stats.agencyCount} Agences` : `${agencies?.length || 2} Agences`}
+                      {stats?.agencyCount && stats.agencyCount > 1 ? `${stats.agencyCount} Agences` : "1 Hub Siège"}
                     </p>
-                    <p className="text-[11px] text-slate-500 font-semibold">{agencyCitiesLabel || "Cotonou & Lokossa"}</p>
+                    <p className="text-[11px] text-slate-500 font-semibold">{agencyCitiesLabel || "Conakry"}</p>
                   </div>
                   <div>
                     <p className="text-xl sm:text-2xl font-black text-emerald-700">100%</p>
@@ -411,12 +415,12 @@ export default function LandingPage() {
             {/* Right Side: 3D ROTATING PHOTO CARD CAROUSEL */}
             <div className="lg:col-span-6 relative py-4 flex flex-col items-center reveal-right delay-150">
               <div className="wrap_3d_card">
-                {/* 3D Card 1: Vraie photo du livreur à moto avec caisson vert ENO */}
+                {/* 3D Card 1: Flotte GuinéeGo à moto (Photo 2 Dossier A) */}
                 <div className="rotating_card group">
                   <div className="relative w-full h-full">
                     <Image
-                      src={media?.heroImage || "/images/eno_courier_bike.png"}
-                      alt={`Livreur ${identity?.displayName || "GuinéeGo LAT"} à moto avec caisson vert officiel`}
+                      src={media?.heroImage || "/images/guineego_hero_2.jpeg"}
+                      alt={`Livreur ${identity?.displayName || "GuinéeGo"} à moto remettant un colis`}
                       fill
                       className="object-cover"
                       priority
@@ -424,21 +428,21 @@ export default function LandingPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
                     <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
-                      FLOTTE GUINÉECO LAT
+                      SERVICE 7J/7 • CONAKRY
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
-                      <p className="text-xs font-black">Caisson Isotherme Sécurisé</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Grand Conakry & Régions</p>
+                      <p className="text-xs font-black">Flotte Motorisée GuinéeGo</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Livraison Rapide, Fiable &amp; Sûre</p>
                     </div>
                   </div>
                 </div>
 
-                {/* 3D Card 2: Vraie photo de la remise de colis à Lokossa */}
+                {/* 3D Card 2: Stockage et Partenariat E-commerce (Photo 3 Dossier A) */}
                 <div className="rotating_card group">
                   <div className="relative w-full h-full">
                     <Image
-                      src={media?.secondaryImage || "/images/eno_delivery_handover.png"}
-                      alt={`Remise de colis en main propre par un coursier ${identity?.displayName || "GuinéeGo"}`}
+                      src={media?.secondaryImage || "/images/guineego_hero_3.jpeg"}
+                      alt={`Partenaire e-commerce ${identity?.displayName || "GuinéeGo"} avec colis en entrepôt`}
                       fill
                       className="object-cover"
                       priority
@@ -446,21 +450,21 @@ export default function LandingPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
                     <div className="absolute top-3 left-3 bg-[#071710] text-[#86efac] border border-emerald-500 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
-                      SATISFACTION CLIENT
+                      PARTENAIRE N°1
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
-                      <p className="text-xs font-black">Remise en main propre</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Kankan & Haute-Guinée</p>
+                      <p className="text-xs font-black">Stockage, Closing &amp; Livraison</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Pour E-commerçants en Guinée</p>
                     </div>
                   </div>
                 </div>
 
-                {/* 3D Card 3: Closeuse professionnelle */}
+                {/* 3D Card 3: Équipe et Anniversaire 1 An (Photo 1 Dossier A) */}
                 <div className="rotating_card group">
                   <div className="relative w-full h-full">
                     <Image
-                      src={media?.heroCard3Image || media?.closingImage || "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif"}
-                      alt={`Closeuse professionnelle ${identity?.displayName || "GuinéeGo LAT"}`}
+                      src={media?.heroCard3Image || "/images/guineego_hero_1.jpeg"}
+                      alt={`Équipe GuinéeGo LAT célébrant 1 an d'activité`}
                       fill
                       className="object-cover"
                       priority
@@ -468,21 +472,21 @@ export default function LandingPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
                     <div className="absolute top-3 left-3 bg-[#0d8f4f] text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
-                      CLOSING 15 MIN
+                      1 AN D&apos;IMPACT EN GUINÉE
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
-                      <p className="text-xs font-black">Centre de Closing Téléphonique</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Confirmation & Prise d&apos;adresse</p>
+                      <p className="text-xs font-black">GuinéeGo - Services Express</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Livraison • Academy • Transit</p>
                     </div>
                   </div>
                 </div>
 
-                {/* 3D Card 4: Paiement Cash COD */}
+                {/* 3D Card 4: Paiement Cash COD & Course Urgente */}
                 <div className="rotating_card group">
                   <div className="relative w-full h-full">
                     <Image
-                      src={media?.heroCard4Image || "/images/gros-plan-livreur-colis_23-2149095905.avif"}
-                      alt="Paiement cash COD et remise colis"
+                      src={media?.heroCard4Image || "/images/guineego_hero_2.jpeg"}
+                      alt={`Encaissement et remise ${identity?.displayName || "GuinéeGo"}`}
                       fill
                       className="object-cover"
                       priority
@@ -490,11 +494,11 @@ export default function LandingPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
                     <div className="absolute top-3 left-3 bg-emerald-600 text-white px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase shadow">
-                      CASH COD
+                      CASH COD SÉCURISÉ
                     </div>
                     <div className="absolute bottom-4 left-3 right-3 text-white">
-                      <p className="text-xs font-black">Encaissement & Virement Daily</p>
-                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Reversement MTN MoMo & Moov</p>
+                      <p className="text-xs font-black">Encaissement &amp; Virement Daily</p>
+                      <p className="text-[10px] text-emerald-300 font-bold mt-0.5">Reversement MTN MoMo &amp; Moov</p>
                     </div>
                   </div>
                 </div>
@@ -515,24 +519,32 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 📍 SECTION NOS AGENCES PHYSIQUES AU BÉNIN (COTONOU & LOKOSSA) */}
+      {/* 📍 SECTION NOTRE SIÈGE ET IMPLANTATION LOCALE (CONAKRY) */}
       <section id="agences" className="py-20 bg-[#071710] text-white relative overflow-hidden border-b border-emerald-950">
         <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3 reveal-up">
             <span className="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black uppercase tracking-widest border border-emerald-500/30 inline-flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-[#22c55e]" /> DEUX AGENCES PHYSIQUES À VOTRE SERVICE
+              <MapPin className="w-3.5 h-3.5 text-[#22c55e]" /> {agencies && agencies.length > 1 ? "NOS AGENCES PHYSIQUES" : "NOTRE SIÈGE & IMPLANTATION LOCALE"}
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Une présence réelle à <span className="text-[#22c55e]">Cotonou</span> & <span className="text-[#22c55e]">Lokossa</span>
+              {agencies && agencies.length > 1 ? (
+                <>Une présence réelle à {agencies.map((a: any, i: number) => (
+                  <span key={a.id}><span className="text-[#22c55e]">{a.city}</span>{i < agencies.length - 1 ? " & " : ""}</span>
+                ))}</>
+              ) : (
+                <>Une présence locale au cœur de <span className="text-[#22c55e]">Conakry</span></>
+              )}
             </h2>
             <p className="text-emerald-100/70 text-sm sm:text-base font-normal">
-              Vos clients sont servis rapidement grâce à nos entrepôts de proximité et nos flottes de coursiers déployées sur le terrain.
+              {agencies && agencies.length > 1
+                ? "Vos clients sont servis rapidement grâce à nos entrepôts de proximité et nos flottes de coursiers déployées sur le terrain."
+                : "Vos clients sont servis rapidement grâce à notre hub de proximité et notre flotte de coursiers déployée sur le terrain."}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className={agencies && agencies.length === 1 ? "max-w-2xl mx-auto" : "grid md:grid-cols-2 gap-8 max-w-5xl mx-auto"}>
             {(agencies || []).map((agency: any, index: number) => (
               <div
                 key={agency.id}
@@ -595,7 +607,7 @@ export default function LandingPage() {
                     <PhoneCall className="w-4 h-4 text-[#22c55e]" /> Appeler
                   </a>
                   <a
-                    href={`https://wa.me/${agency.whatsapp}?text=Bonjour%20ENO%20LIVRAISON%20${agency.city}%2C%20je%20souhaite%20confier%20des%20colis`}
+                    href={`https://wa.me/${agency.whatsapp}?text=Bonjour%20${encodeURIComponent(identity?.displayName || 'GuinéeGo')}%20${encodeURIComponent(agency.city)}%2C%20je%20souhaite%20confier%20des%20colis`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-3 rounded-2xl bg-[#25d366] hover:bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-md shadow-emerald-950/40 active:scale-95"
@@ -656,34 +668,34 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 📱 SECTION COMMUNAUTÉ TIKTOK & RÉSEAUX SOCIAUX — FORMAT REELS IMMERSIF */}
+      {/* 📱 SECTION COMMUNAUTÉ FACEBOOK & RÉSEAUX SOCIAUX — FORMAT VISUEL IMMERSIF */}
       <section id="communaute" className="py-20 bg-[#06140e] text-white relative overflow-hidden border-b border-emerald-950">
         {/* Subtle Ambient Glows */}
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-rose-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-rose-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[120px] pointer-events-none"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-12">
           {/* Section Header */}
           <div className="text-center max-w-2xl mx-auto space-y-3 reveal-up">
             <span className="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black uppercase tracking-widest border border-emerald-500/30 inline-flex items-center gap-1.5">
-              <Flame className="w-3.5 h-3.5 text-rose-400" /> COULISSES & IMMERSION TERRAIN
+              <Flame className="w-3.5 h-3.5 text-rose-500" /> NOTRE COMMUNAUTÉ FACEBOOK
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Vivez l&apos;expérience sur <span className="text-[#22c55e]">TikTok</span> & nos Réseaux
+              Suivez nos actualités sur <span className="text-emerald-400">Facebook</span> &amp; nos Réseaux
             </h2>
             <p className="text-emerald-100/70 text-sm sm:text-base font-normal">
-              Découvrez le quotidien de nos livreurs, les réceptions en entrepôt, les tournées à Conakry et Kankan, et les retours d&apos;expérience de nos clients.
+              Retrouvez le quotidien de notre flotte, nos séances de formation, les livraisons express et les avis de nos clients sur notre page officielle.
             </p>
           </div>
 
-          {/* 🌟 CREATOR PROFILE BAR (Style Carte Créateur TikTok Officiel — Preuves sur une seule ligne) */}
+          {/* 🌟 CREATOR PROFILE BAR (Style Page Officielle Facebook — Preuves sur une seule ligne) */}
           <div className="max-w-5xl mx-auto p-4 sm:p-5 rounded-3xl bg-emerald-950/40 border border-emerald-800/40 backdrop-blur-md flex flex-col xl:flex-row items-center justify-between gap-5 shadow-xl reveal-scale delay-100">
             {/* Left: Avatar & Identity */}
             <div className="flex items-center gap-3.5 text-center sm:text-left shrink-0">
-              <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-[#22c55e] shadow-lg bg-white shrink-0">
+              <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-emerald-500 shadow-lg bg-white shrink-0">
                 <Image
-                  src={identity?.logoUrl || "/images/guineego_logo.jpg"}
-                  alt={`Avatar ${identity?.displayName || "GuinéeGo LAT"} TikTok`}
+                  src={identity?.logoUrl || "/images/guineego_logo.jpeg"}
+                  alt={`Avatar ${identity?.displayName || "GuinéeGo"} Facebook`}
                   fill
                   className="object-contain p-1"
                   unoptimized={Boolean(identity?.logoUrl?.startsWith("http") || identity?.logoUrl?.startsWith("/uploads"))}
@@ -691,47 +703,47 @@ export default function LandingPage() {
               </div>
               <div>
                 <div className="flex items-center justify-center sm:justify-start gap-1.5">
-                  <h3 className="text-base font-black text-white">{identity?.displayName || "GuinéeGo LAT"}</h3>
-                  <span className="w-4 h-4 rounded-full bg-[#22c55e] text-white flex items-center justify-center text-[10px] font-black" title="Certifié officiel">
+                  <h3 className="text-base font-black text-white">{identity?.displayName || "GuinéeGo"} - Services Express</h3>
+                  <span className="w-4 h-4 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-black" title="Page certifiée officielle">
                     ✓
                   </span>
                 </div>
-                <p className="text-xs font-semibold text-emerald-400 font-mono">@guineego</p>
-                <p className="text-[11px] text-slate-300 mt-0.5 whitespace-nowrap">« Vos colis, notre priorité ! 📍 Cotonou & Lokossa »</p>
+                <p className="text-xs font-semibold text-emerald-400 font-mono">Page Facebook Officielle • Entreprise de cargo et fret</p>
+                <p className="text-[11px] text-slate-300 mt-0.5 whitespace-nowrap">« Livraison express partout en Guinée • 📍 Conakry »</p>
               </div>
             </div>
 
             {/* Middle: Live Verified Stats — TOUTES LES PREUVES STRICTEMENT SUR UNE SEULE LIGNE */}
             <div className="flex items-center justify-center gap-3.5 sm:gap-6 border-y xl:border-y-0 xl:border-x border-emerald-800/60 py-3 xl:py-0 px-2 xl:px-6 text-center whitespace-nowrap shrink-0">
               <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-                <span className="text-xl sm:text-2xl font-black text-white tracking-tight">{stats?.tiktokFollowers || "1 157+"}</span>
+                <span className="text-xl sm:text-2xl font-black text-white tracking-tight">{stats?.facebookFollowers || "1,8 K"}</span>
                 <span className="text-[11px] uppercase font-bold text-slate-300 tracking-wider">Abonnés</span>
               </div>
 
               <span className="text-emerald-600 font-bold text-sm">•</span>
 
               <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-                <span className="text-xl sm:text-2xl font-black text-[#22c55e] tracking-tight">{stats?.tiktokLikes || "4 351+"}</span>
-                <span className="text-[11px] uppercase font-bold text-slate-300 tracking-wider">J&apos;aime</span>
+                <span className="text-xl sm:text-2xl font-black text-rose-500 tracking-tight">{stats?.facebookPosts || "99"}</span>
+                <span className="text-[11px] uppercase font-bold text-slate-300 tracking-wider">Publications</span>
               </div>
 
               <span className="text-emerald-600 font-bold text-sm">•</span>
 
               <div className="flex items-baseline gap-1.5 whitespace-nowrap">
-                <span className="text-xl sm:text-2xl font-black text-amber-400 tracking-tight">{stats?.yearsActive || "1 An"}</span>
-                <span className="text-[11px] uppercase font-bold text-slate-300 tracking-wider">d&apos;existence</span>
+                <span className="text-xl sm:text-2xl font-black text-emerald-400 tracking-tight">7j/7</span>
+                <span className="text-[11px] uppercase font-bold text-slate-300 tracking-wider">Disponible</span>
               </div>
             </div>
 
             {/* Right: Action Button */}
             <div className="shrink-0">
               <a
-                href={tiktokUrl}
+                href={facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-6 py-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-lg shadow-rose-600/30 flex items-center gap-2 transition-all active:scale-95 whitespace-nowrap"
+                className="px-6 py-3 rounded-full bg-[#e52320] hover:bg-[#c91d1a] text-white text-xs font-bold shadow-lg shadow-rose-600/30 flex items-center gap-2 transition-all active:scale-95 whitespace-nowrap"
               >
-                <span>S&apos;abonner sur TikTok</span>
+                <span>Rejoindre sur Facebook</span>
                 <ArrowUpRight className="w-4 h-4" />
               </a>
             </div>
@@ -739,11 +751,11 @@ export default function LandingPage() {
 
           {/* 🌟 3 CARTES ÉPURÉES & SANS SURCHARGE */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {/* Carte 1: Flotte Cotonou */}
+            {/* Carte 1: Flotte Conakry & Livreur */}
             <div className="group relative rounded-3xl overflow-hidden border border-emerald-900/60 hover:border-emerald-500 bg-[#071710] h-[380px] shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between p-6 reveal-left delay-150">
               <Image
-                src={media?.communityCard1 || "/images/eno_card_1.png"}
-                alt={`Flotte de livraison ${agencyCities[0] || "Cotonou"}`}
+                src={media?.communityCard1 || "/images/guineego_communaute_livreur.jpg"}
+                alt={`Flotte et livreur de livraison ${identity?.displayName || "GuinéeGo"}`}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 unoptimized={Boolean(media?.communityCard1?.startsWith("http") || media?.communityCard1?.startsWith("/uploads"))}
@@ -753,40 +765,40 @@ export default function LandingPage() {
               {/* Top Tag */}
               <div className="relative z-10 flex justify-between items-center">
                 <span className="px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 text-[10px] font-bold uppercase tracking-wider">
-                  Cotonou & Calavi
+                  Conakry • Fret &amp; Cargo
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @guineego
+                <span className="text-[10px] text-emerald-300 font-medium">
+                  Facebook @guineego
                 </span>
               </div>
 
               {/* Bottom Info */}
               <div className="relative z-10 space-y-2">
                 <h3 className="text-lg font-bold text-white leading-snug">
-                  Motos & Caissons Isothermes
+                  Motos &amp; Caissons Sécurisés
                 </h3>
                 <p className="text-xs text-slate-300 font-normal">
-                  Colis protégés de la poussière et livrés en moins de 2h.
+                  Colis, repas et courses urgentes protégés et livrés rapidement.
                 </p>
                 <div className="pt-2">
                   <a
-                    href={tiktokUrl}
+                    href={facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#22c55e] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-200 transition-colors"
                   >
-                    <span>Voir sur TikTok</span>
+                    <span>Voir sur Facebook</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Carte 2: Remise Lokossa */}
+            {/* Carte 2: Remise de colis en main propre (Photo 1 Dossier photos1) */}
             <div className="group relative rounded-3xl overflow-hidden border border-emerald-900/60 hover:border-emerald-500 bg-[#071710] h-[380px] shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between p-6 reveal-up delay-250">
               <Image
-                src={media?.communityCard2 || "/images/eno_card_2.png"}
-                alt={`Remise de colis en main propre ${agencyCities[1] ? "à " + agencyCities[1] : "à Lokossa"}`}
+                src={media?.communityCard2 || "/images/guineego_communaute_remise.jpeg"}
+                alt={`Remise de colis en main propre par un livreur ${identity?.displayName || "GuinéeGo"}`}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 unoptimized={Boolean(media?.communityCard2?.startsWith("http") || media?.communityCard2?.startsWith("/uploads"))}
@@ -796,40 +808,40 @@ export default function LandingPage() {
               {/* Top Tag */}
               <div className="relative z-10 flex justify-between items-center">
                 <span className="px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 text-[10px] font-bold uppercase tracking-wider">
-                  Lokossa & Mono
+                  Conakry &amp; Environs
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @guineego
+                <span className="text-[10px] text-emerald-300 font-medium">
+                  Facebook @guineego
                 </span>
               </div>
 
               {/* Bottom Info */}
               <div className="relative z-10 space-y-2">
                 <h3 className="text-lg font-bold text-white leading-snug">
-                  Remise en Main Propre & COD
+                  Remise en Main Propre &amp; COD
                 </h3>
                 <p className="text-xs text-slate-300 font-normal">
-                  Encaissement du cash et reversement Mobile Money le jour même.
+                  Encaissement du cash et reversement sécurisé garanti.
                 </p>
                 <div className="pt-2">
                   <a
-                    href={tiktokUrl}
+                    href={facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#22c55e] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-200 transition-colors"
                   >
-                    <span>Voir sur TikTok</span>
+                    <span>Voir sur Facebook</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
               </div>
             </div>
 
-            {/* Carte 3: Réseau & Croissance */}
+            {/* Carte 3: Réunion d'équipe & Formation (Photo 3 Dossier photos1) */}
             <div className="group relative rounded-3xl overflow-hidden border border-emerald-900/60 hover:border-emerald-500 bg-[#071710] h-[380px] shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between p-6 reveal-right delay-350">
               <Image
-                src={media?.communityCard3 || "/images/eno_courier_handover_action.png"}
-                alt={`Satisfaction client et livraisons ${identity?.displayName || "Eno"}`}
+                src={media?.communityCard3 || "/images/guineego_communaute_equipe.jpeg"}
+                alt={`Séance de travail et équipe terrain ${identity?.displayName || "GuinéeGo"}`}
                 fill
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 unoptimized={Boolean(media?.communityCard3?.startsWith("http") || media?.communityCard3?.startsWith("/uploads"))}
@@ -839,29 +851,29 @@ export default function LandingPage() {
               {/* Top Tag */}
               <div className="relative z-10 flex justify-between items-center">
                 <span className="px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-700/50 text-[10px] font-bold uppercase tracking-wider">
-                  Guinée
+                  Immersion GuinéeGo
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">
-                  TikTok @guineego
+                <span className="text-[10px] text-emerald-300 font-medium">
+                  Facebook @guineego
                 </span>
               </div>
 
               {/* Bottom Info */}
               <div className="relative z-10 space-y-2">
                 <h3 className="text-lg font-bold text-white leading-snug">
-                  1 An d&apos;Existence en Guinée
+                  Séances &amp; Équipe Terrain
                 </h3>
                 <p className="text-xs text-slate-300 font-normal">
-                  Plus de 5 000 colis distribués et 4 350+ mentions J&apos;aime.
+                  99 publications partagées avec notre communauté de plus de 1 800 abonnés.
                 </p>
                 <div className="pt-2">
                   <a
-                    href={tiktokUrl}
+                    href={facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#22c55e] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-200 transition-colors"
                   >
-                    <span>Voir sur TikTok</span>
+                    <span>Voir sur Facebook</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
                   </a>
                 </div>
@@ -872,25 +884,6 @@ export default function LandingPage() {
           {/* 🔗 UNIFIED SOCIAL CHANNELS BAR */}
           <div className="max-w-4xl mx-auto pt-4 reveal-up delay-200">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-              {/* TikTok */}
-              <a
-                href={tiktokUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-4 rounded-2xl bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-800/40 hover:border-emerald-500/60 transition-all flex items-center justify-between group"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-rose-600/20 text-rose-400 flex items-center justify-center text-sm font-black">
-                    🎵
-                  </div>
-                  <div className="text-left">
-                    <p className="text-xs font-black text-white">TikTok</p>
-                    <p className="text-[10px] text-emerald-300 font-mono">@guineego</p>
-                  </div>
-                </div>
-                <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
-              </a>
-
               {/* Facebook */}
               <a
                 href={facebookUrl}
@@ -899,31 +892,50 @@ export default function LandingPage() {
                 className="p-4 rounded-2xl bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-800/40 hover:border-emerald-500/60 transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center text-sm font-black">
+                  <div className="w-9 h-9 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center text-sm font-black">
                     f
                   </div>
                   <div className="text-left">
                     <p className="text-xs font-black text-white">Facebook</p>
-                    <p className="text-[10px] text-emerald-300 font-medium">GuinéeGo LAT</p>
+                    <p className="text-[10px] text-emerald-300 font-medium">GuineeGo • 1,8 K Abonnés</p>
                   </div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
               </a>
 
-              {/* Instagram */}
+              {/* WhatsApp */}
               <a
-                href={instagramUrl}
+                href={whatsappPrimaryUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-4 rounded-2xl bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-800/40 hover:border-emerald-500/60 transition-all flex items-center justify-between group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-xl bg-pink-600/20 text-pink-400 flex items-center justify-center text-sm font-black">
-                    📸
+                  <div className="w-9 h-9 rounded-xl bg-emerald-600/20 text-[#25d366] flex items-center justify-center text-sm font-black">
+                    <MessageSquare className="w-4 h-4 fill-[#25d366]" />
                   </div>
                   <div className="text-left">
-                    <p className="text-xs font-black text-white">Instagram</p>
-                    <p className="text-[10px] text-emerald-300 font-mono">@guineego</p>
+                    <p className="text-xs font-black text-white">WhatsApp Direct</p>
+                    <p className="text-[10px] text-emerald-300 font-mono">+224 612 11 70 70</p>
+                  </div>
+                </div>
+                <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
+              </a>
+
+              {/* Site Web Officiel */}
+              <a
+                href="https://guineego.net"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-4 rounded-2xl bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-800/40 hover:border-cyan-500/60 transition-all flex items-center justify-between group"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-cyan-600/20 text-cyan-400 flex items-center justify-center text-sm font-black">
+                    🌐
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs font-black text-white">Site Officiel</p>
+                    <p className="text-[10px] text-cyan-300 font-mono">guineego.net</p>
                   </div>
                 </div>
                 <ArrowUpRight className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors" />
@@ -951,7 +963,7 @@ export default function LandingPage() {
                   <div className="flip-card-front bg-slate-950 border-4 border-white shadow-2xl overflow-hidden flex flex-col justify-between p-5">
                     <Image
                       src={media?.closingImage || "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif"}
-                      alt={`Opératrice téléconseillère ${identity?.displayName || "GuinéeGo LAT"} au centre d'appel`}
+                      alt={`Opératrice téléconseillère ${identity?.displayName || "GuinéeGo"} au centre d'appel`}
                       fill
                       className="object-cover"
                       priority
@@ -962,7 +974,7 @@ export default function LandingPage() {
                     {/* Top Tag & Hint */}
                     <div className="relative z-10 flex justify-between items-center">
                       <span className="px-3 py-1 rounded-full bg-[#0d8f4f] text-white text-[10px] font-black uppercase tracking-wider shadow">
-                        Centre Closing ENO Cotonou
+                        Centre Closing {identity?.displayName || "GuinéeGo"} Conakry
                       </span>
                       <span className="px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md text-emerald-300 text-[10px] font-bold border border-emerald-500/30 flex items-center gap-1">
                         Retourner ↻
@@ -981,7 +993,7 @@ export default function LandingPage() {
                   <div className="flip-card-back bg-[#071710] border-4 border-emerald-500/80 shadow-2xl overflow-hidden flex flex-col justify-between p-6 text-left">
                     <Image
                       src={media?.closingBackImage || "/images/closing_phone_3d.jpg"}
-                      alt={`Confirmation de commande e-commerce ${identity?.displayName || "ENO"}`}
+                      alt={`Confirmation de commande e-commerce ${identity?.displayName || "GuinéeGo"}`}
                       fill
                       className="object-cover opacity-35"
                       unoptimized={Boolean(media?.closingBackImage?.startsWith("http") || media?.closingBackImage?.startsWith("/uploads"))}
@@ -1028,7 +1040,7 @@ export default function LandingPage() {
                         Transmis immédiatement au livreur
                       </span>
                       <span className="text-[10px] text-slate-400">
-                        Français • Fon • Mina
+                        {closing?.languages || "Français • Poular • Malinké • Soussou"}
                       </span>
                     </div>
                   </div>
@@ -1049,7 +1061,7 @@ export default function LandingPage() {
               </h2>
 
               <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                En Afrique, l&apos;achat en ligne repose d&apos;abord sur la confiance humaine. Chez <strong>GuinéeGo LAT</strong>, nos opératrices téléphoniques appellent vos prospects sous 15 minutes pour valider leur commande, préciser l&apos;adresse exacte et convenir du créneau de livraison.
+                En Afrique, l&apos;achat en ligne repose d&apos;abord sur la confiance humaine. Chez <strong>{identity?.displayName || "GuinéeGo"}</strong>, nos opératrices téléphoniques appellent vos prospects sous 15 minutes pour valider leur commande, préciser l&apos;adresse exacte et convenir du créneau de livraison.
               </p>
 
               {/* 2 Pro Feature Cards with Float Animation */}
@@ -1066,7 +1078,7 @@ export default function LandingPage() {
                     Appels en Français & Langues Locales
                   </h4>
                   <p className="text-[11px] text-slate-500 font-normal leading-relaxed">
-                    Échanges courtois et rassurants adaptés aux clients de Cotonou, Calavi, Porto-Novo et Lokossa.
+                    Échanges courtois et rassurants adaptés aux clients de Conakry et ses communes.
                   </p>
                 </div>
 
@@ -1156,7 +1168,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                  <span className="font-bold text-slate-900">800 F CFA / commande</span>
+                  <span className="font-bold text-slate-900">{pricing?.closingFeeDisplay || "800 GNF / commande"}</span>
                   <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Détails →
                   </Link>
@@ -1164,12 +1176,12 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Card 2: Stockage & Entrepôt Cotonou & Lokossa */}
+            {/* Card 2: Stockage & Entrepôt Conakry */}
             <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs flex flex-col justify-between group transition-all hover:shadow-xl hover:border-emerald-300 reveal-up delay-200">
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
-                  src={services?.[1]?.image || "/images/eno_courier_bike.png"}
-                  alt={services?.[1]?.title || "Stockage entrepôt et préparation colis ENO"}
+                  src={services?.[1]?.image || "/images/guineego_stockage_entrepot.jpg"}
+                  alt={services?.[1]?.title || "Stockage entrepôt et préparation colis"}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   unoptimized={Boolean(services?.[1]?.image?.startsWith("http") || services?.[1]?.image?.startsWith("/uploads"))}
@@ -1179,14 +1191,14 @@ export default function LandingPage() {
                   2. Stockage Gratuit
                 </div>
                 <div className="absolute bottom-3 left-3 right-3 text-white text-xs font-bold">
-                  Hubs Cotonou & Lokossa
+                  Hub Conakry
                 </div>
               </div>
               <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                 <div className="space-y-2">
-                  <h3 className="text-xl font-black text-slate-900">2. Stockage & Entrepôt</h3>
+                  <h3 className="text-xl font-black text-slate-900">2. Stockage &amp; Entrepôt</h3>
                   <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                    Entreposage gratuit et sécurisé de vos marchandises dans nos hubs sous surveillance 24h/24.
+                    Entreposage gratuit et sécurisé de vos marchandises dans notre hub sous surveillance 24h/24.
                   </p>
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
@@ -1202,8 +1214,8 @@ export default function LandingPage() {
             <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-xs flex flex-col justify-between group transition-all hover:shadow-xl hover:border-emerald-300 reveal-up delay-300">
               <div className="relative h-52 w-full overflow-hidden">
                 <Image
-                  src={services?.[2]?.image || "/images/eno_delivery_handover.png"}
-                  alt={services?.[2]?.title || "Remise colis client GuinéeGo LAT"}
+                  src={services?.[2]?.image || "/images/guineego_hero_2.jpeg"}
+                  alt={services?.[2]?.title || `Remise colis client ${identity?.displayName || "GuinéeGo"}`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   unoptimized={Boolean(services?.[2]?.image?.startsWith("http") || services?.[2]?.image?.startsWith("/uploads"))}
@@ -1224,7 +1236,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 <div className="pt-3 border-t border-slate-100 flex justify-between items-center text-xs">
-                  <span className="font-bold text-slate-900">2 000 F CFA / course</span>
+                  <span className="font-bold text-slate-900">{pricing?.deliveryFeeDisplay || "2 000 GNF / course"}</span>
                   <Link href="/partenaire" className="text-[#0d8f4f] font-black hover:underline">
                     Détails →
                   </Link>
@@ -1275,13 +1287,13 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-14 space-y-3 reveal-up">
             <span className="px-4 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-black uppercase tracking-widest border border-emerald-500/30 inline-flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> PERFORMANCE LOGISTIQUE AU BÉNIN
+              <Sparkles className="w-3.5 h-3.5" /> PERFORMANCE LOGISTIQUE EN GUINÉE
             </span>
             <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Pourquoi choisir <span className="text-[#22c55e]">GuinéeGo LAT</span> ?
+              Pourquoi choisir <span className="text-[#22c55e]">{identity?.displayName || "GuinéeGo"}</span> ?
             </h2>
             <p className="text-emerald-100/70 text-sm sm:text-base font-normal">
-              Découvrez la différence entre les coursiers classiques et le système intégré GuinéeGo LAT.
+              Découvrez la différence entre les coursiers classiques et le système intégré {identity?.displayName || "GuinéeGo"}.
             </p>
           </div>
 
@@ -1337,7 +1349,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Right Card: GuinéeGo LAT */}
+            {/* Right Card: GuinéeGo */}
             <div className="lg:col-span-5 reveal-right delay-100">
               <div className="animate-float-right bg-gradient-to-br from-[#0c2419] to-[#071710] border-2 border-emerald-500 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_0_35px_rgba(22,163,74,0.35)] relative group transition-all duration-300">
                 <div className="absolute -top-3.5 right-6 bg-[#0d8f4f] text-white font-black text-[10px] uppercase tracking-widest px-3.5 py-1 rounded-full shadow-lg">
@@ -1349,7 +1361,7 @@ export default function LandingPage() {
                     <span className="text-[10px] font-black text-emerald-300 bg-emerald-500/20 px-2.5 py-1 rounded-full uppercase tracking-wider border border-emerald-500/30">
                       Solution Complète
                     </span>
-                    <h3 className="text-xl font-black text-white mt-1">GuinéeGo LAT</h3>
+                    <h3 className="text-xl font-black text-white mt-1">{identity?.displayName || "GuinéeGo"}</h3>
                   </div>
                   <CheckCircle2 className="w-7 h-7 text-[#22c55e] stroke-[2]" />
                 </div>
@@ -1357,19 +1369,19 @@ export default function LandingPage() {
                 <div className="space-y-3 text-xs font-semibold">
                   <div className="flex items-start gap-2.5 text-white">
                     <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
-                    <span>Closing téléphonique pro sous 15 min (Français + Fon/Mina)</span>
+                    <span>Closing téléphonique pro sous 15 min ({closing?.languages || "Français + Langues Locales"})</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-white">
                     <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
-                    <span>Stockage 100% OFFERT dans nos entrepôts Cotonou & Lokossa</span>
+                    <span>Stockage 100% OFFERT dans notre entrepôt à Conakry</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-white">
                     <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Reversement Cash COD quotidien par MTN MoMo / Moov</span>
+                    <span>Reversement Cash COD quotidien par MTN Mobile Money / Moov</span>
                   </div>
                   <div className="flex items-start gap-2.5 text-white">
                     <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
-                    <span>Flotte moto dédiée & contact direct agences Cotonou / Lokossa</span>
+                    <span>Flotte moto dédiée & contact direct agence Conakry</span>
                   </div>
                 </div>
 
@@ -1430,24 +1442,23 @@ export default function LandingPage() {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-[#0c2419] to-[#071710] rounded-3xl p-8 sm:p-14 text-white text-center space-y-6 shadow-2xl relative overflow-hidden border border-emerald-900 reveal-scale">
-            {media?.ctaImage && (
-              <Image
-                src={media.ctaImage}
-                alt="Bannière d'action GuinéeGo"
-                fill
-                className="object-cover opacity-15 pointer-events-none"
-                unoptimized={Boolean(media.ctaImage.startsWith("http") || media.ctaImage.startsWith("/uploads"))}
-              />
-            )}
+            <Image
+              src={media?.ctaImage || "/images/guineego_cta_banner.jpg"}
+              alt="Bannière d'action GuinéeGo"
+              fill
+              className="object-cover opacity-25 pointer-events-none"
+              unoptimized={Boolean(media?.ctaImage?.startsWith("http") || media?.ctaImage?.startsWith("/uploads"))}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#071710] via-[#071710]/70 to-[#071710]/40 pointer-events-none"></div>
             <div className="max-w-xl mx-auto space-y-3 relative z-10">
               <span className="px-3.5 py-1 rounded-full bg-[#0d8f4f] text-white text-[10px] font-black uppercase tracking-wider">
-                Rejoignez GuinéeGo LAT
+                Rejoignez {identity?.displayName || "GuinéeGo"}
               </span>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
                 Booster vos ventes e-commerce en Guinée dès aujourd&apos;hui
               </h2>
               <p className="text-emerald-100/80 text-xs sm:text-sm font-medium">
-                Cotonou : 01 64 29 18 84 • Lokossa : 01 67 51 00 82. Vos colis, notre priorité.
+                {primaryAgency ? `${primaryAgency.title || "Siège Conakry"} : ${primaryAgency.primaryPhone}. ${identity?.tagline || "Vos colis, notre priorité."}` : "Conakry, Guinée. Vos colis, notre priorité."}
               </p>
             </div>
 
@@ -1482,8 +1493,8 @@ export default function LandingPage() {
               <Link href="/" className="inline-flex items-center gap-3">
                 <div className="relative w-10 h-10 rounded-full overflow-hidden border-2 border-emerald-500 bg-white">
                   <Image
-                    src={identity?.logoUrl || "/images/guineego_logo.jpg"}
-                    alt={`Logo ${identity?.displayName || "GuinéeGo LAT"}`}
+                    src={identity?.logoUrl || "/images/guineego_logo.jpeg"}
+                    alt={`Logo ${identity?.displayName || "GuinéeGo"}`}
                     fill
                     className="object-contain p-0.5"
                     unoptimized={Boolean(identity?.logoUrl?.startsWith("http") || identity?.logoUrl?.startsWith("/uploads"))}
@@ -1491,27 +1502,27 @@ export default function LandingPage() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-lg font-black text-white tracking-tight">
-                    ENO <span className="text-[#22c55e]">LIVRAISON</span>
+                    {identity?.displayName || "GuinéeGo"}
                   </span>
                   <span className="text-[9px] uppercase font-black text-emerald-400 tracking-wider">
-                    Vos colis, notre priorité
+                    {identity?.tagline || "Vos colis, notre priorité"}
                   </span>
                 </div>
               </Link>
 
               <p className="text-[11px] text-slate-400 leading-relaxed font-normal max-w-sm">
-                Agence guinéenne de closing téléphonique, stockage sécurisé et livraison express Cash On Delivery pour e-commerçants. Présente à Conakry et Kankan.
+                Agence guinéenne de closing téléphonique, stockage sécurisé et livraison express Cash On Delivery pour e-commerçants. Présente à Conakry.
               </p>
 
               <div className="space-y-1.5 pt-1">
-                <div className="flex items-center gap-2 text-[10px] font-semibold text-emerald-200 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60 w-fit">
-                  <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                  <span>Agence Conakry : Centre d'Affaires, Kaloum</span>
-                </div>
-                <div className="flex items-center gap-2 text-[10px] font-semibold text-emerald-200 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60 w-fit">
-                  <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
-                  <span>Agence Kankan : Avenue Principale, Kankan</span>
-                </div>
+                {(agencies && agencies.length > 0 ? agencies : [
+                  { id: "conakry", title: "Siège Conakry", city: "Conakry", address: "Dabompa, Tamisso, Conakry, Guinée" }
+                ]).map((agency: any) => (
+                  <div key={agency.id} className="flex items-center gap-2 text-[10px] font-semibold text-emerald-200 bg-emerald-950/60 px-3 py-1.5 rounded-xl border border-emerald-800/60 w-fit">
+                    <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
+                    <span>{agency.title || `Agence ${agency.city}`} : {agency.address || agency.city}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -1528,7 +1539,7 @@ export default function LandingPage() {
                 </li>
                 <li>
                   <a href="#agences" className="hover:text-emerald-300 transition-colors">
-                    Nos 2 Agences
+                    {agencies && agencies.length > 1 ? "Nos Agences" : "Notre Siège"}
                   </a>
                 </li>
                 <li>
@@ -1557,24 +1568,35 @@ export default function LandingPage() {
               <ul className="space-y-2.5 text-slate-300 font-medium">
                 <li>
                   <a
-                    href={tiktokUrl}
+                    href={facebookUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-emerald-300 hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-emerald-400 hover:text-white transition-colors"
                   >
-                    <span className="w-2 h-2 rounded-full bg-rose-500"></span>
-                    <span>TikTok : <strong>{tiktokHandle}</strong></span>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>Facebook : <strong>{facebookName}</strong></span>
                   </a>
                 </li>
                 <li>
                   <a
-                    href={facebookUrl}
+                    href={whatsappPrimaryUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 hover:text-white transition-colors"
                   >
-                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                    <span>Facebook : <strong>{facebookName}</strong></span>
+                    <span className="w-2 h-2 rounded-full bg-[#25d366]"></span>
+                    <span>WhatsApp : <strong>+224 612 11 70 70</strong></span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://guineego.net"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 hover:text-white transition-colors"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span>Site Web : <strong>guineego.net</strong></span>
                   </a>
                 </li>
                 <li>
@@ -1599,12 +1621,11 @@ export default function LandingPage() {
             {/* Col 4: Contacts Officiels des Agences */}
             <div className="md:col-span-3 space-y-3">
               <h4 className="text-white text-[11px] font-black uppercase tracking-wider">
-                Contacts Directs Agences
+                Contacts Directs Agence
               </h4>
               <div className="space-y-2 text-slate-300 font-medium">
                 {(agencies && agencies.length > 0 ? agencies : [
-                  { id: "1", title: "Agence Conakry", city: "Conakry", primaryPhone: "+229 01 64 29 18 84", secondaryPhone: "+229 01 93 83 79 06" },
-                  { id: "2", title: "Agence Kankan", city: "Kankan", primaryPhone: "+229 01 67 51 00 82" }
+                  { id: "conakry", title: "Siège & Hub Conakry", city: "Conakry", primaryPhone: "+224 612 11 31 31", secondaryPhone: "+224 612 11 70 70" }
                 ]).map((agency: any, idx: number) => (
                   <div key={agency.id || idx} className={idx > 0 ? "pt-1 border-t border-emerald-900/60" : ""}>
                     <p className="text-[10px] text-emerald-400 font-bold uppercase">{agency.title || `Agence ${agency.city}`}</p>
@@ -1620,6 +1641,14 @@ export default function LandingPage() {
                     )}
                   </div>
                 ))}
+              </div>
+
+              {/* Email & Support */}
+              <div className="pt-1.5 space-y-1 text-[10px] text-slate-400">
+                <p className="flex items-center gap-1.5">
+                  <span className="text-[#22c55e]">✉</span>
+                  <a href="mailto:thesucces999@gmail.com" className="hover:text-emerald-300 transition-colors">thesucces999@gmail.com</a>
+                </p>
               </div>
 
               {/* Payment Methods */}
@@ -1641,24 +1670,28 @@ export default function LandingPage() {
 
           {/* Copyright Bottom Bar */}
           <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-[10px] text-slate-500 font-medium">
-            <p>© {new Date().getFullYear()} {identity?.legalName || identity?.displayName || "GuinéeGo LAT"} ({identity?.country || "Guinée"}) — {agencyCitiesLabel}. Tous droits réservés.</p>
+            <p>© {new Date().getFullYear()} {identity?.legalName || identity?.displayName || "GuinéeGo"} ({identity?.country || "Guinée"}) — {agencyCitiesLabel}. Tous droits réservés.</p>
             <div className="flex items-center gap-4">
               <Link href="/partenaire" className="text-slate-400 hover:text-emerald-400 transition-colors">
                 Espace Partenaire
               </Link>
               <span className="text-slate-700">•</span>
               <a href={whatsappPrimaryUrl} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-emerald-400 transition-colors">
-                WhatsApp Cotonou
+                WhatsApp {primaryAgency?.city || "Conakry"}
               </a>
-              <span className="text-slate-700">•</span>
-              <a href={whatsappSecondaryUrl} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-emerald-400 transition-colors">
-                WhatsApp Lokossa
-              </a>
+              {secondaryAgency && (
+                <>
+                  <span className="text-slate-700">•</span>
+                  <a href={whatsappSecondaryUrl} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-emerald-400 transition-colors">
+                    WhatsApp {secondaryAgency.city}
+                  </a>
+                </>
+              )}
             </div>
           </div>
         </div>
       </footer>
-      {/* 🛵 MODALE INTERACTIVE: DEVENIR LIVREUR GuinéeGo LAT */}
+      {/* 🛵 MODALE INTERACTIVE: DEVENIR LIVREUR GuinéeGo */}
       {riderModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fade-in">
           <div className="relative w-full max-w-lg bg-[#071710] border border-emerald-800/80 rounded-3xl p-6 sm:p-8 text-white shadow-2xl space-y-6 overflow-hidden">
@@ -1680,10 +1713,10 @@ export default function LandingPage() {
                 <Truck className="w-3.5 h-3.5" /> RECRUTEMENT LIVREURS OUVERT
               </span>
               <h3 className="text-2xl font-black text-white">
-                Rejoignez la Flotte <span className="text-[#22c55e]">GuinéeGo LAT</span>
+                Rejoignez la Flotte <span className="text-[#22c55e]">{identity?.displayName || "GuinéeGo"}</span>
               </h3>
               <p className="text-xs text-slate-300 leading-relaxed font-normal">
-                Vous possédez une moto et connaissez bien votre ville ? Devenez livreur officiel ENO à Conakry ou Kankan avec un volume journalier de colis garanti.
+                Vous possédez une moto et connaissez bien votre ville ? Devenez livreur officiel {identity?.displayName || "GuinéeGo"} à Conakry avec un volume journalier de colis garanti.
               </p>
             </div>
 
@@ -1691,8 +1724,8 @@ export default function LandingPage() {
             <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center p-4 rounded-2xl bg-emerald-950/60 border border-emerald-900/60">
               <div className="sm:col-span-4 relative h-28 rounded-xl overflow-hidden border border-emerald-700/60">
                 <Image
-                  src={media?.riderImage || media?.heroImage || "/images/eno_courier_bike.png"}
-                  alt={`Livreur ${identity?.displayName || "GuinéeGo LAT"} à moto`}
+                  src={media?.riderImage || media?.heroImage || "/images/guineego_hero_2.jpeg"}
+                  alt={`Livreur ${identity?.displayName || "GuinéeGo"} à moto`}
                   fill
                   className="object-cover"
                   unoptimized={Boolean((media?.riderImage || media?.heroImage)?.startsWith("http") || (media?.riderImage || media?.heroImage)?.startsWith("/uploads"))}
@@ -1701,7 +1734,7 @@ export default function LandingPage() {
               <div className="sm:col-span-8 space-y-2 text-xs">
                 <div className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
-                  <span><strong>Caisson isotherme officiel</strong> vert floqué ENO mis à disposition.</span>
+                  <span><strong>Caisson isotherme officiel</strong> vert floqué {identity?.displayName || "GuinéeGo"} mis à disposition.</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
@@ -1709,7 +1742,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <Check className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
-                  <span>Affectation immédiate sur <strong>Cotonou</strong> ou <strong>Lokossa</strong>.</span>
+                  <span>Affectation immédiate sur <strong>Conakry</strong> et communes.</span>
                 </div>
               </div>
             </div>
@@ -1720,36 +1753,38 @@ export default function LandingPage() {
                 Postuler directement par WhatsApp :
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {/* Cotonou Application */}
+              <div className={secondaryAgency ? "grid grid-cols-1 sm:grid-cols-2 gap-3" : "flex flex-col gap-3"}>
+                {/* Primary Agency Application */}
                 <a
-                  href="https://wa.me/2290164291884?text=Bonjour%20ENO%20LIVRAISON%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20COTONOU.%20Voici%20mes%20informations%20%3A"
+                  href={recruitment?.whatsappPrimary || `https://wa.me/${(primaryAgency?.whatsapp || "224612117070").replace(/[^0-9]/g, "")}?text=Bonjour%20${encodeURIComponent(identity?.displayName || "GuinéeGo")}%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20CONAKRY.%20Voici%20mes%20informations%20%3A`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3.5 rounded-2xl bg-[#25d366] hover:bg-emerald-600 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
                 >
                   <MessageSquare className="w-4 h-4 fill-white shrink-0" />
-                  <span>Agence Conakry<br /><span className="text-[10px] font-mono font-normal">01 64 29 18 84</span></span>
+                  <span>Postuler pour {primaryAgency?.city || "Conakry"}<br /><span className="text-[10px] font-mono font-normal">{primaryAgency?.primaryPhone || "+224 612 11 31 31"}</span></span>
                 </a>
 
-                {/* Lokossa Application */}
-                <a
-                  href="https://wa.me/2290167510082?text=Bonjour%20ENO%20LIVRAISON%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20LOKOSSA.%20Voici%20mes%20informations%20%3A"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3.5 rounded-2xl bg-[#0d8f4f] hover:bg-[#15803d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
-                >
-                  <MessageSquare className="w-4 h-4 fill-white shrink-0" />
-                  <span>Agence Kankan<br /><span className="text-[10px] font-mono font-normal">01 67 51 00 82</span></span>
-                </a>
+                {/* Secondary Agency Application if exists */}
+                {secondaryAgency && (
+                  <a
+                    href={recruitment?.whatsappSecondary || `https://wa.me/${(secondaryAgency.whatsapp || "").replace(/[^0-9]/g, "")}?text=Bonjour%20${encodeURIComponent(identity?.displayName || "GuinéeGo")}%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20${encodeURIComponent(secondaryAgency.city)}.%20Voici%20mes%20informations%20%3A`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3.5 rounded-2xl bg-[#0d8f4f] hover:bg-[#15803d] text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95 text-center"
+                  >
+                    <MessageSquare className="w-4 h-4 fill-white shrink-0" />
+                    <span>Postuler pour {secondaryAgency.city}<br /><span className="text-[10px] font-mono font-normal">{secondaryAgency.primaryPhone}</span></span>
+                  </a>
+                )}
               </div>
             </div>
 
             {/* Direct Call Footer */}
             <div className="pt-3 border-t border-emerald-900/60 text-center text-slate-400 text-xs">
               <span>Vous préférez appeler ? </span>
-              <a href="tel:+2290164291884" className="text-[#22c55e] font-bold hover:underline">
-                +229 01 64 29 18 84
+              <a href={`tel:${(primaryAgency?.primaryPhone || "+224612113131").replace(/\s+/g, '')}`} className="text-[#22c55e] font-bold hover:underline">
+                {primaryAgency?.primaryPhone || "+224 612 11 31 31"}
               </a>
             </div>
           </div>

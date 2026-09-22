@@ -46,7 +46,7 @@ function AuthForm() {
   const [phone, setPhone] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  const [city, setCity] = useState("Cotonou");
+  const [city, setCity] = useState("Conakry");
 
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -136,22 +136,22 @@ function AuthForm() {
       {/* Mobile Header with Logo */}
       <div className="lg:hidden flex flex-col items-center text-center space-y-2 pb-1">
         <Link href="/" className="inline-flex items-center gap-2">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-emerald-500 shadow-md bg-white">
+          <div className="relative w-16 h-16 rounded-2xl overflow-hidden border-2 border-emerald-500 shadow-md bg-white">
             <Image
-              src="/images/guineego_logo.jpg"
+              src="/images/guinee.jpeg"
               alt="Logo GuinéeGo LAT"
               fill
-              className="object-contain p-0.5"
+              className="object-contain p-1"
               priority
             />
           </div>
         </Link>
         <div>
           <span className="text-lg font-black text-slate-900 block">
-            ENO <span className="text-[#16a34a]">LIVRAISON</span>
+            Guinée<span className="text-[#16a34a]">Go</span>
           </span>
           <span className="text-[9px] font-black uppercase text-emerald-600 tracking-wider">
-            VOS COLIS, NOTRE PRIORITÉ
+            LAT • VOS COLIS, NOTRE PRIORITÉ
           </span>
         </div>
       </div>
@@ -277,7 +277,7 @@ function AuthForm() {
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="WhatsApp (+229...)"
+                placeholder="WhatsApp (+224...)"
                 className="w-full pl-9 pr-3 py-2.5 bg-[#f0fdf4] border border-emerald-100 hover:border-emerald-300 focus:border-[#16a34a] rounded-xl text-xs font-medium text-slate-900 placeholder:text-slate-400 focus:outline-none focus:bg-white transition-all"
               />
             </div>
@@ -292,12 +292,12 @@ function AuthForm() {
                 onChange={(e) => setCity(e.target.value)}
                 className="w-full pl-9 pr-3 py-2.5 bg-[#f0fdf4] border border-emerald-100 hover:border-emerald-300 focus:border-[#16a34a] rounded-xl text-xs font-medium text-slate-900 focus:outline-none focus:bg-white transition-all"
               >
-                <option value="Cotonou">Cotonou</option>
-                <option value="Abomey-Calavi">Abomey-Calavi</option>
-                <option value="Porto-Novo">Porto-Novo</option>
-                <option value="Lokossa">Lokossa (Mono)</option>
-                <option value="Parakou">Parakou</option>
-                <option value="Autre">Autre ville</option>
+                <option value="Conakry">Conakry</option>
+                <option value="Kaloum">Kaloum</option>
+                <option value="Ratoma">Ratoma</option>
+                <option value="Matam">Matam</option>
+                <option value="Dixinn">Dixinn</option>
+                <option value="Autre">Autre commune</option>
               </select>
             </div>
           </div>
@@ -517,18 +517,18 @@ export default function LoginPage() {
           </Link>
 
           <div className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden border-2 border-emerald-500 bg-white shadow-lg shadow-emerald-500/20 shrink-0">
+            <div className="relative w-14 h-14 rounded-2xl overflow-hidden border-2 border-emerald-500 bg-white shadow-lg shadow-emerald-500/20 shrink-0">
               <Image
-                src="/images/guineego_logo.jpg"
+                src="/images/guinee.jpeg"
                 alt="Logo GuinéeGo LAT"
                 fill
-                className="object-contain p-0.5"
+                className="object-contain p-1"
                 priority
               />
             </div>
             <div>
               <span className="text-lg font-black text-white block tracking-tight leading-none">
-                ENO <span className="text-[#22c55e]">LIVRAISON</span>
+                GuinéeGo LAT
               </span>
               <span className="text-[9px] font-extrabold uppercase tracking-widest text-emerald-400">
                 VOS COLIS, NOTRE PRIORITÉ
@@ -545,7 +545,7 @@ export default function LoginPage() {
               <span className="text-[#22c55e]">en toute sérénité</span>
             </h1>
             <p className="text-emerald-100/70 text-xs mt-1.5 leading-relaxed font-normal">
-              Rejoignez le réseau GuinéeGo LAT et accédez à des outils puissants pour automatiser votre closing, stockage et vos livraisons express au Bénin.
+              Rejoignez le réseau GuinéeGo et accédez à des outils puissants pour automatiser votre closing, stockage et vos livraisons express en Guinée.
             </p>
           </div>
 
@@ -590,18 +590,18 @@ export default function LoginPage() {
           <div className="flex items-center gap-3">
             <div className="relative w-9 h-9 rounded-xl overflow-hidden border border-emerald-700 shrink-0">
               <Image
-                src="/images/eno_card_1.png"
-                alt="Flotte GuinéeGo LAT"
+                src="/images/guineego_communaute_livreur.jpg"
+                alt="Flotte GuinéeGo"
                 fill
                 className="object-cover"
               />
             </div>
             <div className="min-w-0">
               <p className="text-xs font-bold text-white truncate">
-                Plus de 1 An d&apos;expertise terrain au Bénin
+                Plus de 1 An d&apos;expertise terrain en Guinée
               </p>
               <p className="text-[10px] text-emerald-300/80 truncate">
-                Cotonou : <strong className="text-white">01 64 29 18 84</strong> • Lokossa : <strong className="text-white">01 67 51 00 82</strong>
+                Siège Conakry : <strong className="text-white">+224 612 11 31 31</strong>
               </p>
             </div>
           </div>

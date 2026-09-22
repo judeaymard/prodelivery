@@ -9,14 +9,14 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ENO LIVRAISON — Vos colis, notre priorité | Closing, Stockage & Livraison au Bénin",
+  title: "GuinéeGo — Vos colis, notre priorité | Closing, Stockage & Livraison à Conakry",
   description:
-    "ENO LIVRAISON : Votre partenaire logistique de confiance au Bénin. Closing téléphonique sous 15 min, stockage offert à Cotonou & Calavi, et livraison express Cash On Delivery.",
+    "GuinéeGo : Votre partenaire logistique de confiance en Guinée. Closing téléphonique sous 15 min, stockage offert à Conakry, et livraison express Cash On Delivery.",
   keywords:
-    "ENO LIVRAISON, Vos colis notre priorité, livraison Bénin, logistique e-commerce Cotonou, closing Bénin, transport colis Calavi, Cash on delivery Bénin",
+    "GuinéeGo, Vos colis notre priorité, livraison Guinée, logistique e-commerce Conakry, closing Conakry, transport colis Conakry, Cash on delivery Guinée",
   icons: {
-    icon: "/images/eno_livraison_logo.png",
-    apple: "/images/eno_livraison_logo.png",
+    icon: "/images/guineego_logo.jpeg",
+    apple: "/images/guineego_logo.jpeg",
   },
 };
 
@@ -26,11 +26,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="fr" className={`${jakarta.variable} h-full antialiased scroll-smooth`}>
       <head>
-        <meta name="theme-color" content="#16a34a" />
+        <meta name="theme-color" content="#0d8f4f" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        <meta name="apple-mobile-web-app-title" content="ENO Coursier" />
+        <meta name="apple-mobile-web-app-title" content="GuinéeGo" />
       </head>
       <body className="min-h-full flex flex-col font-sans bg-white text-slate-900 selection:bg-[#16a34a] selection:text-white">
         <Providers>{children}</Providers>

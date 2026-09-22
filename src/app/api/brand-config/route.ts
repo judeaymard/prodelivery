@@ -373,7 +373,7 @@ export async function PUT(req: NextRequest) {
       secondaryImage: rawMedia.secondaryImage ? sanitizeUrl(rawMedia.secondaryImage, "/images/eno_delivery_handover.png") : "/images/eno_delivery_handover.png",
       heroCard3Image: rawMedia.heroCard3Image ? sanitizeUrl(rawMedia.heroCard3Image) : undefined,
       heroCard4Image: rawMedia.heroCard4Image ? sanitizeUrl(rawMedia.heroCard4Image) : undefined,
-      ctaImage: rawMedia.ctaImage ? sanitizeUrl(rawMedia.ctaImage, "/images/scms_superhero.jpg") : "/images/scms_superhero.jpg",
+      ctaImage: rawMedia.ctaImage ? sanitizeUrl(rawMedia.ctaImage, "/images/guineego_cta_banner.jpg") : "/images/guineego_cta_banner.jpg",
       closingImage: rawMedia.closingImage ? sanitizeUrl(rawMedia.closingImage, "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif") : "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif",
       closingBackImage: rawMedia.closingBackImage ? sanitizeUrl(rawMedia.closingBackImage, "/images/closing_phone_3d.jpg") : "/images/closing_phone_3d.jpg",
       riderImage: rawMedia.riderImage ? sanitizeUrl(rawMedia.riderImage, "/images/eno_courier_bike.png") : "/images/eno_courier_bike.png",
