@@ -347,7 +347,7 @@ export async function saveMessageToConversation(
       partnerId: "p1",
       partnerName: "Client Inconnu",
       companyName: conversationId,
-      phone: "+224 00 00 00 00",
+      phone: "+229 00 00 00 00",
       lastMessage: message.text || "Nouvelle conversation",
       lastMessageAt: "À l'instant",
       unreadCount: 0,
@@ -617,7 +617,7 @@ export async function getBrandConfig(): Promise<BrandConfig> {
         media: {
           heroImage: b.media?.heroImage || "/images/eno_courier_bike.png",
           secondaryImage: b.media?.secondaryImage || "/images/eno_delivery_handover.png",
-          ctaImage: b.media?.ctaImage || "/images/guineego_cta_banner.jpg",
+          ctaImage: b.media?.ctaImage || "/images/scms_superhero.jpg",
           closingImage: b.media?.closingImage || "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif",
           closingBackImage: b.media?.closingBackImage || "/images/closing_phone_3d.jpg",
           riderImage: b.media?.riderImage || "/images/eno_courier_bike.png",
@@ -644,7 +644,7 @@ export async function getBrandConfig(): Promise<BrandConfig> {
       media: {
         heroImage: "/images/eno_courier_bike.png",
         secondaryImage: "/images/eno_delivery_handover.png",
-        ctaImage: "/images/guineego_cta_banner.jpg",
+        ctaImage: "/images/scms_superhero.jpg",
         closingImage: "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif",
         closingBackImage: "/images/closing_phone_3d.jpg",
         riderImage: "/images/eno_courier_bike.png",

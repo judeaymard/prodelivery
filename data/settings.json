@@ -1,15 +1,15 @@
 {
   "general": {
-    "platformName": "GuinéeGo",
-    "companyName": "GuinéeGo SARL",
-    "logoUrl": "/images/guineego_logo.jpeg",
-    "supportEmail": "thesucces999@gmail.com",
-    "supportPhone": "+224 612 11 31 31",
-    "secondaryPhone": "+224 612 11 70 70",
-    "whatsappContact": "+224 612 11 70 70",
-    "headquartersAddress": "Dabompa, Tamisso, Conakry, Guinée",
+    "platformName": "GuinéeGo LAT",
+    "companyName": "GuinéeGo LAT SARL",
+    "logoUrl": "/images/guineego_logo.jpg",
+    "supportEmail": "contact@guineego.com",
+    "supportPhone": "+224 620 00 00 00",
+    "secondaryPhone": "+224 660 00 00 00",
+    "whatsappContact": "+224 620 00 00 00",
+    "headquartersAddress": "Centre d'Affaires, Kaloum, Conakry, Guinée",
     "currency": "GNF",
-    "timezone": "Africa/Conakry (GMT+0)",
+    "timezone": "Africa/Kankan (GMT+1)",
     "dateFormat": "DD/MM/YYYY",
     "maintenanceMode": false,
     "allowPublicRegistration": true
@@ -122,10 +122,10 @@
   },
   "brand": {
     "identity": {
-      "displayName": "GuinéeGo",
-      "legalName": "GuinéeGo SARL",
-      "logoUrl": "/images/guineego_logo.jpeg",
-      "tagline": "Livraison Rapide & Services Express",
+      "displayName": "GuinéeGo LAT",
+      "legalName": "GuinéeGo LAT SARL",
+      "logoUrl": "/images/guineego_logo.jpg",
+      "tagline": "Vos colis, notre priorité",
       "primaryColor": "#0d8f4f",
       "accentColor": "#e52320",
       "darkBgColor": "#071710",
@@ -133,66 +133,66 @@
       "countryCode": "+224"
     },
     "media": {
-      "heroImage": "/images/guineego_hero_2.jpeg",
-      "secondaryImage": "/images/guineego_hero_3.jpeg",
-      "heroCard3Image": "/images/guineego_hero_1.jpeg",
-      "heroCard4Image": "/images/guineego_hero_2.jpeg",
-      "ctaImage": "/images/guineego_cta_banner.jpg",
+      "heroImage": "/images/eno_courier_bike.png",
+      "secondaryImage": "/images/eno_delivery_handover.png",
+      "ctaImage": "/images/scms_superhero.jpg",
       "closingImage": "/images/femme-afro-americaine-travaille-dans-operateur-centre-appels-agent-du-service-client-portant-casques-microphone-travaillant-ordinateur-portable_627829-586.avif",
       "closingBackImage": "/images/closing_phone_3d.jpg",
-      "riderImage": "/images/guineego_hero_2.jpeg",
-      "communityCard1": "/images/guineego_communaute_livreur.jpg",
-      "communityCard2": "/images/guineego_communaute_remise.jpeg",
-      "communityCard3": "/images/guineego_communaute_equipe.jpeg"
+      "riderImage": "/images/eno_courier_bike.png"
     },
     "agencies": [
       {
         "id": "conakry",
         "city": "Conakry",
-        "title": "Siège & Hub Principal Conakry",
-        "coverage": "Conakry • Dabompa • Kaloum • Ratoma • Matam • Dixinn",
-        "primaryPhone": "+224 612 11 31 31",
-        "secondaryPhone": "+224 612 11 70 70",
-        "whatsapp": "224612117070",
-        "address": "Dabompa, Tamisso, Conakry, Guinée",
-        "status": "Toujours ouvert • 24h/24 • 7j/7",
+        "title": "Agence Principale Grand Conakry",
+        "coverage": "Conakry • Kaloum • Ratoma • Matam • Dixinn",
+        "primaryPhone": "+224 620 00 00 00",
+        "secondaryPhone": "+224 660 00 00 00",
+        "whatsapp": "224620000000",
+        "address": "Centre d'Affaires, Kaloum, Conakry, Guinée",
+        "status": "Ouvert • 08h00 - 20h30",
         "hubLead": "Responsable Opérations Conakry"
+      },
+      {
+        "id": "kankan",
+        "city": "Kankan",
+        "title": "Agence Régionale Haute-Guinée",
+        "coverage": "Kankan • Haute-Guinée • Faranah",
+        "primaryPhone": "+224 660 00 00 00",
+        "secondaryPhone": null,
+        "whatsapp": "224660000000",
+        "address": "Avenue Principale, Kankan, Guinée",
+        "status": "Ouvert • 08h00 - 19h00",
+        "hubLead": "Responsable Antenne Kankan"
       }
     ],
     "socials": {
       "tiktok": {
         "handle": "@guineego",
-        "url": "https://www.facebook.com/guineego",
-        "label": "Page Facebook",
-        "followers": "1,8 K",
-        "likes": "99"
+        "url": "https://www.tiktok.com/@guineego",
+        "label": "TikTok Officiel",
+        "followers": "1 157+",
+        "likes": "4 351+"
       },
       "facebook": {
-        "name": "GuineeGo - Livraison Rapide & Services Express",
+        "name": "GuinéeGo LAT",
         "url": "https://www.facebook.com/guineego",
-        "label": "Page Facebook Officielle",
-        "followers": "1,8 K",
-        "posts": "99",
-        "handle": "@guineego",
-        "category": "Entreprise de cargo et de fret",
-        "bioQuote": "Livraison express de colis ; repas et déplacements VIP partout en Guinée. Disponible 7j/7"
+        "label": "Page Facebook"
       },
       "instagram": {
         "handle": "@guineego",
         "url": "https://www.instagram.com/guineego",
         "label": "Instagram"
       },
-      "whatsappPrimary": "https://wa.me/224612117070?text=Bonjour%20Guin%C3%A9eGo%2C%20je%20souhaite%20confier%20mes%20colis%20%C3%A0%20Conakry",
-      "whatsappSecondary": null
+      "whatsappPrimary": "https://wa.me/224620000000?text=Bonjour%20Guin%C3%A9eGo%20LAT%2C%20je%20souhaite%20confier%20mes%20colis%20%C3%A0%20Conakry",
+      "whatsappSecondary": "https://wa.me/224660000000?text=Bonjour%20Guin%C3%A9eGo%20LAT%2C%20je%20souhaite%20confier%20mes%20colis%20%C3%A0%20Kankan"
     },
     "stats": {
-      "facebookFollowers": "1,8 K",
-      "facebookPosts": "99",
-      "tiktokFollowers": "1,8 K",
-      "tiktokLikes": "99",
+      "tiktokFollowers": "1 157+",
+      "tiktokLikes": "4 351+",
       "yearsActive": "1 An",
       "parcelsDelivered": "5 000+",
-      "agencyCount": 1,
+      "agencyCount": 2,
       "deliverySuccessRate": 94,
       "closingConversionRate": 92.4
     },
@@ -202,11 +202,11 @@
       "currencyDisplay": "GNF"
     },
     "hero": {
-      "headline": "GuinéeGo",
-      "subtext": "Votre partenaire de livraison express COD à Conakry. Closing téléphonique, stockage gratuit, reversement quotidien.",
+      "headline": "GuinéeGo LAT",
+      "subtext": "Votre partenaire de livraison express COD à Conakry et Kankan. Closing téléphonique, stockage gratuit, reversement quotidien.",
       "coverageCities": [
         "Conakry",
-        "Dabompa",
+        "Kankan",
         "Kaloum",
         "Ratoma",
         "Matam",
@@ -225,20 +225,20 @@
     },
     "faq": [
       {
-        "q": "Dans quelles villes ou zones livrez-vous ?",
-        "a": "GuinéeGo opère sur l'ensemble de la zone urbaine de Conakry et environs (Dabompa, Kaloum, Ratoma, Matam, Dixinn). Nos livreurs motorisés assurent vos courses et livraisons 7j/7."
+        "q": "Dans quelles villes livrez-vous ?",
+        "a": "GuinéeGo LAT opère actuellement à Conakry (Grand Conakry) et Kankan (Haute-Guinée). Nos livreurs couvrent Kaloum, Ratoma, Matam, Dixinn et les communes environnantes."
       },
       {
         "q": "Comment sont reversés les fonds collectés ?",
-        "a": "Chaque soir ouvrable, les fonds collectés (Cash On Delivery) sont reversés via MTN Mobile Money Guinée ou Moov Money Guinée. Vous recevez une notification de confirmation dès le virement effectué."
+        "a": "Chaque soir ouvrable, les fonds collectés sont reversés via MTN Mobile Money Guinée ou Moov Money Guinée. Vous recevez une notification de confirmation dès le virement effectué."
       },
       {
-        "q": "Où est situé votre siège physique ?",
-        "a": "GuinéeGo dispose d'un siège et hub centralisé à Conakry (Dabompa, Tamisso), d'où sont orchestrés la réception des stocks, le closing d'appels et les tournées de distribution."
+        "q": "Combien d'agences possédez-vous ?",
+        "a": "GuinéeGo LAT dispose de 2 agences actives : Conakry (Centre d'Affaires, Kaloum) et Kankan (Avenue Principale). Chaque agence gère son propre stock et ses propres livreurs."
       },
       {
         "q": "Comment contacter l'agence ?",
-        "a": "Contactez notre siège de Conakry au +224 612 11 31 31 ou via WhatsApp au +224 612 11 70 70. Vous pouvez également nous écrire directement sur WhatsApp pour une réponse rapide."
+        "a": "Contactez l'Agence Conakry au +224 620 00 00 00 ou l'Agence Kankan au +224 660 00 00 00. Vous pouvez aussi nous écrire directement sur WhatsApp pour une réponse rapide."
       }
     ],
     "services": [
@@ -257,21 +257,21 @@
         "id": "storage",
         "title": "2. Stockage & Entrepôt",
         "badge": "2. Stockage Gratuit",
-        "highlight": "Hub Conakry",
-        "desc": "Entreposage gratuit et sécurisé de vos marchandises dans notre hub de Conakry sous surveillance 24h/24.",
+        "highlight": "Hubs Conakry & Kankan",
+        "desc": "Entreposage gratuit et sécurisé de vos marchandises dans nos hubs sous surveillance 24h/24.",
         "feeDisplay": "100% OFFERT",
-        "image": "/images/guineego_stockage_entrepot.jpg",
+        "image": "/images/eno_courier_bike.png",
         "href": "/partenaire",
         "order": 2
       },
       {
         "id": "delivery",
-        "title": "3. Livraison Express COD",
+        "title": "3. Livraison Express COD (",
         "badge": "3. Livraison Express",
         "highlight": "Remise sous 2h & Cash COD",
         "desc": "Livraison directe à domicile avec encaissement du cash et reversement Mobile Money garanti.",
         "feeDisplay": "2 000 GNF / course",
-        "image": "/images/guineego_hero_2.jpeg",
+        "image": "/images/eno_delivery_handover.png",
         "href": "/partenaire",
         "order": 3
       },
@@ -291,14 +291,14 @@
       {
         "number": "01",
         "title": "Contactez notre agence",
-        "desc": "Inscrivez-vous sur l'Espace Partenaire ou contactez directement notre siège de Conakry sur WhatsApp.",
+        "desc": "Inscrivez-vous sur l'Espace Partenaire ou contactez directement nos agences sur WhatsApp.",
         "color": "bg-[#0d8f4f]",
         "order": 1
       },
       {
         "number": "02",
         "title": "Stockage & Dépôt Offert",
-        "desc": "Notre coursier récupère vos articles ou vous déposez votre stock dans notre entrepôt sécurisé à Conakry.",
+        "desc": "Notre coursier récupère vos articles ou vous déposez votre stock dans nos entrepôts sécurisés.",
         "color": "bg-[#0f291e]",
         "order": 2
       },
@@ -335,22 +335,26 @@
         "label": "Matam"
       },
       {
-        "value": "Dixinn",
-        "label": "Dixinn"
+        "value": "Kankan",
+        "label": "Kankan"
+      },
+      {
+        "value": "Faranah",
+        "label": "Faranah"
       },
       {
         "value": "Autre",
-        "label": "Autre commune"
+        "label": "Autre ville"
       }
     ],
     "recruitment": {
-      "primaryLabel": "Siège Conakry (Dabompa)",
-      "secondaryLabel": null,
-      "whatsappPrimary": "https://wa.me/224612117070?text=Bonjour%20Guin%C3%A9eGo%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20CONAKRY.%20Voici%20mes%20informations%20%3A",
-      "whatsappSecondary": null
+      "primaryLabel": "Agence Conakry",
+      "secondaryLabel": "Agence Kankan",
+      "whatsappPrimary": "https://wa.me/224620000000?text=Bonjour%20Guin%C3%A9eGo%20LAT%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20CONAKRY.%20Voici%20mes%20informations%20%3A",
+      "whatsappSecondary": "https://wa.me/224660000000?text=Bonjour%20Guin%C3%A9eGo%20LAT%2C%20je%20souhaite%20postuler%20comme%20LIVREUR%20%C3%A0%20KANKAN.%20Voici%20mes%20informations%20%3A"
     },
-    "updatedBy": "Jude Sinaberogui (PDG)",
-    "lastUpdated": "22 sept. 2026 à 10:35"
+    "updatedBy": "Jude Sinaberogui (PDG) (PDG)",
+    "lastUpdated": "21 sept. 2026 à 20:45"
   },
   "lastUpdated": "21 sept. 2026 à 20:45",
   "updatedBy": "Système (Phase A — White-Label Init)"

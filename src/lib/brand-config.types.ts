@@ -8,8 +8,8 @@
  * Relation avec PlatformSettings (types.ts) :
  *   PlatformSettings.general  → référencé par BrandIdentityConfig (source partielle)
  *   PlatformSettings.brand    → nouveau champ ajouté par cette phase
- *   PlatformSettings.agencies → nouveau champ (remplace les agences codées en dur)
- *   PlatformSettings.socials  → nouveau champ (remplace les réseaux codés en dur)
+ *   PlatformSettings.agencies → nouveau champ (remplace enoAgencies de mock-data.ts)
+ *   PlatformSettings.socials  → nouveau champ (remplace enoSocials de mock-data.ts)
  *   PlatformSettings.landingPage → nouveau champ pour les textes de la landing page
  */
 
@@ -39,7 +39,7 @@ export interface BrandIdentityConfig {
 }
 
 // ---------------------------------------------------------------------------
-// Agence physique
+// Agence physique (remplace enoAgencies de mock-data.ts)
 // ---------------------------------------------------------------------------
 
 export interface AgencyConfig {
@@ -55,7 +55,7 @@ export interface AgencyConfig {
   primaryPhone: string;
   /** Numéro secondaire (optionnel) */
   secondaryPhone?: string | null;
-  /** Numéro WhatsApp sans "+" ni espaces (ex: "224620000000") */
+  /** Numéro WhatsApp sans "+" ni espaces (ex: "2240164291884") */
   whatsapp: string;
   /** Adresse physique complète */
   address: string;
@@ -68,7 +68,7 @@ export interface AgencyConfig {
 }
 
 // ---------------------------------------------------------------------------
-// Canal social
+// Canal social (remplace enoSocials de mock-data.ts)
 // ---------------------------------------------------------------------------
 
 export interface SocialChannelConfig {
@@ -85,16 +85,6 @@ export interface FacebookConfig {
   name: string;
   url: string;
   label?: string;
-  /** Abonnés / Followers (ex: "1,8 K") */
-  followers?: string;
-  /** Nombre de publications (ex: "99") */
-  posts?: string;
-  /** Handle (ex: "@guineego") */
-  handle?: string;
-  /** Catégorie / Activité (ex: "Entreprise de cargo et de fret") */
-  category?: string;
-  /** Citation bio officielle */
-  bioQuote?: string;
 }
 
 export interface SocialsConfig {
@@ -106,9 +96,9 @@ export interface SocialsConfig {
   };
   facebook: FacebookConfig;
   instagram: SocialChannelConfig;
-  /** URL WhatsApp pré-remplie pour la 1ère agence (Conakry) */
+  /** URL WhatsApp pré-remplie pour la 1ère agence (Cotonou/Conakry) */
   whatsappPrimary: string;
-  /** URL WhatsApp pré-remplie pour la 2ème agence, optionnel */
+  /** URL WhatsApp pré-remplie pour la 2ème agence (Lokossa/Kankan), optionnel */
   whatsappSecondary?: string;
 }
 
@@ -117,10 +107,6 @@ export interface SocialsConfig {
 // ---------------------------------------------------------------------------
 
 export interface BrandStatsConfig {
-  /** Abonnés Facebook affichés (ex: "1,8 K") */
-  facebookFollowers?: string;
-  /** Publications Facebook affichées (ex: "99") */
-  facebookPosts?: string;
   /** Abonnés TikTok affichés (ex: "1 157+") */
   tiktokFollowers?: string;
   /** J'aime TikTok (ex: "4 351+") */
@@ -129,7 +115,7 @@ export interface BrandStatsConfig {
   yearsActive?: string;
   /** Colis livrés (ex: "5 000+") */
   parcelsDelivered?: string;
-  /** Nombre d'agences (ex: 1) */
+  /** Nombre d'agences (ex: "2") */
   agencyCount?: number;
   /** Taux de livraison réussi (ex: "94") — sans le % */
   deliverySuccessRate?: number;
@@ -142,11 +128,11 @@ export interface BrandStatsConfig {
 // ---------------------------------------------------------------------------
 
 export interface BrandPricingConfig {
-  /** Frais de closing affichés (ex: "800 GNF / commande") */
+  /** Frais de closing affichés (ex: "800 F CFA / commande") */
   closingFeeDisplay?: string;
-  /** Frais de livraison affichés (ex: "2 000 GNF / course") */
+  /** Frais de livraison affichés (ex: "2 000 F CFA / course") */
   deliveryFeeDisplay?: string;
-  /** Devise utilisée pour les affichages (ex: "GNF") */
+  /** Devise utilisée pour les affichages (ex: "GNF", "FCFA") */
   currencyDisplay?: string;
 }
 
@@ -155,9 +141,9 @@ export interface BrandPricingConfig {
 // ---------------------------------------------------------------------------
 
 export interface HeroConfig {
-  /** Titre principal du héro (ex: "GuinéeGo") */
+  /** Titre principal du héro (ex: "GuinéeGo LAT") */
   headline: string;
-  /** Sous-titre descriptif (ex: "Votre partenaire de livraison à Conakry") */
+  /** Sous-titre descriptif (ex: "Votre partenaire de livraison à Conakry et Kankan") */
   subtext: string;
   /** Villes de couverture listées dans le héro */
   coverageCities?: string[];
@@ -168,7 +154,7 @@ export interface HeroConfig {
 // ---------------------------------------------------------------------------
 
 export interface ClosingCenterConfig {
-  /** Langues pratiquées (ex: "Français • Poular • Malinké • Soussou") */
+  /** Langues pratiquées (ex: "Français • Fon • Mina") */
   languages?: string;
   /** Délai d'appel affiché (ex: "< 15 min") */
   callDelay?: string;
@@ -198,7 +184,7 @@ export interface RiderRecruitmentConfig {
   whatsappSecondary?: string;
   /** Libellé du bouton agence principale (ex: "Agence Conakry") */
   primaryLabel?: string;
-  /** Libellé du bouton agence secondaire (ex: "Deuxième Agence") */
+  /** Libellé du bouton agence secondaire (ex: "Agence Kankan") */
   secondaryLabel?: string;
 }
 

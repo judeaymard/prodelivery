@@ -601,7 +601,7 @@ export default function AdminSitePublicPage() {
                   label="Image de la Bannière CTA Finale"
                   description="Illustration de fond accompagnant l'invitation des e-commerçants à s'inscrire."
                   value={formData.media?.ctaImage || ""}
-                  defaultValue="/images/guineego_cta_banner.jpg"
+                  defaultValue="/images/scms_superhero.jpg"
                   slot="cta"
                   onChange={(newUrl) =>
                     setFormData({
